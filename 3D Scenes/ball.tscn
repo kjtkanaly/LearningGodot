@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://b65k21pe6mvpq"]
+
+[ext_resource type="Script" path="res://3D Scenes/BallPhysics.cs" id="1_c5eg1"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6ghrj"]
+
+[node name="Ball" type="Node3D"]
+script = ExtResource("1_c5eg1")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="CSGSphere3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGSphere3D/RigidBody3D"]
+shape = SubResource("SphereShape3D_6ghrj")

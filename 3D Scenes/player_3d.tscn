@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://clci37hx48mlq"]
+
+[ext_resource type="Script" path="res://Scripts/Player3D.cs" id="2_lm6o7"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_nvy0a"]
+
+[sub_resource type="Skin" id="Skin_1ien1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yynsy"]
+albedo_color = Color(0.380392, 0.380392, 0.380392, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_aprrd"]
+
+[node name="Player3d" type="CharacterBody3D"]
+script = ExtResource("2_lm6o7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_nvy0a")
+skin = SubResource("Skin_1ien1")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_yynsy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_aprrd")
