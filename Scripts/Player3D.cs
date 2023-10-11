@@ -66,8 +66,6 @@ public partial class Player3D : CharacterBody3D
 
 			velocity.X = movement.X;
 			velocity.Z = movement.Y;
-
-			GD.Print(movement.Length());
 		}
 		else {
 			velocity.X = Mathf.MoveToward(velocity.X, 0, friction * delta);
