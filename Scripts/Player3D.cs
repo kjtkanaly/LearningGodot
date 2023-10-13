@@ -81,12 +81,16 @@ public partial class Player3D : CharacterBody3D
 	}
 
 	public void HandleLookingHorizontal(float delta) {
-		Vector2 direction = Input.GetVector("Look Right", "Look Left", "Look Up", "Look Down");
+		Vector2 direction = Input.GetVector("Look Right", "Look Left", "Look Down", "Look Up");
 		Vector3 rotation = RotationDegrees;
 
 		if (direction != Vector2.Zero) {
 			rotation.Y = Mathf.MoveToward(rotation.Y, 
 										  rotationSpeed * direction.X + rotation.Y, 
+										  rotationAcceleration * delta);
+			
+			rotation.X = Mathf.MoveToward(rotation.X, 
+										  rotationSpeed * direction.Y + rotation.X, 
 										  rotationAcceleration * delta);
 		}
 
