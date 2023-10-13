@@ -13,6 +13,8 @@ public partial class Player3D : CharacterBody3D
 	public const float acceleration = 1000.0f;
 	public const float friction = 1000.0f;
  	public const float jumpVelocity = 100.0f;  
+	public const float rotationSpeed = 2.0f;
+	public const float rotationAcceleration = 150.0f;
 	public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
 
 	//-------------------------------------------------------------------------
@@ -29,6 +31,8 @@ public partial class Player3D : CharacterBody3D
 
 		Velocity = velocity;
 		MoveAndSlide();
+
+		HandleLookingHorizontal((float)delta);
 	}
 
 	//-------------------------------------------------------------------------
@@ -48,24 +52,25 @@ public partial class Player3D : CharacterBody3D
 	}
 
 	public Vector3 HandleSidewaysMovement(Vector3 velocity, float delta) {
-		Vector2 direction = Input.GetVector("Left", "Right", "Up", "Down");
-		Vector2 movement = new Vector2(velocity.X, velocity.Z);
-		
-		if (direction != Vector2.Zero) {
-			movement.X = Mathf.MoveToward(movement.X, 
+		Vector2 inputDirection = Input.GetVector("Left", "Right", "Up", "Down");
+		Vector3 direction = (Transform.Basis * new Vector3(inputDirection.X, 0, inputDirection.Y)).Normalized();
+		Vector2 velocity2D = new Vector2(velocity.X, velocity.Z);
+
+		if (direction != Vector3.Zero) {
+			velocity2D.X = Mathf.MoveToward(velocity2D.X, 
 										  speed * direction.X, 
 										  acceleration * delta
 										  );
 
-			movement.Y = Mathf.MoveToward(movement.Y,
-										  speed * direction.Y,
+			velocity2D.Y = Mathf.MoveToward(velocity2D.Y,
+										  speed * direction.Z,
 										  acceleration * delta
 										  );
 
-			movement = GeneralStatic.MagnitudeClamp(movement, speed);
+			velocity2D = GeneralStatic.MagnitudeClamp(velocity2D, speed);
 
-			velocity.X = movement.X;
-			velocity.Z = movement.Y;
+			velocity.X = velocity2D.X;
+			velocity.Z = velocity2D.Y;
 		}
 		else {
 			velocity.X = Mathf.MoveToward(velocity.X, 0, friction * delta);
@@ -73,6 +78,20 @@ public partial class Player3D : CharacterBody3D
 		}
 
 		return velocity;
+	}
+
+	public void HandleLookingHorizontal(float delta) {
+		Vector2 direction = Input.GetVector("Look Right", "Look Left", "Look Up", "Look Down");
+		Vector3 rotation = RotationDegrees;
+
+		if (direction != Vector2.Zero) {
+			rotation.Y = Mathf.MoveToward(rotation.Y, 
+										  rotationSpeed * direction.X + rotation.Y, 
+										  rotationAcceleration * delta);
+		}
+
+		RotationDegrees = rotation;
+		
 	}
 
 	//-------------------------------------------------------------------------
