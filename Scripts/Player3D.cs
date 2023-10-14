@@ -5,9 +5,10 @@ public partial class Player3D : CharacterBody3D
 {
 	//-------------------------------------------------------------------------
 	// Game Componenets
+	public Node3D Head;
+	public Camera3D FP, TP;
 
 	// Godot Types
-	public Vector2 newMousePos, oldMousePos;
 
 	// Basic Types
 	public const float speed = 50.0f;
@@ -23,7 +24,9 @@ public partial class Player3D : CharacterBody3D
 	// Game Events
 	public override void _Ready()
 	{
-		
+		Head = GetNode<Node3D>("Head");
+		FP = Head.GetNode<Camera3D>("1st Person Camera");
+		TP = Head.GetNode<Camera3D>("3rd Person Camera");
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -39,14 +42,19 @@ public partial class Player3D : CharacterBody3D
 		Velocity = velocity;
 		MoveAndSlide();
 
-		UpdateMousePos();
 		HandleLookingHorizontal((float)delta);
+	}
+
+	public override void _Process(double delta)
+	{
+		SwitchCamera();
 	}
 
 	public override void _UnhandledInput(InputEvent ev)
 	{
 		if (@ev is InputEventMouseMotion eventMouseMotion) {
 			RotateY(-eventMouseMotion.Relative.X * mouseSensitivity);
+			Head.RotateX(-eventMouseMotion.Relative.Y * mouseSensitivity);
 		}
 	}
 
@@ -95,10 +103,6 @@ public partial class Player3D : CharacterBody3D
 		return velocity;
 	}
 
-	public void UpdateMousePos() {
-		oldMousePos = newMousePos;
-	}
-
 	public void HandleLookingHorizontal(float delta) {
 		Vector2 direction = Input.GetVector("Look Right", "Look Left", "Look Down", "Look Up");
 		Vector3 rotation = RotationDegrees;
@@ -115,6 +119,18 @@ public partial class Player3D : CharacterBody3D
 
 		RotationDegrees = rotation;
 		
+	}
+
+	public void SwitchCamera() {
+		if (Input.IsActionJustPressed("Change Camera")) {
+			if (TP.Current) {
+				TP.ClearCurrent();
+				FP.MakeCurrent();
+			} else {
+				FP.ClearCurrent();
+				TP.MakeCurrent(); 
+			}
+		}
 	}
 
 	//-------------------------------------------------------------------------

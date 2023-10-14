@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://clci37hx48mlq"]
 
-[ext_resource type="Script" path="res://Scripts/CameraController.cs" id="2_h7131"]
+[ext_resource type="Environment" uid="uid://c65t7aslelfj0" path="res://Enviroments/Default.tres" id="2_ah7nu"]
 [ext_resource type="Script" path="res://Scripts/Player3D.cs" id="2_lm6o7"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_nvy0a"]
@@ -24,5 +24,13 @@ surface_material_override/0 = SubResource("StandardMaterial3D_yynsy")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_aprrd")
 
-[node name="Node3D" type="Node3D" parent="."]
-script = ExtResource("2_h7131")
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1, 2.08165e-12)
+
+[node name="1st Person Camera" type="Camera3D" parent="Head"]
+environment = ExtResource("2_ah7nu")
+current = true
+
+[node name="3rd Person Camera" type="Camera3D" parent="Head"]
+transform = Transform3D(1, -4.68079e-16, 3.27752e-16, 3.27752e-16, 0.939693, 0.34202, -4.68079e-16, -0.34202, 0.939693, 2, 2, 5)
+environment = ExtResource("2_ah7nu")

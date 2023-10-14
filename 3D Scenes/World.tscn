@@ -1,26 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://cqqay3hwve5w1"]
+[gd_scene load_steps=3 format=3 uid="uid://cqqay3hwve5w1"]
 
 [ext_resource type="PackedScene" uid="uid://clci37hx48mlq" path="res://3D Scenes/player_3d.tscn" id="1_5ss84"]
 [ext_resource type="PackedScene" uid="uid://blaau1h12br12" path="res://3D Scenes/Test Plane.tscn" id="2_33qcg"]
-[ext_resource type="Environment" uid="uid://c65t7aslelfj0" path="res://Enviroments/Default.tres" id="2_o41ok"]
 
 [node name="World" type="Node3D"]
 
 [node name="Player3d" parent="." instance=ExtResource("1_5ss84")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1.5, 2.08165e-12)
 
-[node name="3rd Person Camera" type="Camera3D" parent="Player3d"]
-transform = Transform3D(1, -5.2318e-16, 3.02058e-16, 3.02058e-16, 0.866026, 0.5, -5.2318e-16, -0.5, 0.866026, 2, 3, 5)
-environment = ExtResource("2_o41ok")
-current = true
-size = 15.0
-
-[node name="1st Person Camera" type="Camera3D" parent="Player3d"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.8, -0.5)
-environment = ExtResource("2_o41ok")
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, -5.95416e-16, 2.4663e-16, 2.4663e-16, 0.707107, 0.707107, -5.95416e-16, -0.707107, 0.707107, 2.08165e-12, 5, 2.08165e-12)
 
 [node name="Test Plane Mesh" parent="." instance=ExtResource("2_33qcg")]
 transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+
+[editable path="Player3d"]
