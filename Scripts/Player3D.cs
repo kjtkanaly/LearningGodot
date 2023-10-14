@@ -6,7 +6,8 @@ public partial class Player3D : CharacterBody3D
 	//-------------------------------------------------------------------------
 	// Game Componenets
 
-	// Unity Types
+	// Godot Types
+	public Vector2 newMousePos, oldMousePos;
 
 	// Basic Types
 	public const float speed = 50.0f;
@@ -15,10 +16,16 @@ public partial class Player3D : CharacterBody3D
  	public const float jumpVelocity = 100.0f;  
 	public const float rotationSpeed = 2.0f;
 	public const float rotationAcceleration = 150.0f;
+	public const float mouseSensitivity = 0.01f;
 	public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
 
 	//-------------------------------------------------------------------------
 	// Game Events
+	public override void _Ready()
+	{
+		
+	}
+
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector3 velocity = Velocity;
@@ -32,7 +39,15 @@ public partial class Player3D : CharacterBody3D
 		Velocity = velocity;
 		MoveAndSlide();
 
+		UpdateMousePos();
 		HandleLookingHorizontal((float)delta);
+	}
+
+	public override void _UnhandledInput(InputEvent ev)
+	{
+		if (@ev is InputEventMouseMotion eventMouseMotion) {
+			RotateY(-eventMouseMotion.Relative.X * mouseSensitivity);
+		}
 	}
 
 	//-------------------------------------------------------------------------
@@ -78,6 +93,10 @@ public partial class Player3D : CharacterBody3D
 		}
 
 		return velocity;
+	}
+
+	public void UpdateMousePos() {
+		oldMousePos = newMousePos;
 	}
 
 	public void HandleLookingHorizontal(float delta) {
