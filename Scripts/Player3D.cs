@@ -55,6 +55,11 @@ public partial class Player3D : CharacterBody3D
 		if (@ev is InputEventMouseMotion eventMouseMotion) {
 			RotateY(-eventMouseMotion.Relative.X * mouseSensitivity);
 			Head.RotateX(-eventMouseMotion.Relative.Y * mouseSensitivity);
+
+			// Clamp the X-Rotation
+			Vector3 rotation = Head.Rotation;
+			rotation.X = Mathf.Clamp(rotation.X, -Mathf.Pi/2, Mathf.Pi/2);
+			Head.Rotation = rotation;
 		}
 	}
 
