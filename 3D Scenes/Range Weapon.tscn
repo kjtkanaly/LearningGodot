@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://ck6faaaqr5wfy"]
+
+[ext_resource type="Script" path="res://Scripts/Weapons/RangeWeapon.cs" id="1_4mee1"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1dnhf"]
+
+[node name="Range Weapon" type="Node3D"]
+script = ExtResource("1_4mee1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 1.5, 2.08165e-12, 2.08165e-12, 0.5)
+mesh = SubResource("BoxMesh_1dnhf")

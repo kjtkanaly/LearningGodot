@@ -75,7 +75,7 @@ public partial class Player3D : CharacterBody3D
 	}
 
 	public Vector3 HandleSidewaysMovement(Vector3 velocity, float delta) {
-		Vector2 inputDirection = Input.GetVector("Left", "Right", "Up", "Down");
+		Vector2 inputDirection = Input.GetVector("Right", "Left", "Down", "Up");
 		Vector3 direction = (Transform.Basis * new Vector3(inputDirection.X, 0, inputDirection.Y)).Normalized();
 		Vector2 velocity2D = new Vector2(velocity.X, velocity.Z);
 
