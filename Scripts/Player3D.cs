@@ -9,15 +9,9 @@ public partial class Player3D : CharacterBody3D
 	public Camera3D FP, TP;
 
 	// Godot Types
+	[Export] public PlayerMovementData movementData = null; 
 
 	// Basic Types
-	public const float speed = 50.0f;
-	public const float acceleration = 1000.0f;
-	public const float friction = 1000.0f;
- 	public const float jumpVelocity = 100.0f;  
-	public const float rotationSpeed = 2.0f;
-	public const float rotationAcceleration = 150.0f;
-	public const float mouseSensitivity = 0.01f;
 	public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
 
 	//-------------------------------------------------------------------------
@@ -35,7 +29,7 @@ public partial class Player3D : CharacterBody3D
 
 		velocity = ApplyGravity(velocity, (float)delta);
 
-		velocity = HandleJump(velocity, jumpVelocity);
+		velocity = HandleJump(velocity, movementData.jumpVelocity);
 
 		velocity = HandleSidewaysMovement(velocity, (float)delta);
 
@@ -53,8 +47,8 @@ public partial class Player3D : CharacterBody3D
 	public override void _UnhandledInput(InputEvent ev)
 	{
 		if (@ev is InputEventMouseMotion eventMouseMotion) {
-			RotateY(-eventMouseMotion.Relative.X * mouseSensitivity);
-			Head.RotateX(-eventMouseMotion.Relative.Y * mouseSensitivity);
+			RotateY(-eventMouseMotion.Relative.X * movementData.mouseSensitivity);
+			Head.RotateX(eventMouseMotion.Relative.Y * movementData.mouseSensitivity);
 
 			// Clamp the X-Rotation
 			Vector3 rotation = Head.Rotation;
@@ -86,23 +80,23 @@ public partial class Player3D : CharacterBody3D
 
 		if (direction != Vector3.Zero) {
 			velocity2D.X = Mathf.MoveToward(velocity2D.X, 
-										  speed * direction.X, 
-										  acceleration * delta
+										  movementData.speed * direction.X, 
+										  movementData.acceleration * delta
 										  );
 
 			velocity2D.Y = Mathf.MoveToward(velocity2D.Y,
-										  speed * direction.Z,
-										  acceleration * delta
+										  movementData.speed * direction.Z,
+										  movementData.acceleration * delta
 										  );
 
-			velocity2D = GeneralStatic.MagnitudeClamp(velocity2D, speed);
+			velocity2D = GeneralStatic.MagnitudeClamp(velocity2D, movementData.speed);
 
 			velocity.X = velocity2D.X;
 			velocity.Z = velocity2D.Y;
 		}
 		else {
-			velocity.X = Mathf.MoveToward(velocity.X, 0, friction * delta);
-			velocity.Z = Mathf.MoveToward(velocity.Z, 0, friction * delta);
+			velocity.X = Mathf.MoveToward(velocity.X, 0, movementData.friction * delta);
+			velocity.Z = Mathf.MoveToward(velocity.Z, 0, movementData.friction * delta);
 		}
 
 		return velocity;
@@ -114,12 +108,12 @@ public partial class Player3D : CharacterBody3D
 
 		if (direction != Vector2.Zero) {
 			rotation.Y = Mathf.MoveToward(rotation.Y, 
-										  rotationSpeed * direction.X + rotation.Y, 
-										  rotationAcceleration * delta);
+										  movementData.rotationSpeed * direction.X + rotation.Y, 
+										  movementData.rotationAcceleration * delta);
 			
 			rotation.X = Mathf.MoveToward(rotation.X, 
-										  rotationSpeed * direction.Y + rotation.X, 
-										  rotationAcceleration * delta);
+										  movementData.rotationSpeed * direction.Y + rotation.X, 
+										  movementData.rotationAcceleration * delta);
 		}
 
 		RotationDegrees = rotation;

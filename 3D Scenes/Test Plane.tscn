@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://blaau1h12br12"]
 
-[ext_resource type="Material" uid="uid://dho40ox0qsfa6" path="res://Resources/PlaneMaterial.tres" id="1_alxsw"]
 [ext_resource type="Texture2D" uid="uid://baqx7ch1gcfe6" path="res://Images/Plane Texture.png" id="1_n5leg"]
+[ext_resource type="Material" uid="uid://dho40ox0qsfa6" path="res://Resources/Materials/PlaneMaterial.tres" id="1_s1v5k"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_a17ym"]
 normal_texture = ExtResource("1_n5leg")
@@ -17,7 +17,7 @@ size = Vector3(2, 2.08165e-12, 2)
 
 [node name="Test Plane Mesh" type="MeshInstance3D"]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
-material_override = ExtResource("1_alxsw")
+material_override = ExtResource("1_s1v5k")
 mesh = SubResource("PlaneMesh_ghiui")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
