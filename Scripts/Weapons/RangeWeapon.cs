@@ -19,6 +19,8 @@ public partial class RangeWeapon : Node3D
 
 	public override void _PhysicsProcess(double delta) {
 		PointTowardsCursor();
+
+		ShootBullet();
 	}
 
 	//-------------------------------------------------------------------------
@@ -27,6 +29,9 @@ public partial class RangeWeapon : Node3D
 		RotationDegrees = Head.RotationDegrees;
 	}
 
+	public void ShootBullet() {
+		
+	}
 	//-------------------------------------------------------------------------
 	// Demo Methods
 }

@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://clci37hx48mlq"]
+[gd_scene load_steps=9 format=3 uid="uid://clci37hx48mlq"]
 
 [ext_resource type="Environment" uid="uid://c65t7aslelfj0" path="res://Enviroments/Default.tres" id="2_ah7nu"]
 [ext_resource type="Script" path="res://Scripts/Player3D.cs" id="2_lm6o7"]
 [ext_resource type="Script" path="res://Scripts/Inventory.cs" id="3_8exxd"]
+[ext_resource type="PackedScene" uid="uid://dhw0bhrl2d1uj" path="res://UI/Player UI.tscn" id="3_cfnr4"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_nvy0a"]
 
@@ -15,6 +16,7 @@ albedo_color = Color(0.380392, 0.380392, 0.380392, 1)
 
 [node name="Player3d" type="CharacterBody3D"]
 process_mode = 1
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 script = ExtResource("2_lm6o7")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -27,14 +29,17 @@ surface_material_override/0 = SubResource("StandardMaterial3D_yynsy")
 shape = SubResource("CapsuleShape3D_aprrd")
 
 [node name="Head" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1, 2.08165e-12)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.8, 0.1)
 
 [node name="1st Person Camera" type="Camera3D" parent="Head"]
+transform = Transform3D(-1, 3.48787e-16, 8.74228e-08, 3.48787e-16, 1, -3.48787e-16, -8.74228e-08, -3.48787e-16, -1, 0, 0, 0)
 environment = ExtResource("2_ah7nu")
 current = true
 
+[node name="Player UI" parent="Head/1st Person Camera" instance=ExtResource("3_cfnr4")]
+
 [node name="3rd Person Camera" type="Camera3D" parent="Head"]
-transform = Transform3D(1, -4.68079e-16, 3.27752e-16, 3.27752e-16, 0.939693, 0.34202, -4.68079e-16, -0.34202, 0.939693, 2, 2, 5)
+transform = Transform3D(-1, -2.99004e-08, 8.21506e-08, 3.27752e-16, 0.939693, 0.34202, -8.74228e-08, 0.34202, -0.939693, -2, 2, -5)
 environment = ExtResource("2_ah7nu")
 
 [node name="Inventory" type="Node3D" parent="."]

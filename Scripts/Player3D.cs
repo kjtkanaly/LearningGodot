@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Diagnostics;
 
 public partial class Player3D : CharacterBody3D
 {
@@ -37,6 +38,8 @@ public partial class Player3D : CharacterBody3D
 		MoveAndSlide();
 
 		HandleLookingHorizontal((float)delta);
+
+		CastRayFromCamera();
 	}
 
 	public override void _Process(double delta)
@@ -129,6 +132,13 @@ public partial class Player3D : CharacterBody3D
 				FP.ClearCurrent();
 				TP.MakeCurrent(); 
 			}
+		}
+	}
+ 
+	public void CastRayFromCamera() {
+		if (Input.IsActionJustPressed("Primary Attack")) {
+			Vector3 ray = FP.ProjectRayNormal(Vector2.Zero);
+			GD.Print("SHoot");
 		}
 	}
 

@@ -11,7 +11,8 @@ public partial class Demo3D : Node3D
 
     // Basic Types
 	public const float rotateSpeed = 0.5f; 
-	public bool DemoToggled = true;
+	public bool PauseDemo = true;
+	[Export] bool DemoActive = false;
 
     //-------------------------------------------------------------------------
     // Game Events
@@ -20,9 +21,12 @@ public partial class Demo3D : Node3D
 	}
 
 	public override void _Process(double delta) {
+		if (!DemoActive)
+		return;
+
 		ToggleDemo();
 
-		if (!DemoToggled) 
+		if (!PauseDemo) 
 		return;
 
 		DemoReel1((float) delta);
@@ -32,7 +36,7 @@ public partial class Demo3D : Node3D
     // Demo3D Methods
 	public void ToggleDemo() {
 		if (Input.IsActionJustPressed("Toggle Demo"))
-		DemoToggled = !DemoToggled;
+		PauseDemo = !PauseDemo;
 	}
 
 	public void DemoReel1(float delta) {
