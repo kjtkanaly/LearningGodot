@@ -33,7 +33,7 @@ transform = Transform3D(1, -5.95416e-16, 2.4663e-16, 2.4663e-16, 0.707107, 0.707
 
 [node name="Test Plane Mesh" parent="." instance=ExtResource("3_wniw4")]
 process_mode = 1
-transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+transform = Transform3D(200, 0, 0, 0, 100, 0, 0, 0, 200, 2.08165e-12, 2.08165e-12, 2.08165e-12)
 
 [node name="Demo" type="Node3D" parent="."]
 process_mode = 1
