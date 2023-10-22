@@ -6,14 +6,19 @@ public partial class Player3D : CharacterBody3D
 {
 	//-------------------------------------------------------------------------
 	// Game Componenets
-	public Node3D Head;
-	public Camera3D FP, TP;
+	public Node3D Head = null;
+	public Camera3D FP = null, TP = null;
+	public AnimationPlayer RifleAnime = null;
+	public RayCast3D GunBarrel = null;
+	public PackedScene BulletRes = (PackedScene) GD.Load("res://3D Scenes/Bullet.tscn");
+	public Node3D BulletInst = null;
 
 	// Godot Types
 	[Export] public PlayerMovementData movementData = null; 
 
 	// Basic Types
-	public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
+	public float gravity = ProjectSettings.GetSetting(
+						   "physics/3d/default_gravity").AsSingle();
 
 	//-------------------------------------------------------------------------
 	// Game Events
@@ -22,24 +27,25 @@ public partial class Player3D : CharacterBody3D
 		Head = GetNode<Node3D>("Head");
 		FP = Head.GetNode<Camera3D>("1st Person Camera");
 		TP = Head.GetNode<Camera3D>("3rd Person Camera");
+		RifleAnime = FP.GetNode<AnimationPlayer>("Rifle/AnimationPlayer");
+		GunBarrel = FP.GetNode<RayCast3D>("Rifle/RayCast3D");
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
+		// General Movement
 		Vector3 velocity = Velocity;
-
 		velocity = ApplyGravity(velocity, (float)delta);
-
 		velocity = HandleJump(velocity, movementData.jumpVelocity);
-
 		velocity = HandleSidewaysMovement(velocity, (float)delta);
-
 		Velocity = velocity;
 		MoveAndSlide();
 
+		// World UI
 		HandleLookingHorizontal((float)delta);
 
-		CastRayFromCamera();
+		// Weapon Methods
+		ShootRifle();
 	}
 
 	public override void _Process(double delta)
@@ -135,10 +141,16 @@ public partial class Player3D : CharacterBody3D
 		}
 	}
  
-	public void CastRayFromCamera() {
+	public void ShootRifle() {
 		if (Input.IsActionJustPressed("Primary Attack")) {
-			Vector3 ray = FP.ProjectRayNormal(Vector2.Zero);
-			GD.Print("SHoot");
+			if (!RifleAnime.IsPlaying())
+			RifleAnime.Play("Shoot");
+
+			// Instantiate the bullet
+			BulletInst = (Node3D) BulletRes.Instantiate();
+			BulletInst.Position = GunBarrel.GlobalPosition;
+			BulletInst.Basis = GunBarrel.GlobalTransform.Basis;
+			GetParent().AddChild(BulletInst);
 		}
 	}
 

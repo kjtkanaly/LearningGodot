@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://clci37hx48mlq"]
+[gd_scene load_steps=10 format=3 uid="uid://clci37hx48mlq"]
 
 [ext_resource type="Environment" uid="uid://c65t7aslelfj0" path="res://Enviroments/Default.tres" id="2_ah7nu"]
 [ext_resource type="Script" path="res://Scripts/Player3D.cs" id="2_lm6o7"]
 [ext_resource type="Script" path="res://Scripts/Inventory.cs" id="3_8exxd"]
 [ext_resource type="PackedScene" uid="uid://dhw0bhrl2d1uj" path="res://UI/Player UI.tscn" id="3_cfnr4"]
+[ext_resource type="PackedScene" uid="uid://ck6faaaqr5wfy" path="res://3D Scenes/Rifle.tscn" id="4_mvknr"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_nvy0a"]
 
@@ -37,6 +38,9 @@ environment = ExtResource("2_ah7nu")
 current = true
 
 [node name="Player UI" parent="Head/1st Person Camera" instance=ExtResource("3_cfnr4")]
+
+[node name="Rifle" parent="Head/1st Person Camera" instance=ExtResource("4_mvknr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, -0.8, -0.8)
 
 [node name="3rd Person Camera" type="Camera3D" parent="Head"]
 transform = Transform3D(-1, -2.99004e-08, 8.21506e-08, 3.27752e-16, 0.939693, 0.34202, -8.74228e-08, 0.34202, -0.939693, -2, 2, -5)

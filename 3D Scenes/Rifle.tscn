@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://ck6faaaqr5wfy"]
+
+[ext_resource type="Script" path="res://Scripts/Weapons/RangeWeapon.cs" id="1_4mee1"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1dnhf"]
+size = Vector3(0.2, 0.2, 1.5)
+
+[sub_resource type="Animation" id="Animation_ws20b"]
+resource_name = "Shoot"
+length = 0.1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.01, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(2.08165e-12, 2.08165e-12, -0.5), Vector3(2.08165e-12, 2.08165e-12, -0.3), Vector3(2.08165e-12, 2.08165e-12, -0.5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ke10r"]
+_data = {
+"Shoot": SubResource("Animation_ws20b")
+}
+
+[node name="Rifle" type="Node3D"]
+script = ExtResource("1_4mee1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, -0.5)
+mesh = SubResource("BoxMesh_1dnhf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ke10r")
+}
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, -1.5)
+target_position = Vector3(2.08165e-12, 2.08165e-12, -1)
