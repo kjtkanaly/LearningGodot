@@ -12,6 +12,7 @@ emission = Color(0, 0.870588, 0, 1)
 emission_energy_multiplier = 3.0
 
 [node name="Bullet" type="Node3D"]
+process_mode = 1
 script = ExtResource("1_q1j50")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -20,3 +21,8 @@ surface_material_override/0 = SubResource("StandardMaterial3D_rgdkh")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 target_position = Vector3(2.08165e-12, 2.08165e-12, -0.6)
+
+[node name="Despawn" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+autostart = true

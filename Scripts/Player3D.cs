@@ -27,8 +27,8 @@ public partial class Player3D : CharacterBody3D
 		Head = GetNode<Node3D>("Head");
 		FP = Head.GetNode<Camera3D>("1st Person Camera");
 		TP = Head.GetNode<Camera3D>("3rd Person Camera");
-		RifleAnime = FP.GetNode<AnimationPlayer>("Rifle/AnimationPlayer");
-		GunBarrel = FP.GetNode<RayCast3D>("Rifle/RayCast3D");
+		RifleAnime = Head.GetNode<AnimationPlayer>("Rifle/AnimationPlayer");
+		GunBarrel = Head.GetNode<RayCast3D>("Rifle/RayCast3D");
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -37,12 +37,9 @@ public partial class Player3D : CharacterBody3D
 		Vector3 velocity = Velocity;
 		velocity = ApplyGravity(velocity, (float)delta);
 		velocity = HandleJump(velocity, movementData.jumpVelocity);
-		velocity = HandleSidewaysMovement(velocity, (float)delta);
+		velocity = LateralMovements(velocity, (float)delta);
 		Velocity = velocity;
 		MoveAndSlide();
-
-		// World UI
-		HandleLookingHorizontal((float)delta);
 
 		// Weapon Methods
 		ShootRifle();
@@ -56,13 +53,7 @@ public partial class Player3D : CharacterBody3D
 	public override void _UnhandledInput(InputEvent ev)
 	{
 		if (@ev is InputEventMouseMotion eventMouseMotion) {
-			RotateY(-eventMouseMotion.Relative.X * movementData.mouseSensitivity);
-			Head.RotateX(eventMouseMotion.Relative.Y * movementData.mouseSensitivity);
-
-			// Clamp the X-Rotation
-			Vector3 rotation = Head.Rotation;
-			rotation.X = Mathf.Clamp(rotation.X, -Mathf.Pi/2, Mathf.Pi/2);
-			Head.Rotation = rotation;
+			MouseCameraMovement(eventMouseMotion);
 		}
 	}
 
@@ -82,7 +73,7 @@ public partial class Player3D : CharacterBody3D
 		return velocity;
 	}
 
-	public Vector3 HandleSidewaysMovement(Vector3 velocity, float delta) {
+	public Vector3 LateralMovements(Vector3 velocity, float delta) {
 		Vector2 inputDirection = Input.GetVector("Right", "Left", "Down", "Up");
 		Vector3 direction = (Transform.Basis * new Vector3(inputDirection.X, 0, inputDirection.Y)).Normalized();
 		Vector2 velocity2D = new Vector2(velocity.X, velocity.Z);
@@ -111,24 +102,6 @@ public partial class Player3D : CharacterBody3D
 		return velocity;
 	}
 
-	public void HandleLookingHorizontal(float delta) {
-		Vector2 direction = Input.GetVector("Look Right", "Look Left", "Look Down", "Look Up");
-		Vector3 rotation = RotationDegrees;
-
-		if (direction != Vector2.Zero) {
-			rotation.Y = Mathf.MoveToward(rotation.Y, 
-										  movementData.rotationSpeed * direction.X + rotation.Y, 
-										  movementData.rotationAcceleration * delta);
-			
-			rotation.X = Mathf.MoveToward(rotation.X, 
-										  movementData.rotationSpeed * direction.Y + rotation.X, 
-										  movementData.rotationAcceleration * delta);
-		}
-
-		RotationDegrees = rotation;
-		
-	}
-
 	public void SwitchCamera() {
 		if (Input.IsActionJustPressed("Change Camera")) {
 			if (TP.Current) {
@@ -152,6 +125,16 @@ public partial class Player3D : CharacterBody3D
 			BulletInst.Basis = GunBarrel.GlobalTransform.Basis;
 			GetParent().AddChild(BulletInst);
 		}
+	}
+
+	public void MouseCameraMovement(InputEventMouseMotion mouseMotion) {
+		RotateY(-mouseMotion.Relative.X * movementData.mouseSensitivity);
+		Head.RotateX(mouseMotion.Relative.Y * movementData.mouseSensitivity);
+
+		// Clamp the X-Rotation
+		Vector3 rotation = Head.Rotation;
+		rotation.X = Mathf.Clamp(rotation.X, -Mathf.Pi/2, Mathf.Pi/2);
+		Head.Rotation = rotation;
 	}
 
 	//-------------------------------------------------------------------------
