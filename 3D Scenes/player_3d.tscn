@@ -15,7 +15,7 @@ albedo_color = Color(0.380392, 0.380392, 0.380392, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_aprrd"]
 
-[node name="Player3d" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D"]
 process_mode = 1
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 script = ExtResource("2_lm6o7")
@@ -40,7 +40,7 @@ current = true
 [node name="Player UI" parent="Head/1st Person Camera" instance=ExtResource("3_cfnr4")]
 
 [node name="3rd Person Camera" type="Camera3D" parent="Head"]
-transform = Transform3D(-1, 3.48787e-16, -8.74228e-08, 3.48787e-16, 1, -3.48787e-16, 8.74228e-08, -3.48787e-16, -1, -1.5, 2.08165e-12, -3)
+transform = Transform3D(-1, -2.99004e-08, 8.21506e-08, 3.27752e-16, 0.939693, 0.34202, -8.74228e-08, 0.34202, -0.939693, -1.5, 1, -3)
 environment = ExtResource("2_ah7nu")
 
 [node name="Rifle" parent="Head" instance=ExtResource("4_mvknr")]

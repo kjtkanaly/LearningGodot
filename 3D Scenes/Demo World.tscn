@@ -10,7 +10,7 @@
 process_mode = 3
 script = ExtResource("1_6lyrt")
 
-[node name="Player3d" parent="." instance=ExtResource("2_ny3ip")]
+[node name="Player" parent="." instance=ExtResource("2_ny3ip")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 2.08165e-12, 2.2, 2.08165e-12)
 movementData = ExtResource("3_i4n72")
 

@@ -162,7 +162,10 @@ public partial class Player3D : CharacterBody3D
 
 		// Clamp the X-Rotation
 		Vector3 rotation = Head.Rotation;
-		rotation.X = Mathf.Clamp(rotation.X, -Mathf.Pi/2, Mathf.Pi/2);
+		rotation.X = Mathf.Clamp(rotation.X, 
+								 -Mathf.Pi/2 + ActiveCamera.Rotation.X, 
+								 Mathf.Pi/2 + ActiveCamera.Rotation.X
+								 );
 		Head.Rotation = rotation;
 	}
 

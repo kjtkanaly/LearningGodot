@@ -17,7 +17,7 @@ public partial class Demo3D : Node3D
     //-------------------------------------------------------------------------
     // Game Events
 	public override void _Ready() {
-		player = GetNode<Node3D>("../Player3d");
+		player = GetNode<Node3D>("../Player");
 	}
 
 	public override void _Process(double delta) {
