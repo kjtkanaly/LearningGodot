@@ -37,7 +37,6 @@ public partial class Bullet : Node3D
 	//-------------------------------------------------------------------------
 	// Bullet Methods
 	public void DespawnBullet() {
-		GD.Print("Despawn");
 		QueueFree();
 	}
 

@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using System;
 using System.Diagnostics;
 
@@ -7,11 +8,12 @@ public partial class Player3D : CharacterBody3D
 	//-------------------------------------------------------------------------
 	// Game Componenets
 	public Node3D Head = null;
-	public Camera3D FP = null, TP = null;
+	public Camera3D FP = null, TP = null, ActiveCamera = null;
 	public AnimationPlayer RifleAnime = null;
 	public RayCast3D GunBarrel = null;
 	public PackedScene BulletRes = (PackedScene) GD.Load("res://3D Scenes/Bullet.tscn");
 	public Node3D BulletInst = null;
+	private RangeWeapon WeaponInst = null;
 
 	// Godot Types
 	[Export] public PlayerMovementData movementData = null; 
@@ -19,6 +21,7 @@ public partial class Player3D : CharacterBody3D
 	// Basic Types
 	public float gravity = ProjectSettings.GetSetting(
 						   "physics/3d/default_gravity").AsSingle();
+	public const float rayLength = 1000.0f;
 
 	//-------------------------------------------------------------------------
 	// Game Events
@@ -29,6 +32,10 @@ public partial class Player3D : CharacterBody3D
 		TP = Head.GetNode<Camera3D>("3rd Person Camera");
 		RifleAnime = Head.GetNode<AnimationPlayer>("Rifle/AnimationPlayer");
 		GunBarrel = Head.GetNode<RayCast3D>("Rifle/RayCast3D");
+		WeaponInst = Head.GetNode<RangeWeapon>("Rifle");
+
+		// Set the active Camera
+		SetActiveCamera();
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -40,14 +47,23 @@ public partial class Player3D : CharacterBody3D
 		velocity = LateralMovements(velocity, (float)delta);
 		Velocity = velocity;
 		MoveAndSlide();
-
-		// Weapon Methods
-		ShootRifle();
 	}
 
 	public override void _Process(double delta)
 	{
 		SwitchCamera();
+	}
+
+	public override void _Input(InputEvent @event)
+	{
+		if (@event is InputEventMouseButton eventMouseButton 
+			&& eventMouseButton.IsActionPressed("Primary Attack"))
+		{
+			// Cast Ray from Active Camera
+			Dictionary target = CastRayFromCamera(eventMouseButton);
+
+			ShootRifle();
+		}
 	}
 
 	public override void _UnhandledInput(InputEvent ev)
@@ -102,6 +118,14 @@ public partial class Player3D : CharacterBody3D
 		return velocity;
 	}
 
+	private void SetActiveCamera() {
+		if (FP.Current) {
+			ActiveCamera = FP;
+		} else {
+			ActiveCamera = TP;
+		}
+	}
+
 	public void SwitchCamera() {
 		if (Input.IsActionJustPressed("Change Camera")) {
 			if (TP.Current) {
@@ -112,19 +136,24 @@ public partial class Player3D : CharacterBody3D
 				TP.MakeCurrent(); 
 			}
 		}
+
+		SetActiveCamera();
 	}
  
 	public void ShootRifle() {
-		if (Input.IsActionJustPressed("Primary Attack")) {
-			if (!RifleAnime.IsPlaying())
-			RifleAnime.Play("Shoot");
+		if (RifleAnime.IsPlaying())
+		return;
 
-			// Instantiate the bullet
-			BulletInst = (Node3D) BulletRes.Instantiate();
-			BulletInst.Position = GunBarrel.GlobalPosition;
-			BulletInst.Basis = GunBarrel.GlobalTransform.Basis;
-			GetParent().AddChild(BulletInst);
-		}
+		// Cast Ray from Camera
+
+		// Play the Shoot Animation
+		RifleAnime.Play("Shoot");
+
+		// Instantiate the bullet
+		BulletInst = (Node3D) BulletRes.Instantiate();
+		BulletInst.Position = GunBarrel.GlobalPosition;
+		BulletInst.Basis = GunBarrel.GlobalTransform.Basis;
+		GetParent().AddChild(BulletInst);
 	}
 
 	public void MouseCameraMovement(InputEventMouseMotion mouseMotion) {
@@ -135,6 +164,34 @@ public partial class Player3D : CharacterBody3D
 		Vector3 rotation = Head.Rotation;
 		rotation.X = Mathf.Clamp(rotation.X, -Mathf.Pi/2, Mathf.Pi/2);
 		Head.Rotation = rotation;
+	}
+
+	public Dictionary CastRayFromCamera(InputEventMouseButton eventMB) {
+		// Generate the From and To Vectors
+		Vector3 from = ActiveCamera.ProjectRayOrigin(eventMB.Position);
+		Vector3 to = from + ActiveCamera.ProjectRayNormal(eventMB.Position) * rayLength;
+
+		// Perform the Ray Cast Query
+		PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
+		PhysicsRayQueryParameters3D query = 
+			PhysicsRayQueryParameters3D.Create(from, 
+											   to,
+											   CollisionMask 
+											   );
+		return spaceState.IntersectRay(query);
+
+		/*if (result.Count > 0)
+		{
+			GodotObject obj = result["collider"].AsGodotObject();
+			//GD.Print("Object: ", obj);
+
+			// Node3D temp = (Node3D) result["collider"].AsGodotObject()._Get("Node3D");
+
+			return (Vector3)result["position"];
+		}
+
+		return Vector3.Inf;
+		*/
 	}
 
 	//-------------------------------------------------------------------------
