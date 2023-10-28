@@ -6,21 +6,26 @@ public partial class Main : Node3D
 {
 	//-------------------------------------------------------------------------
 	// Game Componenets
+	public Timer QuitGameTimer = null;
 
 	// Godot Types
 
 	// Basic Types
+	public bool pausedGame = false;
 
 	//-------------------------------------------------------------------------
 	// Game Events
 	public override void _Ready()
 	{
 		Input.MouseMode = Input.MouseModeEnum.Captured;
+		QuitGameTimer = GetNode<Timer>("Quit Game");
 	}
 
 	public override void _Process(double delta)
 	{
 		TogglePause();
+
+		QuitGame();
 	}
 
 	//-------------------------------------------------------------------------
@@ -35,6 +40,16 @@ public partial class Main : Node3D
 				GetTree().Paused = false;
 			}
 		}
+	}
+
+	public void QuitGame() {
+		if (Input.IsActionJustPressed("Quit Game"))
+			QuitGameTimer.Start();
+		if (Input.IsActionJustReleased("Quit Game"))
+			QuitGameTimer.Stop();
+		
+		if (Input.IsActionPressed("Quit Game") && (QuitGameTimer.TimeLeft <= 0))
+			GetTree().Quit();
 	}
 
 	//-------------------------------------------------------------------------
