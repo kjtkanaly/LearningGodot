@@ -3,7 +3,7 @@ using Godot.Collections;
 using System;
 using System.Diagnostics;
 
-public partial class Player3D : CharacterBody3D
+public partial class PlayerMovement : CharacterBody3D
 {
 	//-------------------------------------------------------------------------
 	// Game Componenets

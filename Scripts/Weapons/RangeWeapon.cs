@@ -5,7 +5,7 @@ public partial class RangeWeapon : Node3D
 {
 	//-------------------------------------------------------------------------
 	// Game Componenets
-	public Player3D Player;
+	public PlayerMovement Player;
 	public Node3D Head;
 	private Camera3D ActiveCamera = null;
 	private Viewport View;
@@ -17,7 +17,7 @@ public partial class RangeWeapon : Node3D
 	//-------------------------------------------------------------------------
 	// Game Events
 	public override void _Ready() {
-		Player = GetNode<Player3D>("../..");
+		Player = GetNode<PlayerMovement>("../..");
 
 		GetActiveCamera();
 	}
