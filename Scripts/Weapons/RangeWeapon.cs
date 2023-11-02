@@ -5,7 +5,7 @@ public partial class RangeWeapon : Node3D
 {
 	//-------------------------------------------------------------------------
 	// Game Componenets
-	public PlayerMovement Player;
+	public CameraMovement CM;
 	public Node3D Head;
 	private Camera3D ActiveCamera = null;
 	private Viewport View;
@@ -17,7 +17,8 @@ public partial class RangeWeapon : Node3D
 	//-------------------------------------------------------------------------
 	// Game Events
 	public override void _Ready() {
-		Player = GetNode<PlayerMovement>("../..");
+		CM = GetParent<CameraMovement>();
+		
 
 		GetActiveCamera();
 	}
@@ -31,7 +32,7 @@ public partial class RangeWeapon : Node3D
 	//-------------------------------------------------------------------------
 	// RangeWeapon Methods
 	public void GetActiveCamera() {
-		ActiveCamera = Player.ActiveCamera;
+		ActiveCamera = CM.ActiveCamera;
 	}
 	//-------------------------------------------------------------------------
 	// Demo Methods

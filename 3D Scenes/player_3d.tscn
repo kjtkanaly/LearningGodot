@@ -1,10 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://clci37hx48mlq"]
+[gd_scene load_steps=14 format=3 uid="uid://clci37hx48mlq"]
 
 [ext_resource type="Script" path="res://Scripts/Player/PlayerMovement.cs" id="1_u8u3w"]
 [ext_resource type="Environment" uid="uid://c65t7aslelfj0" path="res://Enviroments/Default.tres" id="2_ah7nu"]
+[ext_resource type="Script" path="res://Scripts/Player/CameraMovement.cs" id="2_hj076"]
 [ext_resource type="PackedScene" uid="uid://dhw0bhrl2d1uj" path="res://UI/Player UI.tscn" id="3_cfnr4"]
 [ext_resource type="PackedScene" uid="uid://ck6faaaqr5wfy" path="res://3D Scenes/Rifle.tscn" id="4_mvknr"]
 [ext_resource type="Script" path="res://Scripts/Player/Inventory.cs" id="5_7cql8"]
+[ext_resource type="Script" path="res://Scripts/Player/PlayerData.cs" id="7_jat8o"]
+[ext_resource type="Resource" uid="uid://denq5e5nlg01j" path="res://Resources/Data Files/DefaultPlayerMovementData.tres" id="8_5oneq"]
+[ext_resource type="Script" path="res://Scripts/Player/PrimaryAttack.cs" id="8_yqkri"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_nvy0a"]
 
@@ -31,6 +35,7 @@ shape = SubResource("CapsuleShape3D_aprrd")
 
 [node name="Head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.8, 0.1)
+script = ExtResource("2_hj076")
 
 [node name="1st Person Camera" type="Camera3D" parent="Head"]
 transform = Transform3D(-1, 3.48787e-16, 8.74228e-08, 3.48787e-16, 1, -3.48787e-16, -8.74228e-08, -3.48787e-16, -1, 0, 0, 0)
@@ -48,3 +53,10 @@ transform = Transform3D(-0.5, 1.74394e-16, 4.37114e-08, 1.74393e-16, 0.5, -1.743
 
 [node name="Inventory" type="Node3D" parent="."]
 script = ExtResource("5_7cql8")
+
+[node name="Player Data" type="Node3D" parent="."]
+script = ExtResource("7_jat8o")
+movementData = ExtResource("8_5oneq")
+
+[node name="Primary Attack" type="Node3D" parent="."]
+script = ExtResource("8_yqkri")
