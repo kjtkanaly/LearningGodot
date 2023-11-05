@@ -8,6 +8,7 @@ public partial class PlayerMovement : CharacterBody3D
 	//-------------------------------------------------------------------------
 	// Game Componenets
 	private PlayerData PD;
+	private AnimationPlayer Anime;
 
 	// Godot Types
 
@@ -20,6 +21,7 @@ public partial class PlayerMovement : CharacterBody3D
 	public override void _Ready()
 	{
 		PD = GetNode<PlayerData>("Player Data");
+		Anime = GetNode<AnimationPlayer>("Anime");
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -30,6 +32,7 @@ public partial class PlayerMovement : CharacterBody3D
 		velocity = HandleJump(velocity, PD.movementData.jumpVelocity);
 		velocity = LateralMovements(velocity, (float)delta);
 		Velocity = velocity;
+		PlayerDodgeRoll((float)delta);
 		MoveAndSlide();
 	}
 
@@ -76,6 +79,16 @@ public partial class PlayerMovement : CharacterBody3D
 		}
 
 		return velocity;
+	}
+
+	public void PlayerDodgeRoll(float delta) {
+		if (Input.IsActionPressed("Roll")) {
+			// Check if currently rolling
+			if (Anime.IsPlaying()) 
+				return;
+
+			Anime.Play("Roll");
+		}
 	}
 
 	//-------------------------------------------------------------------------
