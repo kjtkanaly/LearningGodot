@@ -11,5 +11,5 @@ public partial class PlayerMovementData : Resource
 	[Export] public float rotationSpeed = 0.0f;
 	[Export] public float rotationAcceleration = 0.0f;
 	[Export] public float mouseSensitivity = 0.0f;
-	[Export] public float rollAngularSpeed = 10.0f;
+	[Export] public float rollSpeed = 0.0f;
 }

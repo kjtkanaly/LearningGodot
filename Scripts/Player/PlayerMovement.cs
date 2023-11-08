@@ -11,6 +11,7 @@ public partial class PlayerMovement : CharacterBody3D
 	private AnimationPlayer Anime;
 
 	// Godot Types
+	private Vector2 RollVelocity = Vector2.Zero;
 
 	// Basic Types
 	public float gravity = ProjectSettings.GetSetting(
@@ -27,68 +28,78 @@ public partial class PlayerMovement : CharacterBody3D
 	public override void _PhysicsProcess(double delta)
 	{
 		// General Movement
-		Vector3 velocity = Velocity;
-		velocity = ApplyGravity(velocity, (float)delta);
-		velocity = HandleJump(velocity, PD.movementData.jumpVelocity);
-		velocity = LateralMovements(velocity, (float)delta);
-		Velocity = velocity;
-		PlayerDodgeRoll((float)delta);
+		Vector2 latVelocity = new Vector2(Velocity.X, Velocity.Z);
+		float vertVelocity = Velocity.Y;
+
+		// Vertical Movement
+		vertVelocity = ApplyGravity(vertVelocity, (float)delta);
+		vertVelocity = HandleJump(vertVelocity, PD.movementData.jumpVelocity);
+
+		// Laterial Movement
+		latVelocity = LateralMovements(latVelocity, (float)delta);
+		latVelocity = PlayerDodgeRoll(latVelocity, (float)delta);
+
+		Velocity = new Vector3(latVelocity.X, vertVelocity, latVelocity.Y);
+
 		MoveAndSlide();
 	}
 
 	//-------------------------------------------------------------------------
 	// Player3D Methods
-	public Vector3 ApplyGravity(Vector3 velocity, float timeDelta) {
+	public float ApplyGravity(float velocity, float timeDelta) {
 		if (!IsOnFloor())
-			velocity.Y -= gravity * timeDelta;
+			velocity -= gravity * timeDelta;
 
 		return velocity;
 	}
 
-	public Vector3 HandleJump(Vector3 velocity, float jumpVelocity) {
+	public float HandleJump(float velocity, float jumpVelocity) {
 		if (Input.IsActionJustPressed("Jump") && IsOnFloor())
-			velocity.Y = jumpVelocity;
+			velocity = jumpVelocity;
 		
 		return velocity;
 	}
 
-	public Vector3 LateralMovements(Vector3 velocity, float delta) {
+	public Vector2 LateralMovements(Vector2 velocity, float delta) {
 		Vector2 inputDirection = Input.GetVector("Right", "Left", "Down", "Up");
 		Vector3 direction = (Transform.Basis * new Vector3(inputDirection.X, 0, inputDirection.Y)).Normalized();
-		Vector2 velocity2D = new Vector2(velocity.X, velocity.Z);
 
 		if (direction != Vector3.Zero) {
-			velocity2D.X = Mathf.MoveToward(velocity2D.X, 
+			velocity.X = Mathf.MoveToward(velocity.X, 
 										  PD.movementData.speed * direction.X, 
 										  PD.movementData.acceleration * delta
 										  );
 
-			velocity2D.Y = Mathf.MoveToward(velocity2D.Y,
+			velocity.Y = Mathf.MoveToward(velocity.Y,
 										  PD.movementData.speed * direction.Z,
 										  PD.movementData.acceleration * delta
 										  );
 
-			velocity2D = GeneralStatic.MagnitudeClamp(velocity2D, PD.movementData.speed);
-
-			velocity.X = velocity2D.X;
-			velocity.Z = velocity2D.Y;
+			velocity = GeneralStatic.MagnitudeClamp(velocity, PD.movementData.speed);
 		}
 		else {
 			velocity.X = Mathf.MoveToward(velocity.X, 0, PD.movementData.friction * delta);
-			velocity.Z = Mathf.MoveToward(velocity.Z, 0, PD.movementData.friction * delta);
+			velocity.Y = Mathf.MoveToward(velocity.Y, 0, PD.movementData.friction * delta);
 		}
 
 		return velocity;
 	}
 
-	public void PlayerDodgeRoll(float delta) {
-		if (Input.IsActionPressed("Roll")) {
-			// Check if currently rolling
-			if (Anime.IsPlaying()) 
-				return;
+	public Vector2 PlayerDodgeRoll(Vector2 velocity, float delta) {
 
+		// Check if currently rolling
+		if (Anime.IsPlaying() && (Anime.CurrentAnimation == "Roll"))
+			return RollVelocity;
+
+		if (Input.IsActionPressed("Roll") && IsOnFloor()) {
+			Vector3 basis = GlobalTransform.Basis.Z;
+			RollVelocity = new Vector2(basis.X, basis.Z).Normalized() 
+						   * PD.movementData.rollSpeed;
 			Anime.Play("Roll");
+			return RollVelocity;
 		}
+
+		return velocity;
 	}
 
 	//-------------------------------------------------------------------------

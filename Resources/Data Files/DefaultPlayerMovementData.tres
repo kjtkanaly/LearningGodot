@@ -11,3 +11,4 @@ jumpVelocity = 100.0
 rotationSpeed = 2.0
 rotationAcceleration = 150.0
 mouseSensitivity = 0.01
+rollSpeed = 150.0
