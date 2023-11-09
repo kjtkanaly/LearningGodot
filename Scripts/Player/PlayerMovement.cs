@@ -93,13 +93,29 @@ public partial class PlayerMovement : CharacterBody3D
 
 		if (Input.IsActionPressed("Roll") && IsOnFloor()) {
 			Vector3 basis = GlobalTransform.Basis.Z;
-			RollVelocity = new Vector2(basis.X, basis.Z).Normalized() 
-						   * PD.movementData.rollSpeed;
+			Vector3 globalInputDir = GetGlobalInputDirection();
+
+			Vector2 rollDirection = Vector2.Zero;
+			if (globalInputDir != Vector3.Zero) {
+				rollDirection = new Vector2(globalInputDir.X, globalInputDir.Z);
+			} else {
+				rollDirection = new Vector2(basis.X, basis.Z);
+			}
+
+			RollVelocity = rollDirection.Normalized() * PD.movementData.rollSpeed;
 			Anime.Play("Roll");
 			return RollVelocity;
 		}
 
 		return velocity;
+	}
+
+	public Vector3 GetGlobalInputDirection() {
+		Vector2 inputDirection = Input.GetVector("Right", "Left", "Down", "Up");
+		Vector3 direction = (Transform.Basis 
+							 * new Vector3(inputDirection.X, 0, inputDirection.Y));
+		direction = direction.Normalized();
+		return direction;
 	}
 
 	//-------------------------------------------------------------------------
