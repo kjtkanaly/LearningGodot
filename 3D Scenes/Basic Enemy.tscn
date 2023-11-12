@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://8weqfkpb801i"]
+[gd_scene load_steps=22 format=3 uid="uid://8weqfkpb801i"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/EnemyMovement.cs" id="1_r34u2"]
 [ext_resource type="Material" uid="uid://cvdnqqxxvbsq4" path="res://Resources/Materials/Enemy Material.tres" id="1_rcph4"]
@@ -64,11 +64,42 @@ tracks/1/keys = {
 "values": [Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)]
 }
 
+[sub_resource type="Animation" id="Animation_s4tnx"]
+resource_name = "Hit"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh Parent/MeshInstance3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mesh Parent/MeshInstance3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jq7fv"]
 _data = {
+"Hit": SubResource("Animation_s4tnx"),
 "Idle": SubResource("Animation_j1w8t"),
 "Run": SubResource("Animation_kmmmx")
 }
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qh5rg"]
+animation = &"Hit"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rxexa"]
 animation = &"Idle"
@@ -87,15 +118,35 @@ advance_condition = &"Run"
 advance_mode = 2
 advance_condition = &"Idle"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fyjs6"]
+advance_mode = 2
+advance_condition = &"Hit"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_i18x7"]
+advance_mode = 2
+advance_condition = &"Hit"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_61g3x"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"Run"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_c7yte"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"Run"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_1taps"]
 allow_transition_to_self = true
+states/Hit/node = SubResource("AnimationNodeAnimation_qh5rg")
+states/Hit/position = Vector2(459.36, 267.133)
 states/Idle/node = SubResource("AnimationNodeAnimation_rxexa")
 states/Idle/position = Vector2(576, 99.3438)
 states/Run/node = SubResource("AnimationNodeAnimation_nk0iu")
-states/Run/position = Vector2(399, 100.062)
+states/Run/position = Vector2(327.5, 99.6719)
 states/Start/position = Vector2(766.5, 41.25)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_d4xah"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_17dfw"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_wb24e")]
-graph_offset = Vector2(223.68, -25.1849)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_d4xah"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_17dfw"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_wb24e"), "Run", "Hit", SubResource("AnimationNodeStateMachineTransition_fyjs6"), "Idle", "Hit", SubResource("AnimationNodeStateMachineTransition_i18x7"), "Hit", "Run", SubResource("AnimationNodeStateMachineTransition_61g3x"), "Hit", "Idle", SubResource("AnimationNodeStateMachineTransition_c7yte")]
+graph_offset = Vector2(-139.8, 72.1274)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_1weep"]
 
@@ -122,14 +173,18 @@ libraries = {
 tree_root = SubResource("AnimationNodeStateMachine_1taps")
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/conditions/Idle = true
-parameters/conditions/Run = false
+parameters/conditions/Hit = false
+parameters/conditions/Idle = false
+parameters/conditions/Run = true
+
+[node name="Hit Timer" type="Timer" parent="Animation Ctrl"]
+one_shot = true
 
 [node name="Mesh Parent" type="Node3D" parent="."]
 transform = Transform3D(-1, 3.48787e-16, -8.74228e-08, 3.48787e-16, 1, -3.48787e-16, 8.74228e-08, -3.48787e-16, -1, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh Parent"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.90706e-12, 0.0916131, 1.90706e-12)
+transform = Transform3D(0.934878, 0.354969, 3.48787e-16, -0.354969, 0.934878, -3.48787e-16, -4.49882e-16, 2.02265e-16, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
 mesh = SubResource("CapsuleMesh_1weep")
 skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("1_rcph4")

@@ -7,6 +7,7 @@ public partial class EnemyMovement : CharacterBody3D
 	// Game Componenets
 	[Export] NodePath PlayerPath = null;
 	public CharacterBody3D Player = null;
+	public EnemyAnimationCtrl AnimeCtrl = null;
 
 	// Godot Types
 
@@ -21,11 +22,12 @@ public partial class EnemyMovement : CharacterBody3D
 	public override void _Ready()
 	{
 		Player = GetNode<CharacterBody3D>(PlayerPath);
+		AnimeCtrl = GetNode<EnemyAnimationCtrl>("Animation Ctrl");
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (!(TargetInRange())) {
+		if (!TargetInRange() || AnimeCtrl.hitCheck) {
 			Velocity = Vector3.Zero;
 			return;
 		}
