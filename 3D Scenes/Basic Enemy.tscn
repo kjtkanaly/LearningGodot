@@ -187,7 +187,7 @@ one_shot = true
 transform = Transform3D(-2, 6.97574e-16, -3.01992e-07, 6.97574e-16, 2, -6.97574e-16, 3.01992e-07, -6.97574e-16, -2, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh Parent"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5502e-13, 0.0314664, 6.5502e-13)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.42498e-12, 0.0684544, 1.42498e-12)
 mesh = SubResource("CapsuleMesh_1weep")
 skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("1_rcph4")

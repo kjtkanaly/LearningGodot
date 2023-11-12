@@ -11,7 +11,7 @@ public partial class Main : Node3D
 	// Godot Types
 
 	// Basic Types
-	public bool pausedGame = false;
+	private const float quitGameDelay = 2.0f;
 
 	//-------------------------------------------------------------------------
 	// Game Events
@@ -19,13 +19,14 @@ public partial class Main : Node3D
 	{
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 		QuitGameTimer = GetNode<Timer>("Quit Game");
+
+		QuitGameTimer.Timeout += QuitGame;
 	}
 
 	public override void _Process(double delta)
 	{
 		TogglePause();
-
-		QuitGame();
+		ToggleQuitGame();
 	}
 
 	//-------------------------------------------------------------------------
@@ -42,14 +43,15 @@ public partial class Main : Node3D
 		}
 	}
 
-	public void QuitGame() {
+	public void ToggleQuitGame() {
 		if (Input.IsActionJustPressed("Quit Game"))
-			QuitGameTimer.Start();
+			QuitGameTimer.Start(quitGameDelay);
 		if (Input.IsActionJustReleased("Quit Game"))
 			QuitGameTimer.Stop();
-		
-		if (Input.IsActionPressed("Quit Game") && (QuitGameTimer.TimeLeft <= 0))
-			GetTree().Quit();
+	}
+
+	public void QuitGame() {
+		GetTree().Quit();
 	}
 
 	//-------------------------------------------------------------------------
