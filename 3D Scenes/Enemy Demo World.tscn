@@ -30,5 +30,6 @@ wait_time = 2.0
 one_shot = true
 
 [node name="Basic Enemy" parent="." instance=ExtResource("5_sxhqy")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 2.08165e-12, 2.5, 10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.5, 10)
 PlayerPath = NodePath("../Player")
+friction = 100.0
