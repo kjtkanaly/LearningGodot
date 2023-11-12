@@ -9,13 +9,15 @@ public partial class EnemyAnimationCtrl : Node3D
 	[Export] NodePath ParentPath = null;
 	private CharacterBody3D Parent = null;
 	public AnimationPlayer AnimePlayer = null;
-	public AnimationTree AnimeTree = null;
+    private String PreviousAnime = null;
+    private Area3D BulletArea = null;
     private Timer HitTimer = null;
 
 	// Godot Types
 
 	// Basic Types
-	public bool hitCheck = false;
+	public bool CanInteruptAnime = true;
+    private float HitTime = 0.0f;
 
 	//-------------------------------------------------------------------------
 	// Game Events
@@ -23,15 +25,20 @@ public partial class EnemyAnimationCtrl : Node3D
 	{
 		Parent = GetNode<EnemyMovement>(ParentPath);
 		AnimePlayer = GetNode<AnimationPlayer>("AnimationPlayer");
-		AnimeTree = GetNode<AnimationTree>("AnimationTree");
         HitTimer = GetNode<Timer>("Hit Timer");
+        BulletArea = GetNode<Area3D>("../Bullet Area");
+
+        BulletArea.AreaEntered += PlayHitAnimation;
+        HitTimer.Timeout += StopHitAnimation;
+        HitTime = AnimePlayer.GetAnimation("Hit").Length;
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
+        if (!CanInteruptAnime)
+            return;
+
 		SetRunAnimation();
-        CheckForHit();
-        CheckHitTimer();
 	}
 
 	//-------------------------------------------------------------------------
@@ -41,27 +48,23 @@ public partial class EnemyAnimationCtrl : Node3D
 		Vector2 LatVelocity = new Vector2(Parent.Velocity.X, Parent.Velocity.Z);
 		
 		if (LatVelocity.Length() > 0.1f) {
-			AnimeTree.Set("parameters/conditions/Idle", false);
-			AnimeTree.Set("parameters/conditions/Run", true);
+			AnimePlayer.CurrentAnimation = "Run";
 		} else {
-            AnimeTree.Set("parameters/conditions/Idle", true);
-			AnimeTree.Set("parameters/conditions/Run", false);
+            AnimePlayer.CurrentAnimation = "Idle";
 		}
 	}
 
-    private void CheckForHit() {
-        if (Input.IsActionJustPressed("Check Hit")) {
-            AnimeTree.Set("parameters/conditions/Hit", true);
-            HitTimer.Start();
-            hitCheck = true;
-        }
+    private void PlayHitAnimation(Area3D RxArea) {
+        GD.Print($"Rx Area Name: {RxArea.Name}");
+        PreviousAnime = AnimePlayer.CurrentAnimation;
+        AnimePlayer.CurrentAnimation = "Hit";
+        CanInteruptAnime = false;
+        HitTimer.Start(HitTime);
     }
 
-    private void CheckHitTimer() {
-        if ((HitTimer.TimeLeft <= 0) && hitCheck) {
-            AnimeTree.Set("parameters/conditions/Hit", false);
-            hitCheck = false;
-        }
+    private void StopHitAnimation() {
+        AnimePlayer.CurrentAnimation = PreviousAnime;
+        CanInteruptAnime = true;
     }
 
 	//-------------------------------------------------------------------------

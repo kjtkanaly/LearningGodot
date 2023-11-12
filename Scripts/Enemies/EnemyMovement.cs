@@ -87,16 +87,10 @@ public partial class EnemyMovement : CharacterBody3D
 	}
 
 	private void BulletImpact(Area3D RxArea) {
-		GD.Print($"Impact with: {RxArea.Name}");
-		GD.Print($"Direction: {RxArea.GlobalTransform.Basis.Z}");
-
 		Vector3 impulseVect = RxArea.GlobalTransform.Basis.Z;
 		impulseVect.Y = 0.0f;
 
-		Vector3 prevVel = Velocity;
 		Velocity = impulseVect.Normalized() * -impactForce;
-
-		GD.Print($"{prevVel} ... {Velocity}");
 	}
 
 	//-------------------------------------------------------------------------
