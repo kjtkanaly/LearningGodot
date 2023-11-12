@@ -12,12 +12,14 @@ public partial class EnemyAnimationCtrl : Node3D
     private String PreviousAnime = null;
     private Area3D BulletArea = null;
     private Timer HitTimer = null;
+    private Timer DeathTimer = null;
 
 	// Godot Types
 
 	// Basic Types
 	public bool CanInteruptAnime = true;
     private float HitTime = 0.0f;
+    private float DeathTime = 0.0f;
 
 	//-------------------------------------------------------------------------
 	// Game Events
@@ -26,11 +28,14 @@ public partial class EnemyAnimationCtrl : Node3D
 		Parent = GetNode<EnemyMovement>(ParentPath);
 		AnimePlayer = GetNode<AnimationPlayer>("AnimationPlayer");
         HitTimer = GetNode<Timer>("Hit Timer");
+        DeathTimer = GetNode<Timer>("Death Timer");
         BulletArea = GetNode<Area3D>("../Bullet Area");
 
-        BulletArea.AreaEntered += PlayHitAnimation;
         HitTimer.Timeout += StopHitAnimation;
+        DeathTimer.Timeout += StopDeathAnimation;
+
         HitTime = AnimePlayer.GetAnimation("Hit").Length;
+        DeathTime = AnimePlayer.GetAnimation("Death").Length;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -54,8 +59,7 @@ public partial class EnemyAnimationCtrl : Node3D
 		}
 	}
 
-    private void PlayHitAnimation(Area3D RxArea) {
-        GD.Print($"Rx Area Name: {RxArea.Name}");
+    public void PlayHitAnimation() {
         PreviousAnime = AnimePlayer.CurrentAnimation;
         AnimePlayer.CurrentAnimation = "Hit";
         CanInteruptAnime = false;
@@ -65,6 +69,16 @@ public partial class EnemyAnimationCtrl : Node3D
     private void StopHitAnimation() {
         AnimePlayer.CurrentAnimation = PreviousAnime;
         CanInteruptAnime = true;
+    }
+
+    public void PlayDeathAnimation() {
+        AnimePlayer.CurrentAnimation = "Death";
+        CanInteruptAnime = false;
+        DeathTimer.Start(DeathTime);
+    }
+
+    private void StopDeathAnimation() {
+        GetTree().QueueDelete(Parent);
     }
 
 	//-------------------------------------------------------------------------
