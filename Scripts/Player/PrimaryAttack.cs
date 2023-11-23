@@ -34,13 +34,19 @@ public partial class PrimaryAttack : Node3D
 
 	public override void _Input(InputEvent @event)
 	{
-		if (@event is InputEventMouseButton eventMouseButton 
-			&& eventMouseButton.IsActionPressed("Primary Attack"))
-		{
-			// Cast Ray from Active Camera
-			Dictionary target = CastRayFromCamera(eventMouseButton);
+		if (@event is InputEventMouseButton eventMouseButton) {
+			if (eventMouseButton.IsActionPressed("Primary Attack")) {
+				// Cast Ray from Active Camera
+				Dictionary target = CastRayFromCamera(eventMouseButton);
+				ShootRifle();
 
-			ShootRifle();
+			}
+		}
+
+		if (@event is InputEventKey eventAction) {
+			if (eventAction.IsActionPressed("Reload")) {
+				ReloadRangeWeapon();
+			}
 		}
 	}
 
@@ -93,6 +99,12 @@ public partial class PrimaryAttack : Node3D
 
 		return Vector3.Inf;
 		*/
+	}
+
+	public void ReloadRangeWeapon() {
+		int currAmmo = WeaponInst.ReloadAmmo();
+
+		PlyrUI.UpdateAmmoCountLbl(WeaponInst.magazineSize, currAmmo);
 	}
 
     //-------------------------------------------------------------------------

@@ -51,6 +51,12 @@ public partial class RangeWeapon : Node3D
 		}
 		return outOfBullets;
 	}
+
+	public int ReloadAmmo() {
+		currentBullet = magazineSize;
+
+		return currentBullet;
+	}
 	//-------------------------------------------------------------------------
 	// Demo Methods
 }
