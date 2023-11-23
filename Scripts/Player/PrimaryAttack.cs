@@ -8,7 +8,6 @@ public partial class PrimaryAttack : Node3D
     // Game Componenets
 	private Node MainRoot = null;
 	private CameraMovement CM = null;
-	public AnimationPlayer RifleAnime = null;
 	public RayCast3D GunBarrel = null;
 	public RangeWeapon WeaponInst = null;
 	public Node3D BulletInst = null;
@@ -26,7 +25,6 @@ public partial class PrimaryAttack : Node3D
     {
 		MainRoot = GetTree().Root.GetChild(0);
 		CM = GetNode<CameraMovement>("../Head");
-        RifleAnime = GetNode<AnimationPlayer>("../Head/Rifle/AnimationPlayer");
 		GunBarrel = GetNode<RayCast3D>("../Head/Rifle/RayCast3D");
 		WeaponInst = GetNode<RangeWeapon>("../Head/Rifle");
 		PlyrUI = GetNode<PlayerUI>("../Head/1st Person Camera/Player UI/Control");
@@ -45,7 +43,7 @@ public partial class PrimaryAttack : Node3D
 
 		if (@event is InputEventKey eventAction) {
 			if (eventAction.IsActionPressed("Reload")) {
-				ReloadRangeWeapon();
+				WeaponInst.BeginAmmoReload();
 			}
 		}
 	}
@@ -53,13 +51,13 @@ public partial class PrimaryAttack : Node3D
     //-------------------------------------------------------------------------
     // Primary Attack Methods
 	public void ShootRifle() {
-		if (RifleAnime.IsPlaying() || WeaponInst.IsMagazineEmpty())
+		if (WeaponInst.Anime.IsPlaying() || WeaponInst.IsMagazineEmpty())
 		return;
 
 		// Cast Ray from Camera
 
 		// Play the Shoot Animation
-		RifleAnime.Play("Shoot");
+		WeaponInst.PlayShootAnime();
 
 		// Instantiate the bullet
 		BulletInst = (Node3D) BulletRes.Instantiate();
@@ -101,9 +99,8 @@ public partial class PrimaryAttack : Node3D
 		*/
 	}
 
-	public void ReloadRangeWeapon() {
-		int currAmmo = WeaponInst.ReloadAmmo();
-
+	public void ReloadRangeWeaponUI() {
+		int currAmmo = WeaponInst.GetCurrentAmmo();
 		PlyrUI.UpdateAmmoCountLbl(WeaponInst.magazineSize, currAmmo);
 	}
 
