@@ -13,14 +13,16 @@ public partial class RangeWeapon : Node3D
 
 	// Basic Types
 	private float rayLength = 1000.0f;
+	[Export] public int magazineSize = 12;
+	public int currentBullet = 0;
+	public bool outOfBullets = false;
 
 	//-------------------------------------------------------------------------
 	// Game Events
 	public override void _Ready() {
 		CM = GetParent<CameraMovement>();
-		
-
 		GetActiveCamera();
+		currentBullet = magazineSize;
 	}
 
 	public override void _PhysicsProcess(double delta) {
@@ -33,6 +35,21 @@ public partial class RangeWeapon : Node3D
 	// RangeWeapon Methods
 	public void GetActiveCamera() {
 		ActiveCamera = CM.ActiveCamera;
+	}
+
+	public int IncrementBulletCount() {
+		currentBullet -= 1;
+
+		IsMagazineEmpty();
+
+		return currentBullet;
+	}
+
+	public bool IsMagazineEmpty() {
+		if (currentBullet <= 0) {
+			outOfBullets = true;
+		}
+		return outOfBullets;
 	}
 	//-------------------------------------------------------------------------
 	// Demo Methods

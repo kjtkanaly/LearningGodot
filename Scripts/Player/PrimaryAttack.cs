@@ -10,8 +10,9 @@ public partial class PrimaryAttack : Node3D
 	private CameraMovement CM = null;
 	public AnimationPlayer RifleAnime = null;
 	public RayCast3D GunBarrel = null;
-	private RangeWeapon WeaponInst = null;
+	public RangeWeapon WeaponInst = null;
 	public Node3D BulletInst = null;
+	public PlayerUI PlyrUI = null;
 	public PackedScene BulletRes = (PackedScene) GD.Load("res://3D Scenes/Bullet.tscn");
 
     // Godot Types
@@ -28,6 +29,7 @@ public partial class PrimaryAttack : Node3D
         RifleAnime = GetNode<AnimationPlayer>("../Head/Rifle/AnimationPlayer");
 		GunBarrel = GetNode<RayCast3D>("../Head/Rifle/RayCast3D");
 		WeaponInst = GetNode<RangeWeapon>("../Head/Rifle");
+		PlyrUI = GetNode<PlayerUI>("../Head/1st Person Camera/Player UI/Control");
     }
 
 	public override void _Input(InputEvent @event)
@@ -45,7 +47,7 @@ public partial class PrimaryAttack : Node3D
     //-------------------------------------------------------------------------
     // Primary Attack Methods
 	public void ShootRifle() {
-		if (RifleAnime.IsPlaying())
+		if (RifleAnime.IsPlaying() || WeaponInst.IsMagazineEmpty())
 		return;
 
 		// Cast Ray from Camera
@@ -58,6 +60,12 @@ public partial class PrimaryAttack : Node3D
 		BulletInst.Position = GunBarrel.GlobalPosition;
 		BulletInst.Basis = GunBarrel.GlobalTransform.Basis;
 		MainRoot.AddChild(BulletInst);
+
+		// Log the consumption of ammo
+		int currBullet = WeaponInst.IncrementBulletCount();
+
+		// Update Player UI
+		PlyrUI.UpdateAmmoCountLbl(WeaponInst.magazineSize, currBullet);
 	}
 
 	public Dictionary CastRayFromCamera(InputEventMouseButton eventMB) {
