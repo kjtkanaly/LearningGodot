@@ -9,11 +9,11 @@ public partial class DroppedItem : Node3D
     // Godot Types
 
     // Basic Types
-	[Export] public float time = 0.0f;
-	[Export] public float amp = 1.0f;
-	[Export] public float frequency = 1.0f;
+	private float time = 0.0f;
+	[Export] public float amp = 0.5f;
+	[Export] public float frequency = 0.5f;
 	[Export] public float yPos = 1.5f;
-	[Export] public float angularSpeed = 1.0f;
+	[Export] public float angularSpeed = 0.5f;
 
     //-------------------------------------------------------------------------
     // Game Events
