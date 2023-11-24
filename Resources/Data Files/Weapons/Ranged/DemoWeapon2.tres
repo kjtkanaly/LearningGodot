@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=2 format=3 uid="uid://cs0xsheyjfwro"]
+
+[ext_resource type="Script" path="res://Scripts/Resource Scripts/WeaponData.cs" id="1_6roph"]
+
+[resource]
+script = ExtResource("1_6roph")
+damage = 5.0
+reloadTime = 1.0
+magazineSize = 24

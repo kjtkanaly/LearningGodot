@@ -11,13 +11,12 @@ public partial class RangeWeapon : Node3D
 	private Viewport View;
 	public AnimationPlayer Anime = null;
 	private PrimaryAttack PA = null;
+	[Export] public WeaponData Params = null;
 
 	// Godot Types
 
 	// Basic Types
 	private float rayLength = 1000.0f;
-	public float reloadTime = 0.0f;
-	[Export] public int magazineSize = 12;
 	public int currentBullet = 0;
 	public bool outOfBullets = false;
 	public bool isReloading = false;
@@ -30,8 +29,7 @@ public partial class RangeWeapon : Node3D
 		PA = GetNode<PrimaryAttack>("../../Primary Attack");
 
 		GetActiveCamera();
-		currentBullet = magazineSize;
-		reloadTime = Anime.GetAnimation("Reload").Length;
+		currentBullet = Params.magazineSize;
 
 		Anime.AnimationFinished += ReloadAmmo;
 	}
@@ -73,7 +71,7 @@ public partial class RangeWeapon : Node3D
 
 	public void ReloadAmmo(StringName AnimationName) {
 		if (AnimationName == "Reload") {
-			currentBullet = magazineSize;
+			currentBullet = Params.magazineSize;
 			PA.ReloadRangeWeaponUI();
 		}
 	}

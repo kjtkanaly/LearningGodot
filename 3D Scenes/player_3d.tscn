@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://clci37hx48mlq"]
+[gd_scene load_steps=19 format=3 uid="uid://clci37hx48mlq"]
 
 [ext_resource type="Script" path="res://Scripts/Player/PlayerMovement.cs" id="1_u8u3w"]
 [ext_resource type="Environment" uid="uid://c65t7aslelfj0" path="res://Enviroments/Default.tres" id="2_ah7nu"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dhw0bhrl2d1uj" path="res://UI/Player UI.tscn" id="3_cfnr4"]
 [ext_resource type="PackedScene" uid="uid://ck6faaaqr5wfy" path="res://3D Scenes/Rifle.tscn" id="4_mvknr"]
 [ext_resource type="Script" path="res://Scripts/Player/Inventory.cs" id="5_7cql8"]
+[ext_resource type="Resource" uid="uid://bh28y6o25ymin" path="res://Resources/Data Files/Weapons/Ranged/DemoWeapon1.tres" id="6_ptd1c"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerData.cs" id="7_jat8o"]
 [ext_resource type="Resource" uid="uid://denq5e5nlg01j" path="res://Resources/Data Files/DefaultPlayerMovementData.tres" id="8_5oneq"]
 [ext_resource type="Script" path="res://Scripts/Player/PrimaryAttack.cs" id="8_yqkri"]
@@ -42,8 +43,8 @@ _data = {
 "Roll": SubResource("Animation_hjog8")
 }
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_jird5"]
-radius = 2.0
+[sub_resource type="SphereShape3D" id="SphereShape3D_nrmvk"]
+radius = 3.0
 
 [node name="Player" type="CharacterBody3D"]
 process_mode = 1
@@ -77,6 +78,7 @@ environment = ExtResource("2_ah7nu")
 
 [node name="Rifle" parent="Head" instance=ExtResource("4_mvknr")]
 transform = Transform3D(-0.5, 1.74394e-16, 4.37114e-08, 1.74393e-16, 0.5, -1.74394e-16, -4.37114e-08, -1.74393e-16, -0.5, -0.4, -0.4, 0.4)
+Params = ExtResource("6_ptd1c")
 
 [node name="Iteract with items" type="RayCast3D" parent="Head"]
 target_position = Vector3(2.08165e-12, 2.08165e-12, 3)
@@ -102,4 +104,4 @@ collision_mask = 4
 script = ExtResource("10_mtmie")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Item Pickup Area"]
-shape = SubResource("CylinderShape3D_jird5")
+shape = SubResource("SphereShape3D_nrmvk")
