@@ -63,13 +63,20 @@ public partial class ItemPickup : Area3D
 	}
 
 	public void PickupWeapon(DroppedWeapon NearbyWeapon) {
-		// Update the object Parameters
+		// Store the Currently Held Weapon's Data
+		WeaponData tempData = PA.RangeWeaponSlot.Params;
+
+		// Update the Player Weapon Slot with the new Data
 		PA.RangeWeaponSlot.Params = NearbyWeapon.Params;
 		PA.RangeWeaponSlot.Mesh3D.Mesh = PA.RangeWeaponSlot.Params.mesh;
 
+		// Update the newly dropped weapon's data
+		NearbyWeapon.Params = tempData;
+		NearbyWeapon.Mesh3D.Mesh = tempData.mesh;
+
 		// Update the Player UI
 		PA.PlyrUI.UpdateAmmoCountLbl(PA.RangeWeaponSlot.Params.magazineSize, 
-									 PA.RangeWeaponSlot.Params.magazineSize);
+									 PA.RangeWeaponSlot.Params.currBullet);
 	}
 
 	//-------------------------------------------------------------------------

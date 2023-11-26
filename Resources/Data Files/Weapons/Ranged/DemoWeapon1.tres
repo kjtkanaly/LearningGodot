@@ -1,11 +1,12 @@
 [gd_resource type="Resource" script_class="WeaponData" load_steps=3 format=3 uid="uid://bh28y6o25ymin"]
 
-[ext_resource type="BoxMesh" uid="uid://b5o6qac61eiob" path="res://Resources/Meshes/Weapons/Demo Weapon 2.tres" id="1_i4f07"]
+[ext_resource type="BoxMesh" uid="uid://bmhqmr1l44fm" path="res://Resources/Meshes/Weapons/Demo Weapon 1.tres" id="1_lqfa0"]
 [ext_resource type="Script" path="res://Scripts/Resource Scripts/WeaponData.cs" id="2_m43un"]
 
 [resource]
 script = ExtResource("2_m43un")
-mesh = ExtResource("1_i4f07")
+mesh = ExtResource("1_lqfa0")
 damage = 1.0
 reloadTime = 1.0
 magazineSize = 12
+currBullet = 12

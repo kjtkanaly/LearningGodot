@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://ddwk21i4byf0h"]
 
 [ext_resource type="Script" path="res://Scripts/Items/DroppedWeapon.cs" id="1_culcm"]
-[ext_resource type="Resource" uid="uid://bh28y6o25ymin" path="res://Resources/Data Files/Weapons/Ranged/DemoWeapon1.tres" id="2_jtgw2"]
+[ext_resource type="Resource" uid="uid://cs0xsheyjfwro" path="res://Resources/Data Files/Weapons/Ranged/DemoWeapon2.tres" id="2_vtf7t"]
 [ext_resource type="BoxMesh" uid="uid://b5o6qac61eiob" path="res://Resources/Meshes/Weapons/Demo Weapon 2.tres" id="3_x5ggg"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8mdg1"]
@@ -9,7 +9,7 @@ size = Vector3(0.2, 0.2, 1.5)
 
 [node name="Dropped Weapon" type="Node3D"]
 script = ExtResource("1_culcm")
-Params = ExtResource("2_jtgw2")
+Params = ExtResource("2_vtf7t")
 itemType = 1
 
 [node name="Pickup Area" type="Area3D" parent="."]

@@ -18,7 +18,6 @@ public partial class RangeWeapon : Node3D
 
 	// Basic Types
 	private float rayLength = 1000.0f;
-	public int currentBullet = 0;
 	public bool outOfBullets = false;
 	public bool isReloading = false;
 
@@ -31,7 +30,7 @@ public partial class RangeWeapon : Node3D
 		PA = GetNode<PrimaryAttack>("../../Primary Attack");
 
 		GetActiveCamera();
-		currentBullet = Params.magazineSize;
+		Params.currBullet = Params.magazineSize;
 
 		Anime.AnimationFinished += ReloadAmmo;
 	}
@@ -49,19 +48,19 @@ public partial class RangeWeapon : Node3D
 	}
 
 	public int GetCurrentAmmo() {
-		return currentBullet;
+		return Params.currBullet;
 	}
 
 	public int IncrementBulletCount() {
-		currentBullet -= 1;
+		Params.currBullet -= 1;
 
 		IsMagazineEmpty();
 
-		return currentBullet;
+		return Params.currBullet;
 	}
 
 	public bool IsMagazineEmpty() {
-		if (currentBullet <= 0) {
+		if (Params.currBullet <= 0) {
 			outOfBullets = true;
 		}
 		return outOfBullets;
@@ -73,7 +72,7 @@ public partial class RangeWeapon : Node3D
 
 	public void ReloadAmmo(StringName AnimationName) {
 		if (AnimationName == "Reload") {
-			currentBullet = Params.magazineSize;
+			Params.currBullet = Params.magazineSize;
 			PA.ReloadRangeWeaponUI();
 		}
 	}

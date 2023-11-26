@@ -9,3 +9,4 @@ mesh = ExtResource("1_a0ig3")
 damage = 5.0
 reloadTime = 1.0
 magazineSize = 24
+currBullet = 24
