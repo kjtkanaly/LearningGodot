@@ -2,16 +2,15 @@
 
 [ext_resource type="Script" path="res://Scripts/Items/DroppedWeapon.cs" id="1_culcm"]
 [ext_resource type="Resource" uid="uid://bh28y6o25ymin" path="res://Resources/Data Files/Weapons/Ranged/DemoWeapon1.tres" id="2_jtgw2"]
+[ext_resource type="BoxMesh" uid="uid://b5o6qac61eiob" path="res://Resources/Meshes/Weapons/Demo Weapon 2.tres" id="3_x5ggg"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8mdg1"]
-size = Vector3(0.2, 0.2, 1.5)
-
-[sub_resource type="BoxMesh" id="BoxMesh_1pe0i"]
 size = Vector3(0.2, 0.2, 1.5)
 
 [node name="Dropped Weapon" type="Node3D"]
 script = ExtResource("1_culcm")
 Params = ExtResource("2_jtgw2")
+itemType = 1
 
 [node name="Pickup Area" type="Area3D" parent="."]
 collision_layer = 4
@@ -23,6 +22,4 @@ shape = SubResource("BoxShape3D_8mdg1")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
-mesh = SubResource("BoxMesh_1pe0i")
-
-[node name="Weapon Props" type="Node3D" parent="."]
+mesh = ExtResource("3_x5ggg")

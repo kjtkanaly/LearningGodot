@@ -26,6 +26,7 @@ public partial class PlayerUI : Control
 		string[] ammoLbl = AmmoCountLbl.Text.Split(" / ");
 
 		ammoLbl[0] = CurrCount.ToString();
+		ammoLbl[1] = MaxCount.ToString();
 
 		AmmoCountLbl.Text = ammoLbl[0] + " / " + ammoLbl[1];
 	}

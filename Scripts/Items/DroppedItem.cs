@@ -3,10 +3,17 @@ using System;
 
 public partial class DroppedItem : Node3D
 {
+	public enum ItemType {
+		Default = 0,
+		Weapon = 1,
+		Basic = 2
+	}
+
     //-------------------------------------------------------------------------
     // Game Componenets
 
     // Godot Types
+	[Export] public ItemType itemType = ItemType.Default;
 
     // Basic Types
 	private float time = 0.0f;

@@ -12,6 +12,7 @@ public partial class RangeWeapon : Node3D
 	public AnimationPlayer Anime = null;
 	private PrimaryAttack PA = null;
 	[Export] public WeaponData Params = null;
+	public MeshInstance3D Mesh3D = null;
 
 	// Godot Types
 
@@ -26,6 +27,7 @@ public partial class RangeWeapon : Node3D
 	public override void _Ready() {
 		CM = GetParent<CameraMovement>();
 		Anime = GetNode<AnimationPlayer>("AnimationPlayer");
+		Mesh3D = GetNode<MeshInstance3D>("MeshInstance3D");
 		PA = GetNode<PrimaryAttack>("../../Primary Attack");
 
 		GetActiveCamera();

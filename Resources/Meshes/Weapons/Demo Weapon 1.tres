@@ -1,0 +1,8 @@
+[gd_resource type="BoxMesh" load_steps=2 format=3 uid="uid://bmhqmr1l44fm"]
+
+[ext_resource type="Material" uid="uid://bglfgjfowcis8" path="res://Resources/Materials/Weapon/Ranged/Demo Gun 1.tres" id="1_y8s5o"]
+
+[resource]
+resource_name = "Demo Weapon 1 Mesh"
+material = ExtResource("1_y8s5o")
+size = Vector3(0.2, 0.2, 1.5)

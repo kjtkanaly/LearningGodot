@@ -1,9 +1,11 @@
-[gd_resource type="Resource" script_class="WeaponData" load_steps=2 format=3 uid="uid://cs0xsheyjfwro"]
+[gd_resource type="Resource" script_class="WeaponData" load_steps=3 format=3 uid="uid://cs0xsheyjfwro"]
 
 [ext_resource type="Script" path="res://Scripts/Resource Scripts/WeaponData.cs" id="1_6roph"]
+[ext_resource type="BoxMesh" uid="uid://b5o6qac61eiob" path="res://Resources/Meshes/Weapons/Demo Weapon 2.tres" id="1_a0ig3"]
 
 [resource]
 script = ExtResource("1_6roph")
+mesh = ExtResource("1_a0ig3")
 damage = 5.0
 reloadTime = 1.0
 magazineSize = 24

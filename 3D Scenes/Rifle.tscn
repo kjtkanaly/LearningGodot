@@ -1,9 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://ck6faaaqr5wfy"]
 
 [ext_resource type="Script" path="res://Scripts/Weapons/RangeWeapon.cs" id="1_4mee1"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_1dnhf"]
-size = Vector3(0.2, 0.2, 1.5)
+[ext_resource type="BoxMesh" uid="uid://bmhqmr1l44fm" path="res://Resources/Meshes/Weapons/Demo Weapon 1.tres" id="2_njvhs"]
 
 [sub_resource type="Animation" id="Animation_ws20b"]
 resource_name = "Shoot"
@@ -49,7 +47,7 @@ script = ExtResource("1_4mee1")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, -0.5)
-mesh = SubResource("BoxMesh_1dnhf")
+mesh = ExtResource("2_njvhs")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
