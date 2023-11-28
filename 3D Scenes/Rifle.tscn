@@ -3,6 +3,22 @@
 [ext_resource type="Script" path="res://Scripts/Weapons/RangeWeapon.cs" id="1_4mee1"]
 [ext_resource type="BoxMesh" uid="uid://bmhqmr1l44fm" path="res://Resources/Meshes/Weapons/Demo Weapon 1.tres" id="2_njvhs"]
 
+[sub_resource type="Animation" id="Animation_chu2y"]
+resource_name = "Reload"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.715585, 3.48787e-16, 3.48787e-16), Vector3(0, 0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_ws20b"]
 resource_name = "Shoot"
 length = 0.1
@@ -18,22 +34,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector3(2.08165e-12, 2.08165e-12, -0.5), Vector3(2.08165e-12, 2.08165e-12, -0.3), Vector3(2.08165e-12, 2.08165e-12, -0.5)]
-}
-
-[sub_resource type="Animation" id="Animation_chu2y"]
-resource_name = "Reload"
-length = 0.6
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MeshInstance3D:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0.715585, 3.48787e-16, 3.48787e-16), Vector3(0, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ke10r"]

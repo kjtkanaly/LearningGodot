@@ -18,7 +18,6 @@ public partial class RangeWeapon : Node3D
 
 	// Basic Types
 	private float rayLength = 1000.0f;
-	public bool outOfBullets = false;
 	public bool isReloading = false;
 
 	//-------------------------------------------------------------------------
@@ -61,9 +60,9 @@ public partial class RangeWeapon : Node3D
 
 	public bool IsMagazineEmpty() {
 		if (Params.currBullet <= 0) {
-			outOfBullets = true;
+			return true;
 		}
-		return outOfBullets;
+		return false;
 	}
 
 	public void BeginAmmoReload() {
