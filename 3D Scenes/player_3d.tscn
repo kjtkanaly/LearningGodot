@@ -1,12 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://clci37hx48mlq"]
+[gd_scene load_steps=18 format=3 uid="uid://clci37hx48mlq"]
 
 [ext_resource type="Script" path="res://Scripts/Player/PlayerMovement.cs" id="1_u8u3w"]
 [ext_resource type="Environment" uid="uid://c65t7aslelfj0" path="res://Enviroments/Default.tres" id="2_ah7nu"]
 [ext_resource type="Script" path="res://Scripts/Player/CameraMovement.cs" id="2_hj076"]
 [ext_resource type="PackedScene" uid="uid://dhw0bhrl2d1uj" path="res://UI/Player UI.tscn" id="3_cfnr4"]
-[ext_resource type="PackedScene" uid="uid://ck6faaaqr5wfy" path="res://3D Scenes/Rifle.tscn" id="4_mvknr"]
+[ext_resource type="PackedScene" uid="uid://ck6faaaqr5wfy" path="res://3D Scenes/Range Weapon Slot.tscn" id="4_mvknr"]
 [ext_resource type="Script" path="res://Scripts/Player/Inventory.cs" id="5_7cql8"]
-[ext_resource type="Resource" uid="uid://bh28y6o25ymin" path="res://Resources/Data Files/Weapons/Ranged/DemoWeapon1.tres" id="6_ptd1c"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerData.cs" id="7_jat8o"]
 [ext_resource type="Resource" uid="uid://denq5e5nlg01j" path="res://Resources/Data Files/DefaultPlayerMovementData.tres" id="8_5oneq"]
 [ext_resource type="Script" path="res://Scripts/Player/PrimaryAttack.cs" id="8_yqkri"]
@@ -84,7 +83,6 @@ environment = ExtResource("2_ah7nu")
 
 [node name="Range Weapon Slot" parent="Head" instance=ExtResource("4_mvknr")]
 transform = Transform3D(-0.5, 1.74394e-16, 4.37114e-08, 1.74393e-16, 0.5, -1.74394e-16, -4.37114e-08, -1.74393e-16, -0.5, -0.4, -0.4, 0.4)
-Params = ExtResource("6_ptd1c")
 
 [node name="Inventory" type="Node3D" parent="."]
 script = ExtResource("5_7cql8")

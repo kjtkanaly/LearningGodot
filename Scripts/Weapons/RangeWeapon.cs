@@ -29,7 +29,6 @@ public partial class RangeWeapon : Node3D
 		PA = GetNode<PrimaryAttack>("../../Primary Attack");
 
 		GetActiveCamera();
-		Params.currBullet = Params.magazineSize;
 
 		Anime.AnimationFinished += ReloadAmmo;
 	}

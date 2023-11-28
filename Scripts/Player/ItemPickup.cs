@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 public partial class ItemPickup : Area3D
 {
@@ -70,13 +71,28 @@ public partial class ItemPickup : Area3D
 		PA.RangeWeaponSlot.Params = NearbyWeapon.Params;
 		PA.RangeWeaponSlot.Mesh3D.Mesh = PA.RangeWeaponSlot.Params.mesh;
 
-		// Update the newly dropped weapon's data
-		NearbyWeapon.Params = tempData;
-		NearbyWeapon.Mesh3D.Mesh = tempData.mesh;
-
 		// Update the Player UI
 		PA.PlyrUI.UpdateAmmoCountLbl(PA.RangeWeaponSlot.Params.magazineSize, 
 									 PA.RangeWeaponSlot.Params.currBullet);
+
+		// Drop the previous held weapon
+		if (tempData != null) {
+			DropWeapon(NearbyWeapon, tempData);
+		} else {
+			DestroyNearbyWeapon(NearbyWeapon);
+		}
+			
+
+	}
+
+	public void DropWeapon(DroppedWeapon dropWeapon, WeaponData data) {
+		// Update the newly dropped weapon's data
+		dropWeapon.Params = data;
+		dropWeapon.Mesh3D.Mesh = data.mesh;
+	}
+
+	public void DestroyNearbyWeapon(DroppedWeapon NearbyWeapon) {
+		NearbyWeapon.QueueFree();
 	}
 
 	//-------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://d2a310x7cv0el"]
 
-[ext_resource type="PackedScene" uid="uid://ck6faaaqr5wfy" path="res://3D Scenes/Rifle.tscn" id="1_l20vg"]
+[ext_resource type="PackedScene" uid="uid://ck6faaaqr5wfy" path="res://3D Scenes/Range Weapon Slot.tscn" id="1_l20vg"]
 [ext_resource type="Script" path="res://Scripts/Demo Scripts/CameraMount.cs" id="2_fiw4t"]
 [ext_resource type="Environment" uid="uid://c65t7aslelfj0" path="res://Enviroments/Default.tres" id="3_5bd1u"]
 

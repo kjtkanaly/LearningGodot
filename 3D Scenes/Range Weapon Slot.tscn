@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://ck6faaaqr5wfy"]
+[gd_scene load_steps=5 format=3 uid="uid://ck6faaaqr5wfy"]
 
-[ext_resource type="Script" path="res://Scripts/Weapons/RangeWeapon.cs" id="1_4mee1"]
-[ext_resource type="BoxMesh" uid="uid://bmhqmr1l44fm" path="res://Resources/Meshes/Weapons/Demo Weapon 1.tres" id="2_njvhs"]
+[ext_resource type="Script" path="res://Scripts/Weapons/RangeWeapon.cs" id="1_1etnu"]
 
 [sub_resource type="Animation" id="Animation_chu2y"]
 resource_name = "Reload"
@@ -42,12 +41,11 @@ _data = {
 "Shoot": SubResource("Animation_ws20b")
 }
 
-[node name="Rifle" type="Node3D"]
-script = ExtResource("1_4mee1")
+[node name="Range Weapon Slot" type="Node3D"]
+script = ExtResource("1_1etnu")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, -0.5)
-mesh = ExtResource("2_njvhs")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
