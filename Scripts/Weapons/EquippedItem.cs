@@ -5,10 +5,12 @@ public partial class EquippedItem : Node3D
 {
 	//-------------------------------------------------------------------------
 	// Game Componenets
+	public Node MainRoot = null;
 	public CameraMovement CM;
 	public Node3D Head;
 	private Camera3D ActiveCamera = null;
 	private Viewport View;
+	public PlayerUI PlyrUI = null;
 	public AnimationPlayer Anime = null;
 	private PrimaryAttack PA = null;
 	public WeaponData Params = null;
@@ -23,10 +25,12 @@ public partial class EquippedItem : Node3D
 	//-------------------------------------------------------------------------
 	// Game Events
 	public override void _Ready() {
+		MainRoot = GetTree().Root.GetChild(0);
 		CM = GetNode<CameraMovement>("../../Head");
 		Anime = GetNode<AnimationPlayer>("Anime");
 		Mesh3D = GetNode<MeshInstance3D>("Mesh3D");
 		PA = GetNode<PrimaryAttack>("Primary Attack");
+		PlyrUI = GetNode<PlayerUI>("../../../Head/1st Person Camera/Player UI/Control");
 
 		GetActiveCamera();
 

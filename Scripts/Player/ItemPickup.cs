@@ -6,7 +6,7 @@ public partial class ItemPickup : Area3D
 {
 	//-------------------------------------------------------------------------
 	// Game Componenets
-	private PrimaryAttack PA = null;
+	private EquippedItem EquipItem = null;
 
 	// Godot Types
 	public List<DroppedItem> NearbyItems;
@@ -17,7 +17,7 @@ public partial class ItemPickup : Area3D
 	// Game Events
 	public override void _Ready()
 	{
-		PA = GetNode<PrimaryAttack>("../Equipped Item/Primary Attack");
+		EquipItem = GetNode<EquippedItem>("../Equipped Item");
 
 		NearbyItems = new List<DroppedItem>();
 
@@ -38,13 +38,11 @@ public partial class ItemPickup : Area3D
 	// Item Pickup Methods
 	public void ItemInPlayerRange(Area3D RxArea) {
 		DroppedItem NearbyItem = RxArea.GetNode<DroppedItem>("..");
-
 		NearbyItems.Add(NearbyItem);
 	}
 
 	public void ItemOutPlayerRange(Area3D RxArea) {
 		DroppedItem NearbyItem = RxArea.GetNode<DroppedItem>("..");
-
 		NearbyItems.Remove(NearbyItem);
 	}
 
@@ -61,15 +59,15 @@ public partial class ItemPickup : Area3D
 
 	public void PickupWeapon(DroppedWeapon NearbyWeapon) {
 		// Store the Currently Held Weapon's Data
-		WeaponData tempData = PA.RangeWeaponSlot.Params;
+		WeaponData tempData = EquipItem.Params;
 
 		// Update the Player Weapon Slot with the new Data
-		PA.RangeWeaponSlot.Params = NearbyWeapon.Params;
-		PA.RangeWeaponSlot.Mesh3D.Mesh = PA.RangeWeaponSlot.Params.mesh;
+		EquipItem.Params = NearbyWeapon.Params;
+		EquipItem.Mesh3D.Mesh = EquipItem.Params.mesh;
 
 		// Update the Player UI
-		PA.PlyrUI.UpdateAmmoCountLbl(PA.RangeWeaponSlot.Params.magazineSize, 
-									 PA.RangeWeaponSlot.Params.currBullet);
+		EquipItem.PlyrUI.UpdateAmmoCountLbl(EquipItem.Params.magazineSize, 
+									 EquipItem.Params.currBullet);
 
 		// Drop the previous held weapon
 		if (tempData != null) {
@@ -77,8 +75,6 @@ public partial class ItemPickup : Area3D
 		} else {
 			DestroyNearbyWeapon(NearbyWeapon);
 		}
-			
-
 	}
 
 	public void DropWeapon(DroppedWeapon dropWeapon, WeaponData data) {

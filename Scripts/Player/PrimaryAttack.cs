@@ -6,12 +6,9 @@ public partial class PrimaryAttack : Node3D
 {
 	//-------------------------------------------------------------------------
 	// Game Componenets
-	private Node MainRoot = null;
-	private CameraMovement CM = null;
-	public RayCast3D GunBarrel = null;
-	public EquippedItem RangeWeaponSlot = null;
+	public RayCast3D AttackNormal = null;
+	public EquippedItem EquipItem = null;
 	public Node3D BulletInst = null;
-	public PlayerUI PlyrUI = null;
 	public PackedScene BulletRes = (PackedScene) GD.Load("res://3D Scenes/Bullet.tscn");
 
 	// Godot Types
@@ -23,11 +20,8 @@ public partial class PrimaryAttack : Node3D
 	// Game Events
 	public override void _Ready()
 	{
-		MainRoot = GetTree().Root.GetChild(0);
-		CM = GetNode<CameraMovement>("../../../Head");
-		GunBarrel = GetNode<RayCast3D>("../Barrel");
-		RangeWeaponSlot = GetNode<EquippedItem>("../");
-		PlyrUI = GetNode<PlayerUI>("../../../Head/1st Person Camera/Player UI/Control");
+		AttackNormal = GetNode<RayCast3D>("../Barrel");
+		EquipItem = GetNode<EquippedItem>("../");
 	}
 
 	public override void _Input(InputEvent @event)
@@ -43,7 +37,7 @@ public partial class PrimaryAttack : Node3D
 
 		if (@event is InputEventKey eventAction) {
 			if (eventAction.IsActionPressed("Reload")) {
-				RangeWeaponSlot.BeginAmmoReload();
+				EquipItem.BeginAmmoReload();
 			}
 		}
 	}
@@ -51,31 +45,31 @@ public partial class PrimaryAttack : Node3D
 	//-------------------------------------------------------------------------
 	// Primary Attack Methods
 	public void ShootRifle() {
-		if (RangeWeaponSlot.Anime.IsPlaying() || RangeWeaponSlot.IsMagazineEmpty())
+		if (EquipItem.Anime.IsPlaying() || EquipItem.IsMagazineEmpty())
 		return;
 
 		// Cast Ray from Camera
 
 		// Play the Shoot Animation
-		RangeWeaponSlot.PlayShootAnime();
+		EquipItem.PlayShootAnime();
 
 		// Instantiate the bullet
 		BulletInst = (Node3D) BulletRes.Instantiate();
-		BulletInst.Position = GunBarrel.GlobalPosition;
-		BulletInst.Basis = GunBarrel.GlobalTransform.Basis;
-		MainRoot.AddChild(BulletInst);
+		BulletInst.Position = AttackNormal.GlobalPosition;
+		BulletInst.Basis = AttackNormal.GlobalTransform.Basis;
+		EquipItem.MainRoot.AddChild(BulletInst);
 
 		// Log the consumption of ammo
-		int currBullet = RangeWeaponSlot.IncrementBulletCount();
+		int currBullet = EquipItem.IncrementBulletCount();
 
 		// Update Player UI
-		PlyrUI.UpdateAmmoCountLbl(RangeWeaponSlot.Params.magazineSize, currBullet);
+		EquipItem.PlyrUI.UpdateAmmoCountLbl(EquipItem.Params.magazineSize, currBullet);
 	}
 
 	public Dictionary CastRayFromCamera(InputEventMouseButton eventMB) {
 		// Generate the From and To Vectors
-		Vector3 from = CM.ActiveCamera.ProjectRayOrigin(eventMB.Position);
-		Vector3 to = from + CM.ActiveCamera.ProjectRayNormal(eventMB.Position) * rayLength;
+		Vector3 from = EquipItem.CM.ActiveCamera.ProjectRayOrigin(eventMB.Position);
+		Vector3 to = from + EquipItem.CM.ActiveCamera.ProjectRayNormal(eventMB.Position) * rayLength;
 
 		// Perform the Ray Cast Query
 		PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
@@ -100,8 +94,8 @@ public partial class PrimaryAttack : Node3D
 	}
 
 	public void ReloadRangeWeaponUI() {
-		int currAmmo = RangeWeaponSlot.GetCurrentAmmo();
-		PlyrUI.UpdateAmmoCountLbl(RangeWeaponSlot.Params.magazineSize, currAmmo);
+		int currAmmo = EquipItem.GetCurrentAmmo();
+		EquipItem.PlyrUI.UpdateAmmoCountLbl(EquipItem.Params.magazineSize, currAmmo);
 	}
 
 	//-------------------------------------------------------------------------
