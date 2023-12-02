@@ -16,7 +16,8 @@ public partial class DroppedWeapon : DroppedItem
 	// Game Events
 	public override void _Ready()
 	{
-		Mesh3D = GetNode<MeshInstance3D>("MeshInstance3D");
+		Mesh3D = GetNode<MeshInstance3D>("Model");
+		Mesh3D.Mesh = Params.mesh;
 	}
 
 	//-------------------------------------------------------------------------

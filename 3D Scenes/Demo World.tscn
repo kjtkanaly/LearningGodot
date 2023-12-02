@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://cqqay3hwve5w1"]
+[gd_scene load_steps=8 format=3 uid="uid://cqqay3hwve5w1"]
 
 [ext_resource type="Script" path="res://Scripts/Main.cs" id="1_6lyrt"]
 [ext_resource type="PackedScene" uid="uid://clci37hx48mlq" path="res://3D Scenes/player_3d.tscn" id="2_ny3ip"]
 [ext_resource type="PackedScene" uid="uid://blaau1h12br12" path="res://3D Scenes/Test Plane.tscn" id="3_wniw4"]
 [ext_resource type="Script" path="res://Scripts/Demo Scripts/Demo3D.cs" id="4_iowm6"]
 [ext_resource type="PackedScene" uid="uid://ddwk21i4byf0h" path="res://3D Scenes/Dropped Weapon.tscn" id="5_r2cy3"]
+[ext_resource type="Resource" uid="uid://bh28y6o25ymin" path="res://Resources/Data Files/Weapons/Ranged/DemoWeapon1.tres" id="6_cwwgs"]
+[ext_resource type="Resource" uid="uid://coyemr8soe3oe" path="res://Resources/Data Files/Weapons/Ranged/DemoWeapon3.tres" id="7_givem"]
 
 [node name="Demo World" type="Node3D"]
 process_mode = 3
@@ -30,4 +32,12 @@ wait_time = 2.0
 one_shot = true
 
 [node name="Dropped Weapon" parent="." instance=ExtResource("5_r2cy3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1.5, 20)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 30, 20)
+Params = ExtResource("6_cwwgs")
+
+[node name="Dropped Weapon 2" parent="." instance=ExtResource("5_r2cy3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 35, 20)
+
+[node name="Dropped Weapon 3" parent="." instance=ExtResource("5_r2cy3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 40, 20)
+Params = ExtResource("7_givem")

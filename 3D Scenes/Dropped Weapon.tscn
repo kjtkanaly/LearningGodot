@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" path="res://Scripts/Items/DroppedWeapon.cs" id="1_culcm"]
 [ext_resource type="Resource" uid="uid://cs0xsheyjfwro" path="res://Resources/Data Files/Weapons/Ranged/DemoWeapon2.tres" id="2_vtf7t"]
-[ext_resource type="BoxMesh" uid="uid://b5o6qac61eiob" path="res://Resources/Meshes/Weapons/Demo Weapon 2.tres" id="3_x5ggg"]
+[ext_resource type="BoxMesh" uid="uid://re2kmmxhswu0" path="res://Resources/Meshes/Weapons/Default Weapon Mesh.tres" id="3_guvp5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8mdg1"]
-size = Vector3(0.2, 0.2, 1.5)
 
 [node name="Dropped Weapon" type="Node3D"]
+process_mode = 1
 script = ExtResource("1_culcm")
 Params = ExtResource("2_vtf7t")
 itemType = 1
@@ -20,6 +20,9 @@ collision_mask = 4
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 2.08165e-12, 2.08165e-12, 2.08165e-12)
 shape = SubResource("BoxShape3D_8mdg1")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Model" type="MeshInstance3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
-mesh = ExtResource("3_x5ggg")
+mesh = ExtResource("3_guvp5")
+
+[node name="Ground Check Ray" type="RayCast3D" parent="."]
+target_position = Vector3(2.08165e-12, -1.5, 2.08165e-12)
