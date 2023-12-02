@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=3 format=3 uid="uid://gjynggd7yxv0"]
+
+[ext_resource type="Script" path="res://Scripts/Resource Scripts/WeaponData.cs" id="1_o1k5n"]
+[ext_resource type="BoxMesh" uid="uid://re2kmmxhswu0" path="res://Resources/Meshes/Weapons/Default Weapon Mesh.tres" id="1_uj55s"]
+
+[resource]
+script = ExtResource("1_o1k5n")
+mesh = ExtResource("1_uj55s")
+damage = 1.0
+reloadTime = 1.0
+magazineSize = 1
+currBullet = 1
