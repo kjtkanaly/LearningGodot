@@ -26,6 +26,7 @@ public partial class DroppedItem : Node3D
 	[Export] public float angularSpeed = 0.5f;
 	[Export] public float fallSpeed = 10.0f;
 	[Export] public float fallAccl = -10.0f;
+	private bool previousGroundCheck, currentGroundCheck;
 
 	//-------------------------------------------------------------------------
 	// Game Events
@@ -57,10 +58,15 @@ public partial class DroppedItem : Node3D
 		if (GroundRay is null)
 			GroundRay = GetNode<RayCast3D>("Ground Check Ray");
 
-		bool CorrectYLevel = GroundRay.IsColliding();
-		
-		if (!CorrectYLevel)
+		currentGroundCheck = GroundRay.IsColliding();
+
+		if (!previousGroundCheck && currentGroundCheck)
+			ResetPhysicProps();
+
+		if (!currentGroundCheck)
 			ApplyGravity(delta);
+
+		previousGroundCheck = currentGroundCheck;
 	}
 
 	public void ApplyGravity(float delta) {
@@ -71,6 +77,10 @@ public partial class DroppedItem : Node3D
 		Position = Pos;		
 		velocity.Y = Vf;
 	}
+
+	private void ResetPhysicProps() {
+		velocity = Vector3.Zero;
+	}	
 	//-------------------------------------------------------------------------
 	// Demo Methods
 }
