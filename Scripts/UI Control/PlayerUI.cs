@@ -16,7 +16,7 @@ public partial class PlayerUI : Control
 	// Game Events
 	public override void _Ready() {
 		AmmoCountLbl = GetNode<Label>("MarginContainer/Ammo Counter V-Container/Ammo Counter H-Container/Ammo Count");
-		PA = GetNode<PrimaryAttack>("../../../../Inventory/Equipped Item/Primary Attack");
+		PA = GetNode<PrimaryAttack>("../../../../Inventory/Equipped Item Slot/Primary Attack");
 	}
 
 	//-------------------------------------------------------------------------

@@ -7,8 +7,8 @@ public partial class EquippedItem : Node3D
 	// Game Componenets
 	public Node MainRoot = null;
 	public CameraMovement CM;
-	public Node3D Head;
-	private Camera3D ActiveCamera = null;
+	public Node3D Head = null;
+	public Camera3D ActiveCamera = null;
 	private Viewport View;
 	public PlayerUI PlyrUI = null;
 	public AnimationPlayer Anime = null;
@@ -30,17 +30,18 @@ public partial class EquippedItem : Node3D
 		Anime = GetNode<AnimationPlayer>("Anime");
 		Mesh3D = GetNode<MeshInstance3D>("Mesh3D");
 		PA = GetNode<PrimaryAttack>("Primary Attack");
-		PlyrUI = GetNode<PlayerUI>("../../../Head/1st Person Camera/Player UI/Control");
+		PlyrUI = GetNode<PlayerUI>("../../Head/1st Person Camera/Player UI/Control");
+		Head = GetNode<Node3D>("../../Head");
 
 		GetActiveCamera();
 
-		Anime.AnimationFinished += ReloadAmmo;
+		Anime.AnimationFinished += PA.ReloadAmmo;
 	}
 
 	public override void _PhysicsProcess(double delta) {
 		GetActiveCamera();
 
-		Rotation = ActiveCamera.Rotation;
+		Rotation = Head.Rotation;
 	}
 
 	public override void _Input(InputEvent @event)
@@ -56,40 +57,6 @@ public partial class EquippedItem : Node3D
 	// RangeWeapon Methods
 	public void GetActiveCamera() {
 		ActiveCamera = CM.ActiveCamera;
-	}
-
-	public int GetCurrentAmmo() {
-		return Params.currBullet;
-	}
-
-	public int IncrementBulletCount() {
-		Params.currBullet -= 1;
-
-		IsMagazineEmpty();
-
-		return Params.currBullet;
-	}
-
-	public bool IsMagazineEmpty() {
-		if (Params.currBullet <= 0) {
-			return true;
-		}
-		return false;
-	}
-
-	public void BeginAmmoReload() {
-		Anime.Play("Reload");
-	}
-
-	public void ReloadAmmo(StringName AnimationName) {
-		if (AnimationName == "Reload") {
-			Params.currBullet = Params.magazineSize;
-			PA.ReloadRangeWeaponUI();
-		}
-	}
-
-	public void PlayShootAnime() {
-		Anime.Play("Shoot");
 	}
 
 	public void DropItem() {

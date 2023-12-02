@@ -17,7 +17,7 @@ public partial class ItemPickup : Area3D
 	// Game Events
 	public override void _Ready()
 	{
-		EquipItem = GetNode<EquippedItem>("../Equipped Item");
+		EquipItem = GetNode<EquippedItem>("../Equipped Item Slot");
 
 		NearbyItems = new List<DroppedItem>();
 

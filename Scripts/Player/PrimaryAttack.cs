@@ -24,7 +24,7 @@ public partial class PrimaryAttack : Node3D
 		EquipItem = GetNode<EquippedItem>("../");
 	}
 
-	public override void _Input(InputEvent @event)
+    public override void _Input(InputEvent @event)
 	{
 		if (@event is InputEventMouseButton eventMouseButton) {
 			if (eventMouseButton.IsActionPressed("Primary Attack")) {
@@ -37,7 +37,7 @@ public partial class PrimaryAttack : Node3D
 
 		if (@event is InputEventKey eventAction) {
 			if (eventAction.IsActionPressed("Reload")) {
-				EquipItem.BeginAmmoReload();
+				BeginAmmoReload();
 			}
 		}
 	}
@@ -45,13 +45,13 @@ public partial class PrimaryAttack : Node3D
 	//-------------------------------------------------------------------------
 	// Primary Attack Methods
 	public void ShootRifle() {
-		if (EquipItem.Anime.IsPlaying() || EquipItem.IsMagazineEmpty())
+		if (EquipItem.Anime.IsPlaying() || IsMagazineEmpty())
 		return;
 
 		// Cast Ray from Camera
 
 		// Play the Shoot Animation
-		EquipItem.PlayShootAnime();
+		PlayShootAnime();
 
 		// Instantiate the bullet
 		BulletInst = (Node3D) BulletRes.Instantiate();
@@ -60,7 +60,7 @@ public partial class PrimaryAttack : Node3D
 		EquipItem.MainRoot.AddChild(BulletInst);
 
 		// Log the consumption of ammo
-		int currBullet = EquipItem.IncrementBulletCount();
+		int currBullet = IncrementBulletCount();
 
 		// Update Player UI
 		EquipItem.PlyrUI.UpdateAmmoCountLbl(EquipItem.Params.magazineSize, currBullet);
@@ -94,8 +94,42 @@ public partial class PrimaryAttack : Node3D
 	}
 
 	public void ReloadRangeWeaponUI() {
-		int currAmmo = EquipItem.GetCurrentAmmo();
+		int currAmmo = GetCurrentAmmo();
 		EquipItem.PlyrUI.UpdateAmmoCountLbl(EquipItem.Params.magazineSize, currAmmo);
+	}
+
+	public int GetCurrentAmmo() {
+		return EquipItem.Params.currBullet;
+	}
+
+	public int IncrementBulletCount() {
+		EquipItem.Params.currBullet -= 1;
+
+		IsMagazineEmpty();
+
+		return EquipItem.Params.currBullet;
+	}
+
+	public bool IsMagazineEmpty() {
+		if (EquipItem.Params.currBullet <= 0) {
+			return true;
+		}
+		return false;
+	}
+
+	public void BeginAmmoReload() {
+		EquipItem.Anime.Play("Reload");
+	}
+
+	public void ReloadAmmo(StringName AnimationName) {
+		if (AnimationName == "Reload") {
+			EquipItem.Params.currBullet = EquipItem.Params.magazineSize;
+			ReloadRangeWeaponUI();
+		}
+	}
+
+	public void PlayShootAnime() {
+		EquipItem.Anime.Play("Shoot");
 	}
 
 	//-------------------------------------------------------------------------

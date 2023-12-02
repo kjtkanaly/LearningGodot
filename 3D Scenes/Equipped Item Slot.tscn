@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://ck6faaaqr5wfy"]
 
-[ext_resource type="Script" path="res://Scripts/Weapons/EquippedItem.cs" id="1_36kqf"]
+[ext_resource type="Script" path="res://Scripts/Weapons/EquippedItem.cs" id="1_kul0g"]
 
 [sub_resource type="Animation" id="Animation_chu2y"]
 resource_name = "Reload"
@@ -41,8 +41,8 @@ _data = {
 "Shoot": SubResource("Animation_ws20b")
 }
 
-[node name="Range Weapon Slot" type="Node3D"]
-script = ExtResource("1_36kqf")
+[node name="Equipped Item Slot" type="Node3D"]
+script = ExtResource("1_kul0g")
 
 [node name="Mesh3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, -0.5)
