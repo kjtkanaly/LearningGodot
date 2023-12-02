@@ -9,7 +9,7 @@ public partial class PrimaryAttack : Node3D
 	private Node MainRoot = null;
 	private CameraMovement CM = null;
 	public RayCast3D GunBarrel = null;
-	public RangeWeapon RangeWeaponSlot = null;
+	public EquippedItem RangeWeaponSlot = null;
 	public Node3D BulletInst = null;
 	public PlayerUI PlyrUI = null;
 	public PackedScene BulletRes = (PackedScene) GD.Load("res://3D Scenes/Bullet.tscn");
@@ -24,10 +24,10 @@ public partial class PrimaryAttack : Node3D
 	public override void _Ready()
 	{
 		MainRoot = GetTree().Root.GetChild(0);
-		CM = GetNode<CameraMovement>("../Head");
-		GunBarrel = GetNode<RayCast3D>("../Head/Range Weapon Slot/RayCast3D");
-		RangeWeaponSlot = GetNode<RangeWeapon>("../Head/Range Weapon Slot");
-		PlyrUI = GetNode<PlayerUI>("../Head/1st Person Camera/Player UI/Control");
+		CM = GetNode<CameraMovement>("../../../Head");
+		GunBarrel = GetNode<RayCast3D>("../Barrel");
+		RangeWeaponSlot = GetNode<EquippedItem>("../");
+		PlyrUI = GetNode<PlayerUI>("../../../Head/1st Person Camera/Player UI/Control");
 	}
 
 	public override void _Input(InputEvent @event)

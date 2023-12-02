@@ -1,13 +1,11 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 
 public partial class ItemPickup : Area3D
 {
 	//-------------------------------------------------------------------------
 	// Game Componenets
-	public RayCast3D PlayerLOS = null;
 	private PrimaryAttack PA = null;
 
 	// Godot Types
@@ -19,9 +17,7 @@ public partial class ItemPickup : Area3D
 	// Game Events
 	public override void _Ready()
 	{
-		PA = GetNode<PrimaryAttack>("../Primary Attack");
-		PlayerLOS = GetNode<RayCast3D>("../Head/1st Person Camera/Iteract with items");
-		// PlayerLOS = GetNode<RayCast3D>("../Head/Rifle/Iteract with items");
+		PA = GetNode<PrimaryAttack>("../Equipped Item/Primary Attack");
 
 		NearbyItems = new List<DroppedItem>();
 

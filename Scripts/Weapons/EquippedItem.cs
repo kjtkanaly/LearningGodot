@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class RangeWeapon : Node3D
+public partial class EquippedItem : Node3D
 {
 	//-------------------------------------------------------------------------
 	// Game Componenets
@@ -23,10 +23,10 @@ public partial class RangeWeapon : Node3D
 	//-------------------------------------------------------------------------
 	// Game Events
 	public override void _Ready() {
-		CM = GetParent<CameraMovement>();
-		Anime = GetNode<AnimationPlayer>("AnimationPlayer");
-		Mesh3D = GetNode<MeshInstance3D>("MeshInstance3D");
-		PA = GetNode<PrimaryAttack>("../../Primary Attack");
+		CM = GetNode<CameraMovement>("../../Head");
+		Anime = GetNode<AnimationPlayer>("Anime");
+		Mesh3D = GetNode<MeshInstance3D>("Mesh3D");
+		PA = GetNode<PrimaryAttack>("Primary Attack");
 
 		GetActiveCamera();
 
