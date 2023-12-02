@@ -11,7 +11,7 @@ public partial class RangeWeapon : Node3D
 	private Viewport View;
 	public AnimationPlayer Anime = null;
 	private PrimaryAttack PA = null;
-	[Export] public WeaponData Params = null;
+	public WeaponData Params = null;
 	public MeshInstance3D Mesh3D = null;
 
 	// Godot Types
@@ -37,6 +37,15 @@ public partial class RangeWeapon : Node3D
 		GetActiveCamera();
 
 		Rotation = ActiveCamera.Rotation;
+	}
+
+	public override void _Input(InputEvent @event)
+	{
+		if (@event is InputEventKey eventAction) {
+			if (eventAction.IsActionPressed("Drop Item")) {
+				DropItem();
+			}
+		}
 	}
 
 	//-------------------------------------------------------------------------
@@ -77,6 +86,14 @@ public partial class RangeWeapon : Node3D
 
 	public void PlayShootAnime() {
 		Anime.Play("Shoot");
+	}
+
+	public void DropItem() {
+		if (Params == null)
+			return;
+
+		Params = null;
+		Mesh3D.Mesh = null;
 	}
 	//-------------------------------------------------------------------------
 	// Demo Methods
