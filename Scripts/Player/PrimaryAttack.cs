@@ -24,14 +24,16 @@ public partial class PrimaryAttack : Node3D
 		EquipItem = GetNode<EquippedItem>("../");
 	}
 
-    public override void _Input(InputEvent @event)
+	public override void _Input(InputEvent @event)
 	{
 		if (@event is InputEventMouseButton eventMouseButton) {
 			if (eventMouseButton.IsActionPressed("Primary Attack")) {
+				if (EquipItem.Params == null)
+					return;
+
 				// Cast Ray from Active Camera
 				Dictionary target = CastRayFromCamera(eventMouseButton);
 				ShootRifle();
-
 			}
 		}
 
@@ -46,7 +48,7 @@ public partial class PrimaryAttack : Node3D
 	// Primary Attack Methods
 	public void ShootRifle() {
 		if (EquipItem.Anime.IsPlaying() || IsMagazineEmpty())
-		return;
+			return;
 
 		// Cast Ray from Camera
 

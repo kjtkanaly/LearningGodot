@@ -6,10 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://dhw0bhrl2d1uj" path="res://UI/Player UI.tscn" id="3_cfnr4"]
 [ext_resource type="PackedScene" uid="uid://ck6faaaqr5wfy" path="res://3D Scenes/Equipped Item Slot.tscn" id="4_mvknr"]
 [ext_resource type="Script" path="res://Scripts/Player/Inventory.cs" id="5_7cql8"]
+[ext_resource type="Script" path="res://Scripts/Player/ItemPickupZone.cs" id="6_gm28o"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerData.cs" id="7_jat8o"]
 [ext_resource type="Resource" uid="uid://denq5e5nlg01j" path="res://Resources/Data Files/DefaultPlayerMovementData.tres" id="8_5oneq"]
 [ext_resource type="Script" path="res://Scripts/Player/PrimaryAttack.cs" id="8_yqkri"]
-[ext_resource type="Script" path="res://Scripts/Player/ItemPickup.cs" id="10_mtmie"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_nvy0a"]
 
@@ -80,9 +80,9 @@ script = ExtResource("5_7cql8")
 [node name="Item Pickup Area" type="Area3D" parent="Inventory"]
 collision_layer = 4
 collision_mask = 4
-script = ExtResource("10_mtmie")
+script = ExtResource("6_gm28o")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Inventory/Item Pickup Area"]
+[node name="Item Pickup Shape" type="CollisionShape3D" parent="Inventory/Item Pickup Area"]
 shape = SubResource("CylinderShape3D_ywp3e")
 
 [node name="Equipped Item Slot" parent="Inventory" instance=ExtResource("4_mvknr")]

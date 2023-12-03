@@ -5,8 +5,8 @@
 
 [resource]
 script = ExtResource("1_o1k5n")
-mesh = ExtResource("1_uj55s")
 damage = 1.0
 reloadTime = 1.0
 magazineSize = 1
 currBullet = 1
+mesh = ExtResource("1_uj55s")

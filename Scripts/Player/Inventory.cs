@@ -8,7 +8,7 @@ public partial class Inventory : Node3D
     // Game Componenets
 
     // Godot Types
-	List<List<Item>> inventory = new List<List<Item>>();
+	List<ItemData> MainInventory = new List<ItemData>();
 
     // Basic Types
 	const int inventorySlots = 30;
@@ -17,11 +17,14 @@ public partial class Inventory : Node3D
     // Game Events
 	public override void _Ready()
 	{
-		inventory = new List<List<Item>>(inventorySlots);
+		MainInventory = new List<ItemData>();
 	}
 
     //-------------------------------------------------------------------------
-    // <Inventory> Methods
+    // Inventory Methods
+    public void PickupItem() {
+        
+    }
 
     //-------------------------------------------------------------------------
     // Demo Methods

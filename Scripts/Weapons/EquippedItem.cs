@@ -40,8 +40,7 @@ public partial class EquippedItem : Node3D
 
 	public override void _PhysicsProcess(double delta) {
 		GetActiveCamera();
-
-		Rotation = Head.Rotation;
+		RotateItem();
 	}
 
 	public override void _Input(InputEvent @event)
@@ -59,6 +58,12 @@ public partial class EquippedItem : Node3D
 		ActiveCamera = CM.ActiveCamera;
 	}
 
+	public void RotateItem(){
+		Vector3 rot = Rotation;
+		rot.X = Head.Rotation.X;
+		Rotation = rot;
+	}
+
 	public void DropItem() {
 		if (Params == null)
 			return;
@@ -66,6 +71,7 @@ public partial class EquippedItem : Node3D
 		Params = null;
 		Mesh3D.Mesh = null;
 	}
+
 	//-------------------------------------------------------------------------
 	// Demo Methods
 }

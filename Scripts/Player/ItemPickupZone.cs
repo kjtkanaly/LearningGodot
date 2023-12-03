@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class ItemPickup : Area3D
+public partial class ItemPickupZone : Area3D
 {
 	//-------------------------------------------------------------------------
 	// Game Componenets
