@@ -21,3 +21,4 @@ script = ExtResource("3_v6lxo")
 itemData = SubResource("Resource_dkrll")
 weaponData = SubResource("Resource_kqfo5")
 itemType = 1
+itemName = "Fuck you"

@@ -22,15 +22,6 @@ public partial class ItemPickupZone : Area3D
 		AreaExited += ItemOutPlayerRange;
 	}
 
-	public override void _Input(InputEvent @event)
-	{
-		if (@event is InputEventKey eventAction) {
-			if (eventAction.IsActionPressed("Pickup Item")) {
-				PickupItem();
-			}
-		}
-	}
-
 	//-------------------------------------------------------------------------
 	// Item Pickup Methods
 	public void ItemInPlayerRange(Area3D RxArea) {
@@ -43,23 +34,17 @@ public partial class ItemPickupZone : Area3D
 		NearbyItems.Remove(NearbyItem);
 	}
 
-	public Item PickupItem() {
+	public DroppedItem GetNearestItem() {
 		if (NearbyItems.Count == 0) {
 			GD.Print("Nothing nearby!");
 			return null;
 		}
 
-		return NearbyItems[0].ItemParams;
+		return NearbyItems[0];
 	}
 
-	public void DropWeapon(DroppedWeapon dropWeapon, WeaponData data) {
-		// Update the newly dropped weapon's data
-		// dropWeapon.ItemParams = data;
-		// dropWeapon.Mesh3D.Mesh = data.mesh;
-	}
-
-	public void DestroyNearbyWeapon(DroppedWeapon NearbyWeapon) {
-		NearbyWeapon.QueueFree();
+	public void RemoveItemFromNearbyList(DroppedItem item) {
+		NearbyItems.Remove(item);
 	}
 
 	//-------------------------------------------------------------------------

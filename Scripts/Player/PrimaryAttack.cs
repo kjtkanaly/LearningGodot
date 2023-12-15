@@ -62,10 +62,12 @@ public partial class PrimaryAttack : Node3D
 		EquipItem.MainRoot.AddChild(BulletInst);
 
 		// Log the consumption of ammo
-		int currBullet = IncrementBulletCount();
+		IncrementBulletCount();
 
 		// Update Player UI
-		// EquipItem.PlyrUI.UpdateAmmoCountLbl(EquipItem.Params.magazineSize, currBullet);
+		EquipItem.PlyrUI.UpdateAmmoCountLbl(
+			EquipItem.ItemParams.weaponData.magazineSize, 
+			EquipItem.ItemParams.weaponData.currBullet);
 	}
 
 	public Dictionary CastRayFromCamera(InputEventMouseButton eventMB) {
@@ -95,32 +97,23 @@ public partial class PrimaryAttack : Node3D
 	}
 
 	public void ReloadRangeWeaponUI() {
-		int currAmmo = GetCurrentAmmo();
-		// EquipItem.PlyrUI.UpdateAmmoCountLbl(EquipItem.Params.magazineSize, currAmmo);
-	}
-
-	public int GetCurrentAmmo() {
-		// return EquipItem.Params.currBullet;
-		return 10;
+		EquipItem.PlyrUI.UpdateAmmoCountLbl(
+			EquipItem.ItemParams.weaponData.magazineSize, 
+			EquipItem.ItemParams.weaponData.currBullet);
 	}
 
 	public int IncrementBulletCount() {
-		/*EquipItem.Params.currBullet -= 1;
+		EquipItem.ItemParams.weaponData.currBullet -= 1;
 
 		IsMagazineEmpty();
 
-		return EquipItem.Params.currBullet;
-		*/
-		return 10;
+		return EquipItem.ItemParams.weaponData.currBullet;
 	}
 
 	public bool IsMagazineEmpty() {
-		/*
-		if (EquipItem.Params.currBullet <= 0) {
+		if (EquipItem.ItemParams.weaponData.currBullet <= 0) {
 			return true;
 		}
-		return false;
-		*/
 		return false;
 	}
 
@@ -129,12 +122,11 @@ public partial class PrimaryAttack : Node3D
 	}
 
 	public void ReloadAmmo(StringName AnimationName) {
-		/*
 		if (AnimationName == "Reload") {
-			EquipItem.Params.currBullet = EquipItem.Params.magazineSize;
+			EquipItem.ItemParams.weaponData.currBullet = 
+				EquipItem.ItemParams.weaponData.magazineSize;
 			ReloadRangeWeaponUI();
 		}
-		*/
 	}
 
 	public void PlayShootAnime() {

@@ -1,23 +1,24 @@
 [gd_resource type="Resource" script_class="Item" load_steps=7 format=3 uid="uid://dtyntt2m8hjjq"]
 
-[ext_resource type="Script" path="res://Scripts/Items/Item.cs" id="1_gqk3e"]
-[ext_resource type="BoxMesh" uid="uid://pl7cvhs0m4p3" path="res://Resources/Meshes/Weapons/Demo Weapon 3.tres" id="1_lpsho"]
-[ext_resource type="Script" path="res://Scripts/Resource Scripts/GenericItemData.cs" id="2_d2og4"]
-[ext_resource type="Script" path="res://Scripts/Resource Scripts/WeaponData.cs" id="4_qcmlb"]
+[ext_resource type="BoxMesh" uid="uid://pl7cvhs0m4p3" path="res://Resources/Meshes/Weapons/Demo Weapon 3.tres" id="1_dyxdk"]
+[ext_resource type="Script" path="res://Scripts/Resource Scripts/GenericItemData.cs" id="2_g5p3c"]
+[ext_resource type="Script" path="res://Scripts/Items/Item.cs" id="3_re4qd"]
+[ext_resource type="Script" path="res://Scripts/Resource Scripts/WeaponData.cs" id="4_ews4s"]
 
 [sub_resource type="Resource" id="Resource_efqe6"]
-script = ExtResource("2_d2og4")
-mesh = ExtResource("1_lpsho")
+script = ExtResource("2_g5p3c")
+mesh = ExtResource("1_dyxdk")
 
 [sub_resource type="Resource" id="Resource_gv0lv"]
-script = ExtResource("4_qcmlb")
+script = ExtResource("4_ews4s")
 damage = 10.0
 reloadTime = 1.0
 magazineSize = 8
 currBullet = 6
 
 [resource]
-script = ExtResource("1_gqk3e")
+script = ExtResource("3_re4qd")
 itemData = SubResource("Resource_efqe6")
 weaponData = SubResource("Resource_gv0lv")
 itemType = 1
+itemName = "Gun Fuck you"

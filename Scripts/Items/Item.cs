@@ -19,6 +19,7 @@ public partial class Item : Resource
 	[Export] public ItemType itemType = ItemType.Default;
 
 	// Basic Types
+	[Export] public string itemName = "";
 
 	//-------------------------------------------------------------------------
 	// Game Events

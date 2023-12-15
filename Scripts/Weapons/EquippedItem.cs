@@ -10,13 +10,13 @@ public partial class EquippedItem : Node3D
 	public Node3D Head = null;
 	public Camera3D ActiveCamera = null;
 	private Viewport View;
-	public PlayerUI PlyrUI = null;
 	public AnimationPlayer Anime = null;
-	private PrimaryAttack PA = null;
-	public Item ItemParams = null;
 	public MeshInstance3D Mesh3D = null;
 
 	// Godot Types
+	private PrimaryAttack PA = null;
+	public Item ItemParams = null;
+	public PlayerUI PlyrUI = null;
 
 	// Basic Types
 	private float rayLength = 1000.0f;
@@ -58,10 +58,20 @@ public partial class EquippedItem : Node3D
 		ActiveCamera = CM.ActiveCamera;
 	}
 
-	public void RotateItem(){
+	public void RotateItem() {
 		Vector3 rot = Rotation;
 		rot.X = Head.Rotation.X;
 		Rotation = rot;
+	}
+
+	public void equipItem(Item item) {
+		ItemParams = item;
+		Mesh3D.Mesh = item.itemData.mesh;
+
+		if (item.itemType == Item.ItemType.Weapon) 
+			PlyrUI.UpdateAmmoCountLbl(
+				item.weaponData.magazineSize, 
+				item.weaponData.currBullet);
 	}
 
 	public void DropItem() {

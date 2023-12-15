@@ -4,40 +4,71 @@ using System.Collections.Generic;
 
 public partial class Inventory : Node3D
 {
-    //-------------------------------------------------------------------------
-    // Game Componenets
-    private ItemPickupZone ItemPickupArea = null;
-    private EquippedItem EquippedItemSlot = null;
+	//-------------------------------------------------------------------------
+	// Game Componenets
+	private ItemPickupZone itemPickupArea = null;
+	private EquippedItem equippedItemSlot = null;
+	private PlayerUI playerUI = null;
 
-    // Godot Types
+	// Godot Types
 	List<Item> MainInventory = new List<Item>();
 
-    // Basic Types
-	const int inventorySlots = 30;
+	// Basic Types
+	public float maxInventoryWeight = 50.0f;
+	public float currInventoryWeight = 0.0f;
 
-    //-------------------------------------------------------------------------
-    // Game Events
+	//-------------------------------------------------------------------------
+	// Game Events
 	public override void _Ready()
 	{
-        ItemPickupArea = GetNode<ItemPickupZone>("Item Pickup Area");
-        EquippedItemSlot = GetNode<EquippedItem>("../Equipped Item Slot");
+		itemPickupArea = GetNode<ItemPickupZone>("Item Pickup Area");
+		equippedItemSlot = GetNode<EquippedItem>("Equipped Item Slot");
+		playerUI = GetNode<PlayerUI>("../Head/1st Person Camera/Player UI/Control");
 		MainInventory = new List<Item>();
+
+		CheckCurrInventoryWeight();
 	}
 
-    //-------------------------------------------------------------------------
-    // Inventory Methods
-    public void PickupItem() {
-        Item NearbyItemData = ItemPickupArea.PickupItem();
-        MainInventory.Add(NearbyItemData);
-    }
+	public override void _Input(InputEvent @event)
+	{
+		if (@event is InputEventKey eventAction) {
+			if (eventAction.IsActionPressed("Pickup Item")) {
+				PickupItem();
+			}
+		}
+	}
 
-    public void EquipItem() {
-        if (MainInventory[0].itemType == Item.ItemType.Weapon)
-            //EquipWeapon((WeaponData) MainInventory[0]);
-            return;
-    }
+	//-------------------------------------------------------------------------
+	// Inventory Methods
+	public void PickupItem() {
+		DroppedItem NearbyItem = itemPickupArea.GetNearestItem();
 
-    public void EquipWeapon(Item itemData) {
+		if (NearbyItem == null)
+			return;
+
+		MainInventory.Add(NearbyItem.ItemParams);
+
+		// Add new item weight to the current inentory weight
+		currInventoryWeight += NearbyItem.ItemParams.itemData.weight;
+
+		// Check if the player should auto equip this item
+		if (equippedItemSlot.ItemParams == null)
+			equippedItemSlot.equipItem(NearbyItem.ItemParams);
+
+		// Remove the item from the nearby items list
+		itemPickupArea.RemoveItemFromNearbyList(NearbyItem);
+
+		// Destroy the Dropped item
+		NearbyItem.QueueFree();
+	}
+
+	public void EquipItem() {
+		if (MainInventory[0].itemType == Item.ItemType.Weapon)
+			//EquipWeapon((WeaponData) MainInventory[0]);
+			return;
+	}
+
+	public void EquipWeapon(Item itemData) {
 		/*// Store the Currently Held Weapon's Data
 		WeaponData tempData = EquippedItemSlot.Params;
 
@@ -48,9 +79,15 @@ public partial class Inventory : Node3D
 		// Update the Player UI
 		EquippedItemSlot.PlyrUI.UpdateAmmoCountLbl(EquippedItemSlot.Params.magazineSize, 
 									 EquippedItemSlot.Params.currBullet);
-        /**/
+		/**/
 	}
 
-    //-------------------------------------------------------------------------
-    // Demo Methods
+	public void CheckCurrInventoryWeight() {
+		for (int i = 0; i < MainInventory.Count; i++) {
+			currInventoryWeight += MainInventory[i].itemData.weight;
+		}
+	}
+
+	//-------------------------------------------------------------------------
+	// Demo Methods
 }
