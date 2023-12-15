@@ -1,0 +1,45 @@
+[gd_scene load_steps=9 format=3 uid="uid://b84y0vvwykhn1"]
+
+[ext_resource type="Script" path="res://Scripts/Main.cs" id="1_aamwr"]
+[ext_resource type="PackedScene" uid="uid://clci37hx48mlq" path="res://3D Scenes/player_3d.tscn" id="2_0ido2"]
+[ext_resource type="PackedScene" uid="uid://blaau1h12br12" path="res://3D Scenes/Test Plane.tscn" id="3_myt0s"]
+[ext_resource type="Script" path="res://Scripts/Demo Scripts/Demo3D.cs" id="4_krj7x"]
+[ext_resource type="PackedScene" uid="uid://ddwk21i4byf0h" path="res://3D Scenes/Dropped Item.tscn" id="5_hfphu"]
+[ext_resource type="Resource" uid="uid://du05na36hsfxi" path="res://Resources/Data Files/Items/Weapons/Ranged/DemoWeapon1.tres" id="6_iffbw"]
+[ext_resource type="Resource" uid="uid://cp6klqbxrpv1b" path="res://Resources/Data Files/Items/Weapons/Ranged/DemoWeapon2.tres" id="7_25hs2"]
+[ext_resource type="Resource" uid="uid://dtyntt2m8hjjq" path="res://Resources/Data Files/Items/Weapons/Ranged/DemoWeapon3.tres" id="8_wiunu"]
+
+[node name="Demo World" type="Node3D"]
+process_mode = 3
+script = ExtResource("1_aamwr")
+
+[node name="Player" parent="." instance=ExtResource("2_0ido2")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 2.08165e-12, 2.2, 2.08165e-12)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+process_mode = 1
+transform = Transform3D(1, -5.95416e-16, 2.4663e-16, 2.4663e-16, 0.707107, 0.707107, -5.95416e-16, -0.707107, 0.707107, 2.08165e-12, 5, 2.08165e-12)
+
+[node name="Test Plane Mesh" parent="." instance=ExtResource("3_myt0s")]
+process_mode = 1
+transform = Transform3D(200, 0, 0, 0, 100, 0, 0, 0, 200, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+
+[node name="Demo" type="Node3D" parent="."]
+process_mode = 1
+script = ExtResource("4_krj7x")
+
+[node name="Quit Game" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="Dropped Item 1" parent="." instance=ExtResource("5_hfphu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 30, 20)
+ItemParams = ExtResource("6_iffbw")
+
+[node name="Dropped Item 2" parent="." instance=ExtResource("5_hfphu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 35, 20)
+ItemParams = ExtResource("7_25hs2")
+
+[node name="Dropped Item 3" parent="." instance=ExtResource("5_hfphu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 40, 20)
+ItemParams = ExtResource("8_wiunu")

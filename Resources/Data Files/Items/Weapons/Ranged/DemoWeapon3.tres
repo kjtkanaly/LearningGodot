@@ -8,6 +8,7 @@
 [sub_resource type="Resource" id="Resource_efqe6"]
 script = ExtResource("2_g5p3c")
 mesh = ExtResource("1_dyxdk")
+weight = 1.0
 
 [sub_resource type="Resource" id="Resource_gv0lv"]
 script = ExtResource("4_ews4s")

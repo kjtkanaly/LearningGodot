@@ -1,0 +1,106 @@
+[gd_scene load_steps=19 format=3 uid="uid://dt16g2y07id3j"]
+
+[ext_resource type="Script" path="res://Scripts/Player/PlayerMovement.cs" id="1_eejot"]
+[ext_resource type="Script" path="res://Scripts/Player/CameraMovement.cs" id="2_rt2yi"]
+[ext_resource type="Environment" uid="uid://c65t7aslelfj0" path="res://Enviroments/Default.tres" id="3_k41oj"]
+[ext_resource type="PackedScene" uid="uid://dhw0bhrl2d1uj" path="res://UI/Player UI.tscn" id="4_417fq"]
+[ext_resource type="PackedScene" uid="uid://ctb1l86ovmhnt" path="res://UI/inventory_ui.tscn" id="5_fxeri"]
+[ext_resource type="Script" path="res://Scripts/Player/Inventory.cs" id="6_xrqbp"]
+[ext_resource type="Script" path="res://Scripts/Player/ItemPickupZone.cs" id="7_jhdwf"]
+[ext_resource type="PackedScene" uid="uid://ck6faaaqr5wfy" path="res://3D Scenes/Equipped Item Slot.tscn" id="8_x5i4q"]
+[ext_resource type="Script" path="res://Scripts/Player/PrimaryAttack.cs" id="9_2jvjg"]
+[ext_resource type="Script" path="res://Scripts/Player/PlayerData.cs" id="10_0iwbg"]
+[ext_resource type="Resource" uid="uid://denq5e5nlg01j" path="res://Resources/Data Files/DefaultPlayerMovementData.tres" id="11_tm3r0"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_nvy0a"]
+
+[sub_resource type="Skin" id="Skin_1ien1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yynsy"]
+albedo_color = Color(0.380392, 0.380392, 0.380392, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_aprrd"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ywp3e"]
+radius = 5.0
+
+[sub_resource type="Animation" id="Animation_hjog8"]
+resource_name = "Roll"
+length = 0.5
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(3.14159, 3.48787e-16, 3.48787e-16), Vector3(6.28319, 3.48787e-16, 3.48787e-16)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7msil"]
+_data = {
+"Roll": SubResource("Animation_hjog8")
+}
+
+[node name="Player" type="CharacterBody3D"]
+process_mode = 1
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+script = ExtResource("1_eejot")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_nvy0a")
+skin = SubResource("Skin_1ien1")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_yynsy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_aprrd")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(-1, 3.48787e-16, -8.74228e-08, 3.48787e-16, 1, -3.48787e-16, 8.74228e-08, -3.48787e-16, -1, 2.08165e-12, 0.8, 0.1)
+script = ExtResource("2_rt2yi")
+
+[node name="1st Person Camera" type="Camera3D" parent="Head"]
+transform = Transform3D(1, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, -3.48787e-16, -3.48787e-16, 3.48787e-16, 1, 0, 0, 0)
+environment = ExtResource("3_k41oj")
+current = true
+
+[node name="Player UI" parent="Head/1st Person Camera" instance=ExtResource("4_417fq")]
+
+[node name="Inventory UI" parent="Head/1st Person Camera" instance=ExtResource("5_fxeri")]
+
+[node name="3rd Person Camera" type="Camera3D" parent="Head"]
+transform = Transform3D(1, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, -3.48787e-16, -3.48787e-16, 3.48787e-16, 1, 1.5, 0.3, 3)
+environment = ExtResource("3_k41oj")
+
+[node name="Inventory" type="Node3D" parent="."]
+process_mode = 3
+script = ExtResource("6_xrqbp")
+
+[node name="Item Pickup Area" type="Area3D" parent="Inventory"]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("7_jhdwf")
+
+[node name="Item Pickup Shape" type="CollisionShape3D" parent="Inventory/Item Pickup Area"]
+shape = SubResource("CylinderShape3D_ywp3e")
+
+[node name="Equipped Item Slot" parent="Inventory" instance=ExtResource("8_x5i4q")]
+transform = Transform3D(-0.5, 1.74393e-16, 7.54979e-08, 1.74393e-16, 0.5, -1.74393e-16, -7.54979e-08, -1.74393e-16, -0.5, -0.4, 0.4, 0.5)
+
+[node name="Primary Attack" type="Node3D" parent="Inventory/Equipped Item Slot"]
+transform = Transform3D(-2, 6.97576e-16, -1.74846e-07, 6.97572e-16, 2, -6.97576e-16, 1.74846e-07, -6.97572e-16, -2, -0.8, -0.8, 1)
+script = ExtResource("9_2jvjg")
+
+[node name="Player Data" type="Node3D" parent="."]
+script = ExtResource("10_0iwbg")
+movementData = ExtResource("11_tm3r0")
+
+[node name="Anime" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_7msil")
+}

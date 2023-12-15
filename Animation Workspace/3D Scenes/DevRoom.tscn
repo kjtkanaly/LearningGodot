@@ -1,0 +1,58 @@
+[gd_scene load_steps=12 format=3 uid="uid://c0rmni7e1pqpt"]
+
+[ext_resource type="Environment" uid="uid://c65t7aslelfj0" path="res://Enviroments/Default.tres" id="1_arksv"]
+[ext_resource type="PackedScene" uid="uid://cul3vx1i2mv3t" path="res://Enviroments/Dustwalker2.tscn" id="2_7fb5x"]
+[ext_resource type="PackedScene" uid="uid://cbm3gk0tamvoi" path="res://Models/Mc.tscn" id="3_cb2fv"]
+[ext_resource type="PackedScene" uid="uid://blaau1h12br12" path="res://3D Scenes/Test Plane.tscn" id="4_uxyrh"]
+[ext_resource type="PackedScene" uid="uid://bleulff332aun" path="res://Models/Tree1.tscn" id="5_6tc0k"]
+[ext_resource type="PackedScene" uid="uid://dax8qq031j5bw" path="res://Models/Stone.tscn" id="6_exyt0"]
+[ext_resource type="PackedScene" uid="uid://cdvkha53sssf0" path="res://Wagon Wheel.tscn" id="7_l42ys"]
+[ext_resource type="PackedScene" uid="uid://dci28205hl7i7" path="res://Models/Grass1.tscn" id="8_50e7t"]
+[ext_resource type="PackedScene" uid="uid://cjf2j8blapt41" path="res://Enviroments/OilWell.tscn" id="9_thgbm"]
+[ext_resource type="PackedScene" uid="uid://biusw0evisqcf" path="res://Enviroments/winchester.tscn" id="10_qvnls"]
+[ext_resource type="PackedScene" uid="uid://clci37hx48mlq" path="res://3D Scenes/player_3d.tscn" id="11_va8eo"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_arksv")
+
+[node name="Dustwalker2" parent="." instance=ExtResource("2_7fb5x")]
+transform = Transform3D(2.31, 0, 0, 0, 2.31, 0, 0, 0, 2.31, 0, 0, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.607035, 0.64014, -0.47088, 0.292032, 0.730781, 0.61699, 0.739071, 0.237022, -0.630551, 0.266556, 6.5577, 0)
+shadow_enabled = true
+shadow_opacity = 0.2
+shadow_blur = 0.0
+directional_shadow_mode = 1
+directional_shadow_fade_start = 0.761
+directional_shadow_max_distance = 89.1
+directional_shadow_pancake_size = 1.5
+
+[node name="Mc" parent="." instance=ExtResource("3_cb2fv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.75629, 0, 0)
+
+[node name="Test Plane Mesh" parent="." instance=ExtResource("4_uxyrh")]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0, 0, 0)
+
+[node name="Tree1" parent="." instance=ExtResource("5_6tc0k")]
+transform = Transform3D(1.59, 0, 0, 0, 1.59, 0, 0, 0, 1.59, -16.6821, 0, -20.4177)
+
+[node name="Stone" parent="." instance=ExtResource("6_exyt0")]
+transform = Transform3D(-0.999981, 0, -0.00609115, 0, 1, 0, 0.00609115, 0, -0.999981, -11.6865, 0, -17.2673)
+
+[node name="Wagon Wheel" parent="." instance=ExtResource("7_l42ys")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.6546, 0, -17.2673)
+
+[node name="Grass1" parent="." instance=ExtResource("8_50e7t")]
+transform = Transform3D(0.32, 0, 0, 0, 0.32, 0, 0, 0, 0.32, -16.6385, 0, -17.4159)
+
+[node name="OilWell2" parent="." instance=ExtResource("9_thgbm")]
+transform = Transform3D(-3.14, 0, -2.74508e-07, 0, 3.14, 0, 2.74508e-07, 0, -3.14, 2.24341, 0, -21.1875)
+
+[node name="winchester" parent="." instance=ExtResource("10_qvnls")]
+transform = Transform3D(0.425, 0, 0, 0, 0.425, 0, 0, 0, 0.425, -13.326, -0.102324, -0.00364089)
+
+[node name="Player" parent="." instance=ExtResource("11_va8eo")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -7.8914, 2.03661, 7.49208)
