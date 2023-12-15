@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://clci37hx48mlq"]
+[gd_scene load_steps=19 format=3 uid="uid://clci37hx48mlq"]
 
 [ext_resource type="Script" path="res://Scripts/Player/PlayerMovement.cs" id="1_u8u3w"]
 [ext_resource type="Environment" uid="uid://c65t7aslelfj0" path="res://Enviroments/Default.tres" id="2_ah7nu"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dhw0bhrl2d1uj" path="res://UI/Player UI.tscn" id="3_cfnr4"]
 [ext_resource type="PackedScene" uid="uid://ck6faaaqr5wfy" path="res://3D Scenes/Equipped Item Slot.tscn" id="4_mvknr"]
 [ext_resource type="Script" path="res://Scripts/Player/Inventory.cs" id="5_7cql8"]
+[ext_resource type="PackedScene" uid="uid://ctb1l86ovmhnt" path="res://UI/inventory_ui.tscn" id="5_wq6y4"]
 [ext_resource type="Script" path="res://Scripts/Player/ItemPickupZone.cs" id="6_gm28o"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerData.cs" id="7_jat8o"]
 [ext_resource type="Resource" uid="uid://denq5e5nlg01j" path="res://Resources/Data Files/DefaultPlayerMovementData.tres" id="8_5oneq"]
@@ -69,6 +70,8 @@ environment = ExtResource("2_ah7nu")
 current = true
 
 [node name="Player UI" parent="Head/1st Person Camera" instance=ExtResource("3_cfnr4")]
+
+[node name="Inventory UI" parent="Head/1st Person Camera" instance=ExtResource("5_wq6y4")]
 
 [node name="3rd Person Camera" type="Camera3D" parent="Head"]
 transform = Transform3D(1, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, -3.48787e-16, -3.48787e-16, 3.48787e-16, 1, 1.5, 0.3, 3)

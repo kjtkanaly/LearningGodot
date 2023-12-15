@@ -9,6 +9,7 @@ public partial class Inventory : Node3D
 	private ItemPickupZone itemPickupArea = null;
 	private EquippedItem equippedItemSlot = null;
 	private PlayerUI playerUI = null;
+	private InventoryUI inventoryUI = null;
 
 	// Godot Types
 	List<Item> MainInventory = new List<Item>();
@@ -24,6 +25,7 @@ public partial class Inventory : Node3D
 		itemPickupArea = GetNode<ItemPickupZone>("Item Pickup Area");
 		equippedItemSlot = GetNode<EquippedItem>("Equipped Item Slot");
 		playerUI = GetNode<PlayerUI>("../Head/1st Person Camera/Player UI/Control");
+		inventoryUI = GetNode<InventoryUI>("../Head/1st Person Camera/Inventory UI");
 		MainInventory = new List<Item>();
 
 		CheckCurrInventoryWeight();
@@ -34,6 +36,10 @@ public partial class Inventory : Node3D
 		if (@event is InputEventKey eventAction) {
 			if (eventAction.IsActionPressed("Pickup Item")) {
 				PickupItem();
+			}
+
+			if (eventAction.IsActionPressed("Inventory")) {
+				ToggleInventoryUI();
 			}
 		}
 	}
@@ -85,6 +91,14 @@ public partial class Inventory : Node3D
 	public void CheckCurrInventoryWeight() {
 		for (int i = 0; i < MainInventory.Count; i++) {
 			currInventoryWeight += MainInventory[i].itemData.weight;
+		}
+	}
+
+	public void ToggleInventoryUI() {
+		if (inventoryUI.isOpen) {
+			inventoryUI.Close();
+		} else {
+			inventoryUI.Open();
 		}
 	}
 
