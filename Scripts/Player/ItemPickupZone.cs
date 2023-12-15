@@ -6,7 +6,6 @@ public partial class ItemPickupZone : Area3D
 {
 	//-------------------------------------------------------------------------
 	// Game Componenets
-	private EquippedItem EquipItem = null;
 
 	// Godot Types
 	public List<DroppedItem> NearbyItems;
@@ -17,8 +16,6 @@ public partial class ItemPickupZone : Area3D
 	// Game Events
 	public override void _Ready()
 	{
-		EquipItem = GetNode<EquippedItem>("../Equipped Item Slot");
-
 		NearbyItems = new List<DroppedItem>();
 
 		AreaEntered += ItemInPlayerRange;
@@ -46,41 +43,19 @@ public partial class ItemPickupZone : Area3D
 		NearbyItems.Remove(NearbyItem);
 	}
 
-	public void PickupItem() {
+	public Item PickupItem() {
 		if (NearbyItems.Count == 0) {
 			GD.Print("Nothing nearby!");
-			return;
+			return null;
 		}
 
-		if (NearbyItems[0].itemType == DroppedItem.ItemType.Weapon) {
-			PickupWeapon((DroppedWeapon) NearbyItems[0]);
-		}
-	}
-
-	public void PickupWeapon(DroppedWeapon NearbyWeapon) {
-		// Store the Currently Held Weapon's Data
-		WeaponData tempData = EquipItem.Params;
-
-		// Update the Player Weapon Slot with the new Data
-		EquipItem.Params = NearbyWeapon.Params;
-		EquipItem.Mesh3D.Mesh = EquipItem.Params.mesh;
-
-		// Update the Player UI
-		EquipItem.PlyrUI.UpdateAmmoCountLbl(EquipItem.Params.magazineSize, 
-									 EquipItem.Params.currBullet);
-
-		// Drop the previous held weapon
-		if (tempData != null) {
-			DropWeapon(NearbyWeapon, tempData);
-		} else {
-			DestroyNearbyWeapon(NearbyWeapon);
-		}
+		return NearbyItems[0].ItemParams;
 	}
 
 	public void DropWeapon(DroppedWeapon dropWeapon, WeaponData data) {
 		// Update the newly dropped weapon's data
-		dropWeapon.Params = data;
-		dropWeapon.Mesh3D.Mesh = data.mesh;
+		// dropWeapon.ItemParams = data;
+		// dropWeapon.Mesh3D.Mesh = data.mesh;
 	}
 
 	public void DestroyNearbyWeapon(DroppedWeapon NearbyWeapon) {

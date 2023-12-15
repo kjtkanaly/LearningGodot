@@ -5,7 +5,6 @@ public partial class DroppedWeapon : DroppedItem
 {
 	//-------------------------------------------------------------------------
 	// Game Componenets
-	[Export] public WeaponData Params = null;
 	public MeshInstance3D Mesh3D = null;
 
 	// Godot Types
@@ -17,7 +16,7 @@ public partial class DroppedWeapon : DroppedItem
 	public override void _Ready()
 	{
 		Mesh3D = GetNode<MeshInstance3D>("Model");
-		Mesh3D.Mesh = Params.mesh;
+		Mesh3D.Mesh = ItemParams.itemData.mesh;
 	}
 
 	//-------------------------------------------------------------------------

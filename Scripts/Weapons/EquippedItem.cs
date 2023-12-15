@@ -13,7 +13,7 @@ public partial class EquippedItem : Node3D
 	public PlayerUI PlyrUI = null;
 	public AnimationPlayer Anime = null;
 	private PrimaryAttack PA = null;
-	public WeaponData Params = null;
+	public Item ItemParams = null;
 	public MeshInstance3D Mesh3D = null;
 
 	// Godot Types
@@ -65,10 +65,10 @@ public partial class EquippedItem : Node3D
 	}
 
 	public void DropItem() {
-		if (Params == null)
+		if (ItemParams == null)
 			return;
 
-		Params = null;
+		ItemParams = null;
 		Mesh3D.Mesh = null;
 	}
 

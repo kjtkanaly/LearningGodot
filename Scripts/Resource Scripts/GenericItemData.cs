@@ -2,8 +2,7 @@ using Godot;
 using System;
 
 [GlobalClass]
-public partial class ItemData : Resource
+public partial class GenericItemData : Resource
 {
     [Export] public Mesh mesh = null;
-    
 }

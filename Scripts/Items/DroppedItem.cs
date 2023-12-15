@@ -3,19 +3,13 @@ using System;
 
 public partial class DroppedItem : Node3D
 {
-	public enum ItemType {
-		Default = 0,
-		Weapon = 1,
-		Basic = 2
-	}
-
 	//-------------------------------------------------------------------------
 	// Game Componenets
 	private RayCast3D GroundRay = null;
 	private MeshInstance3D Mesh3D = null;
 
 	// Godot Types
-	[Export] public ItemType itemType = ItemType.Default;
+	[Export] public Item ItemParams;
 	[Export] public Vector3 velocity = new Vector3();
 
 	// Basic Types

@@ -28,7 +28,7 @@ public partial class PrimaryAttack : Node3D
 	{
 		if (@event is InputEventMouseButton eventMouseButton) {
 			if (eventMouseButton.IsActionPressed("Primary Attack")) {
-				if (EquipItem.Params == null)
+				if (EquipItem.ItemParams == null)
 					return;
 
 				// Cast Ray from Active Camera
@@ -65,7 +65,7 @@ public partial class PrimaryAttack : Node3D
 		int currBullet = IncrementBulletCount();
 
 		// Update Player UI
-		EquipItem.PlyrUI.UpdateAmmoCountLbl(EquipItem.Params.magazineSize, currBullet);
+		// EquipItem.PlyrUI.UpdateAmmoCountLbl(EquipItem.Params.magazineSize, currBullet);
 	}
 
 	public Dictionary CastRayFromCamera(InputEventMouseButton eventMB) {
@@ -75,10 +75,9 @@ public partial class PrimaryAttack : Node3D
 
 		// Perform the Ray Cast Query
 		PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
-		PhysicsRayQueryParameters3D query = 
-			PhysicsRayQueryParameters3D.Create(from, 
-											   to 
-											   );
+		PhysicsRayQueryParameters3D query = PhysicsRayQueryParameters3D.Create(
+			from, 
+			to);
 		return spaceState.IntersectRay(query);
 
 		/*if (result.Count > 0)
@@ -97,25 +96,31 @@ public partial class PrimaryAttack : Node3D
 
 	public void ReloadRangeWeaponUI() {
 		int currAmmo = GetCurrentAmmo();
-		EquipItem.PlyrUI.UpdateAmmoCountLbl(EquipItem.Params.magazineSize, currAmmo);
+		// EquipItem.PlyrUI.UpdateAmmoCountLbl(EquipItem.Params.magazineSize, currAmmo);
 	}
 
 	public int GetCurrentAmmo() {
-		return EquipItem.Params.currBullet;
+		// return EquipItem.Params.currBullet;
+		return 10;
 	}
 
 	public int IncrementBulletCount() {
-		EquipItem.Params.currBullet -= 1;
+		/*EquipItem.Params.currBullet -= 1;
 
 		IsMagazineEmpty();
 
 		return EquipItem.Params.currBullet;
+		*/
+		return 10;
 	}
 
 	public bool IsMagazineEmpty() {
+		/*
 		if (EquipItem.Params.currBullet <= 0) {
 			return true;
 		}
+		return false;
+		*/
 		return false;
 	}
 
@@ -124,10 +129,12 @@ public partial class PrimaryAttack : Node3D
 	}
 
 	public void ReloadAmmo(StringName AnimationName) {
+		/*
 		if (AnimationName == "Reload") {
 			EquipItem.Params.currBullet = EquipItem.Params.magazineSize;
 			ReloadRangeWeaponUI();
 		}
+		*/
 	}
 
 	public void PlayShootAnime() {
