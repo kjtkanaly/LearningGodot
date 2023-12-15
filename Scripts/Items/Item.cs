@@ -12,11 +12,11 @@ public partial class Item : Resource
 
 	//-------------------------------------------------------------------------
 	// Game Componenets
-	public GenericItemData itemData = null;
-	public WeaponData weaponData = null;
+	[Export] public GenericItemData itemData = null;
+	[Export] public WeaponData weaponData = null;
 
 	// Godot Types
-	public ItemType itemType = ItemType.Default;
+	[Export] public ItemType itemType = ItemType.Default;
 
 	// Basic Types
 

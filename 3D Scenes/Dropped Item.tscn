@@ -1,13 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://ddwk21i4byf0h"]
 
-[ext_resource type="Script" path="res://Scripts/Items/DroppedWeapon.cs" id="1_culcm"]
+[ext_resource type="Script" path="res://Scripts/Items/DroppedItem.cs" id="1_v0u2f"]
 [ext_resource type="BoxMesh" uid="uid://re2kmmxhswu0" path="res://Resources/Meshes/Weapons/Default Weapon Mesh.tres" id="3_guvp5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8mdg1"]
 
-[node name="Dropped Weapon" type="Node3D"]
+[node name="Dropped Item" type="Node3D"]
 process_mode = 1
-script = ExtResource("1_culcm")
+script = ExtResource("1_v0u2f")
 
 [node name="Pickup Area" type="Area3D" parent="."]
 collision_layer = 4

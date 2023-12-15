@@ -24,6 +24,11 @@ public partial class DroppedItem : Node3D
 
 	//-------------------------------------------------------------------------
 	// Game Events
+	public override void _Ready()
+	{
+		Mesh3D = GetNode<MeshInstance3D>("Model");
+		Mesh3D.Mesh = ItemParams.itemData.mesh;
+	}
 
 	public override void _PhysicsProcess(double delta)
 	{

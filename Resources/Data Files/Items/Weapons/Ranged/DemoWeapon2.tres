@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Item" load_steps=7 format=3 uid="uid://cp6klqbxrpv1b"]
+
+[ext_resource type="BoxMesh" uid="uid://b5o6qac61eiob" path="res://Resources/Meshes/Weapons/Demo Weapon 2.tres" id="1_g7te3"]
+[ext_resource type="Script" path="res://Scripts/Items/Item.cs" id="1_kbukm"]
+[ext_resource type="Script" path="res://Scripts/Resource Scripts/GenericItemData.cs" id="2_s0h8o"]
+[ext_resource type="Script" path="res://Scripts/Resource Scripts/WeaponData.cs" id="4_7tjsd"]
+
+[sub_resource type="Resource" id="Resource_evm2a"]
+script = ExtResource("2_s0h8o")
+mesh = ExtResource("1_g7te3")
+
+[sub_resource type="Resource" id="Resource_a1mh2"]
+script = ExtResource("4_7tjsd")
+damage = 5.0
+reloadTime = 1.0
+magazineSize = 24
+currBullet = 24
+
+[resource]
+script = ExtResource("1_kbukm")
+itemData = SubResource("Resource_evm2a")
+weaponData = SubResource("Resource_a1mh2")
+itemType = 1

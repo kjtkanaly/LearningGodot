@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://cqqay3hwve5w1"]
+[gd_scene load_steps=9 format=3 uid="uid://cqqay3hwve5w1"]
 
 [ext_resource type="Script" path="res://Scripts/Main.cs" id="1_6lyrt"]
 [ext_resource type="PackedScene" uid="uid://clci37hx48mlq" path="res://3D Scenes/player_3d.tscn" id="2_ny3ip"]
 [ext_resource type="PackedScene" uid="uid://blaau1h12br12" path="res://3D Scenes/Test Plane.tscn" id="3_wniw4"]
 [ext_resource type="Script" path="res://Scripts/Demo Scripts/Demo3D.cs" id="4_iowm6"]
-[ext_resource type="PackedScene" uid="uid://ddwk21i4byf0h" path="res://3D Scenes/Dropped Weapon.tscn" id="5_r2cy3"]
+[ext_resource type="PackedScene" uid="uid://ddwk21i4byf0h" path="res://3D Scenes/Dropped Item.tscn" id="5_r2cy3"]
+[ext_resource type="Resource" uid="uid://du05na36hsfxi" path="res://Resources/Data Files/Items/Weapons/Ranged/DemoWeapon1.tres" id="6_x0dxn"]
+[ext_resource type="Resource" uid="uid://cp6klqbxrpv1b" path="res://Resources/Data Files/Items/Weapons/Ranged/DemoWeapon2.tres" id="7_0bu8l"]
+[ext_resource type="Resource" uid="uid://dtyntt2m8hjjq" path="res://Resources/Data Files/Items/Weapons/Ranged/DemoWeapon3.tres" id="8_xgy1n"]
 
 [node name="Demo World" type="Node3D"]
 process_mode = 3
@@ -29,11 +32,14 @@ script = ExtResource("4_iowm6")
 wait_time = 2.0
 one_shot = true
 
-[node name="Dropped Weapon" parent="." instance=ExtResource("5_r2cy3")]
+[node name="Dropped Item 1" parent="." instance=ExtResource("5_r2cy3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 30, 20)
+ItemParams = ExtResource("6_x0dxn")
 
-[node name="Dropped Weapon 2" parent="." instance=ExtResource("5_r2cy3")]
+[node name="Dropped Item 2" parent="." instance=ExtResource("5_r2cy3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 35, 20)
+ItemParams = ExtResource("7_0bu8l")
 
-[node name="Dropped Weapon 3" parent="." instance=ExtResource("5_r2cy3")]
+[node name="Dropped Item 3" parent="." instance=ExtResource("5_r2cy3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 40, 20)
+ItemParams = ExtResource("8_xgy1n")
