@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://d2a310x7cv0el"]
+
+[ext_resource type="PackedScene" uid="uid://ck6faaaqr5wfy" path="res://Mechanics Workshop/3D Scenes/Equipped Item Slot.tscn" id="1_l20vg"]
+[ext_resource type="Script" path="res://Mechanics Workshop/Scripts/Demo Scripts/CameraMount.cs" id="2_fiw4t"]
+[ext_resource type="Environment" uid="uid://c65t7aslelfj0" path="res://Mechanics Workshop/Enviroments/Default.tres" id="3_5bd1u"]
+
+[node name="Demo Objects" type="Node3D"]
+
+[node name="Object Platform" type="Node3D" parent="."]
+
+[node name="Rifle" parent="Object Platform" instance=ExtResource("1_l20vg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 0.5)
+
+[node name="Camera Mount" type="Node3D" parent="."]
+transform = Transform3D(1, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, -3.48787e-16, -3.48787e-16, 3.48787e-16, 1, 0, 0, 0)
+script = ExtResource("2_fiw4t")
+amp = 0.25
+frequency = 0.6
+angularSpeed = 0.5
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Camera Mount"]
+transform = Transform3D(1, -1.74393e-16, 3.02058e-16, -1.74393e-16, 0.5, 0.866025, -3.02058e-16, -0.866025, 0.5, 2.082e-12, 3, 2)
+
+[node name="Camera3D" type="Camera3D" parent="Camera Mount"]
+transform = Transform3D(1, -5.2318e-16, 3.02058e-16, 3.02058e-16, 0.866025, 0.5, -5.2318e-16, -0.5, 0.866025, 2.08165e-12, 3, 5.15)
+environment = ExtResource("3_5bd1u")
+projection = 1
+size = 1.5

@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="Item" load_steps=7 format=3 uid="uid://cp6klqbxrpv1b"]
+
+[ext_resource type="BoxMesh" uid="uid://b5o6qac61eiob" path="res://Mechanics Workshop/Resources/Meshes/Weapons/Demo Weapon 2.tres" id="1_ggld8"]
+[ext_resource type="Script" path="res://Mechanics Workshop/Scripts/Resource Scripts/GenericItemData.cs" id="2_htkaq"]
+[ext_resource type="Script" path="res://Mechanics Workshop/Scripts/Items/Item.cs" id="3_eiwh6"]
+[ext_resource type="Script" path="res://Mechanics Workshop/Scripts/Resource Scripts/WeaponData.cs" id="4_enbtv"]
+
+[sub_resource type="Resource" id="Resource_evm2a"]
+script = ExtResource("2_htkaq")
+mesh = ExtResource("1_ggld8")
+weight = 1.0
+
+[sub_resource type="Resource" id="Resource_a1mh2"]
+script = ExtResource("4_enbtv")
+damage = 5.0
+reloadTime = 1.0
+magazineSize = 24
+currBullet = 24
+
+[resource]
+script = ExtResource("3_eiwh6")
+itemData = SubResource("Resource_evm2a")
+weaponData = SubResource("Resource_a1mh2")
+itemType = 1
+itemName = "Gun 2"
