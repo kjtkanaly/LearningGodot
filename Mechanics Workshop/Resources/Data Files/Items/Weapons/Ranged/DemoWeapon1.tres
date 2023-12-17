@@ -1,24 +1,25 @@
 [gd_resource type="Resource" script_class="Item" load_steps=7 format=3 uid="uid://du05na36hsfxi"]
 
-[ext_resource type="BoxMesh" uid="uid://bmhqmr1l44fm" path="res://Mechanics Workshop/Resources/Meshes/Weapons/Demo Weapon 1.tres" id="1_a1584"]
-[ext_resource type="Script" path="res://Mechanics Workshop/Scripts/Resource Scripts/GenericItemData.cs" id="2_n28cn"]
-[ext_resource type="Script" path="res://Mechanics Workshop/Scripts/Items/Item.cs" id="3_v6lxo"]
-[ext_resource type="Script" path="res://Mechanics Workshop/Scripts/Resource Scripts/WeaponData.cs" id="4_ghycq"]
+[ext_resource type="BoxMesh" uid="uid://bmhqmr1l44fm" path="res://Mechanics Workshop/Resources/Meshes/Weapons/Demo Weapon 1.tres" id="1_10tyg"]
+[ext_resource type="Script" path="res://Mechanics Workshop/Scripts/Resource Scripts/GenericItemData.cs" id="2_ms37b"]
+[ext_resource type="Script" path="res://Mechanics Workshop/Scripts/Items/Item.cs" id="3_lejhl"]
+[ext_resource type="Script" path="res://Mechanics Workshop/Scripts/Resource Scripts/WeaponData.cs" id="4_dlh63"]
 
 [sub_resource type="Resource" id="Resource_dkrll"]
-script = ExtResource("2_n28cn")
-mesh = ExtResource("1_a1584")
+script = ExtResource("2_ms37b")
+mesh = ExtResource("1_10tyg")
 weight = 1.0
+GridSpace = Vector2(2, 3)
 
 [sub_resource type="Resource" id="Resource_kqfo5"]
-script = ExtResource("4_ghycq")
+script = ExtResource("4_dlh63")
 damage = 1.0
 reloadTime = 1.0
 magazineSize = 12
 currBullet = 12
 
 [resource]
-script = ExtResource("3_v6lxo")
+script = ExtResource("3_lejhl")
 itemData = SubResource("Resource_dkrll")
 weaponData = SubResource("Resource_kqfo5")
 itemType = 1

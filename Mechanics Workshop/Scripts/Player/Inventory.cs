@@ -13,8 +13,11 @@ public partial class Inventory : Node3D
 
 	// Godot Types
 	List<Item> MainInventory = new List<Item>();
+	ulong[,] InventoryGrid;
 
 	// Basic Types
+	[Export] int invGridWidth = 8;
+	[Export] int invGridHeight = 4;
 	public float maxInventoryWeight = 50.0f;
 	public float currInventoryWeight = 0.0f;
 
@@ -28,6 +31,9 @@ public partial class Inventory : Node3D
 		inventoryUI = GetNode<InventoryUI>("../Head/1st Person Camera/Inventory UI");
 		MainInventory = new List<Item>();
 
+		// Init GridInventory, int[Grid Height, Grid Width]
+		InventoryGrid = new ulong[invGridHeight, invGridWidth];
+
 		CheckCurrInventoryWeight();
 	}
 
@@ -36,6 +42,10 @@ public partial class Inventory : Node3D
 		if (@event is InputEventKey eventAction) {
 			if (eventAction.IsActionPressed("Pickup Item")) {
 				PickupItem();
+			}
+
+			if (eventAction.IsActionPressed("Debug Pring Inventory")) {
+				PrintInventoryGrid();
 			}
 		}
 	}
@@ -47,6 +57,12 @@ public partial class Inventory : Node3D
 
 		if (NearbyItem == null)
 			return;
+
+		// Check with the Inventory Grid
+		bool itemAdded = AddItemToInvGrid(NearbyItem.ItemParams);
+
+		if (!itemAdded)
+			GD.Print("No Space!");
 
 		MainInventory.Add(NearbyItem.ItemParams);
 
@@ -90,6 +106,57 @@ public partial class Inventory : Node3D
 		}
 	}
 
+	public bool AddItemToInvGrid(Item itemObj) {
+		ulong id = itemObj.GetInstanceId();
+		Vector2 itemSpace = itemObj.itemData.GridSpace;
+		
+		for (int i = 0; i < InventoryGrid.GetLength(0) - itemSpace.X; i++) {
+			for (int j = 0; j < InventoryGrid.GetLength(1) - itemSpace.Y; j++) {
+				ulong regionValue = SumInventoryRegion(
+					itemSpace, 
+					new Vector2(i, j));
+				
+				if (regionValue > 0)
+					continue;
+				
+				UpdateInventoryRegion(itemSpace, new Vector2(i, j), id);
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public ulong SumInventoryRegion(Vector2 RegionSize, Vector2 Origin) {
+		ulong Sum = 0;
+		for (int i = (int) Origin.X; i < Origin.X + RegionSize.X; i++) {
+			for (int j = (int) Origin.Y; j < Origin.Y + RegionSize.Y; j++) {
+				Sum += InventoryGrid[i, j];
+			}
+		}
+		return Sum;
+	}
+
+	public void UpdateInventoryRegion(Vector2 RegionSize, Vector2 Origin, ulong id) {
+		for (int i = (int) Origin.X; i < Origin.X + RegionSize.X; i++) {
+			for (int j = (int) Origin.Y; j < Origin.Y + RegionSize.Y; j++) {
+				InventoryGrid[i, j] = id;
+			}
+		}
+	}
+
 	//-------------------------------------------------------------------------
 	// Demo Methods
+	private void PrintInventoryGrid() {
+		string GridString = "";
+		for (int y = 0; y < InventoryGrid.GetLength(0); y++) {
+			string RowString = "";
+			for (int x = 0; x < InventoryGrid.GetLength(1); x++) {
+				RowString += InventoryGrid[y, x] + " ";
+			}
+			RowString += "\n";
+			GridString += RowString;
+		}
+		GD.Print(GridString);
+	}
 }
