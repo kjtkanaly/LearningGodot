@@ -37,10 +37,6 @@ public partial class Inventory : Node3D
 			if (eventAction.IsActionPressed("Pickup Item")) {
 				PickupItem();
 			}
-
-			if (eventAction.IsActionPressed("Inventory")) {
-				ToggleInventoryUI();
-			}
 		}
 	}
 
@@ -91,14 +87,6 @@ public partial class Inventory : Node3D
 	public void CheckCurrInventoryWeight() {
 		for (int i = 0; i < MainInventory.Count; i++) {
 			currInventoryWeight += MainInventory[i].itemData.weight;
-		}
-	}
-
-	public void ToggleInventoryUI() {
-		if (inventoryUI.isOpen) {
-			inventoryUI.Close();
-		} else {
-			inventoryUI.Open();
 		}
 	}
 

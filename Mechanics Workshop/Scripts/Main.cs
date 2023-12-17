@@ -37,8 +37,11 @@ public partial class Main : Node3D
 	public override void _Input(InputEvent @event)
 	{
 		if (@event is InputEventKey eventAction) {
-			if (eventAction.IsActionPressed("Pause Game")) {
+			if (eventAction.IsActionPressed("Pause Game") &&
+				!InventoryUICtrl.isOpen) {
 				TogglePause();
+			} else if (eventAction.IsActionPressed("Inventory")) {
+				ToggleInventoryUI();
 			}
 		}
 	}
@@ -74,6 +77,17 @@ public partial class Main : Node3D
 
 	public void QuitGame() {
 		GetTree().Quit();
+	}
+
+	public void ToggleInventoryUI() {
+		if (InventoryUICtrl.isOpen) {
+			InventoryUICtrl.Close();
+		} else {
+			if (GetTree().Paused)
+				return;
+
+			InventoryUICtrl.Open();
+		}
 	}
 
 	//-------------------------------------------------------------------------
