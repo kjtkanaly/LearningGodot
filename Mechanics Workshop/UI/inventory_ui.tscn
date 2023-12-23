@@ -34,6 +34,7 @@ patch_margin_bottom = 6
 
 [node name="Display Item Panel" type="Panel" parent="NinePatchRect"]
 self_modulate = Color(1, 1, 1, 0)
+z_index = 1
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
