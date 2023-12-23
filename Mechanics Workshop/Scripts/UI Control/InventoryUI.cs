@@ -118,28 +118,21 @@ public partial class InventoryUI : Control
 		int ii = 0;
 		int jj = 0;
 
-		//float MinDiff = GridPos[ii, 0].X - MousePos.X;
 		float minDiff = MathF.Abs(MousePos.Y - (GridPos[ii, 0].X + (ItemPanelDims.X / 2)));
-		// GD.Print($"{MousePos.Y} - {GridPos[ii, 0].X + (ItemPanelDims.X / 2)} = {minDiff}");
-
 		for (int i = 1; i < GridPos.GetLength(0); i++) {
-			float diff = MathF.Abs(MousePos.Y - (GridPos[i, 0].X + (ItemPanelDims.X / 2)));
-			// GD.Print($"{MousePos.Y} - {GridPos[i, 0].X + (ItemPanelDims.X / 2)} = {diff}");
+			float diff = MathF.Abs(
+				MousePos.Y - (GridPos[i, 0].X + (ItemPanelDims.X / 2)));
+			
 			if (diff < minDiff) {
 				ii = i;
 				minDiff = diff;
 			}
 		}
-
-		// GD.Print("\n");
 		
 		minDiff = MathF.Abs(MousePos.X - (GridPos[0, jj].Y + (ItemPanelDims.Y / 2)));
-		// GD.Print($"{MousePos.X} - {GridPos[0, jj].Y + (ItemPanelDims.Y / 2)} = {minDiff}");
-
-		// GD.Print(MousePos.X);
 		for (int j = 1; j < GridPos.GetLength(1); j++) {
-			float diff = MathF.Abs(MousePos.X - (GridPos[0, j].Y + (ItemPanelDims.Y / 2)));
-			// GD.Print($"{MousePos.X} - {GridPos[0, j].Y + (ItemPanelDims.Y / 2)} = {diff}");
+			float diff = MathF.Abs(
+				MousePos.X - (GridPos[0, j].Y + (ItemPanelDims.Y / 2)));
 			
 			if (diff < minDiff) {
 				jj = j;
