@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="Item" load_steps=7 format=3 uid="uid://du05na36hsfxi"]
+[gd_resource type="Resource" script_class="Item" load_steps=8 format=3 uid="uid://du05na36hsfxi"]
 
 [ext_resource type="BoxMesh" uid="uid://bmhqmr1l44fm" path="res://Mechanics Workshop/Resources/Meshes/Weapons/Demo Weapon 1.tres" id="1_10tyg"]
+[ext_resource type="Texture2D" uid="uid://bgld2gx3mipj5" path="res://Mechanics Workshop/Resources/Sprites/Sprite PNGs/Weapon Sprite_001.png" id="1_eyrmw"]
 [ext_resource type="Script" path="res://Mechanics Workshop/Scripts/Resource Scripts/GenericItemData.cs" id="2_ms37b"]
 [ext_resource type="Script" path="res://Mechanics Workshop/Scripts/Items/Item.cs" id="3_lejhl"]
 [ext_resource type="Script" path="res://Mechanics Workshop/Scripts/Resource Scripts/WeaponData.cs" id="4_dlh63"]
@@ -8,6 +9,7 @@
 [sub_resource type="Resource" id="Resource_dkrll"]
 script = ExtResource("2_ms37b")
 mesh = ExtResource("1_10tyg")
+inventorySprite = ExtResource("1_eyrmw")
 weight = 1.0
 GridSpace = Vector2(2, 3)
 

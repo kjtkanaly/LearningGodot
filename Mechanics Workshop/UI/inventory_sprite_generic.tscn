@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2ib35mee6bkk"]
+
+[ext_resource type="Texture2D" uid="uid://dodbqefce83ah" path="res://Mechanics Workshop/Resources/Sprites/Sprite PNGs/Default Weapon Sprite_001.png" id="1_wq40d"]
+
+[node name="Inventory Sprite Generic" type="Sprite2D"]
+texture = ExtResource("1_wq40d")
+centered = false

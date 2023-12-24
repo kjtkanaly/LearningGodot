@@ -1,23 +1,28 @@
-[gd_resource type="Resource" script_class="Item" load_steps=7 format=3 uid="uid://b0r386umredrb"]
+[gd_resource type="Resource" script_class="Item" load_steps=8 format=3 uid="uid://b0r386umredrb"]
 
-[ext_resource type="BoxMesh" uid="uid://re2kmmxhswu0" path="res://Mechanics Workshop/Resources/Meshes/Weapons/Default Weapon Mesh.tres" id="1_e87uw"]
-[ext_resource type="Script" path="res://Mechanics Workshop/Scripts/Resource Scripts/GenericItemData.cs" id="2_nunkd"]
-[ext_resource type="Script" path="res://Mechanics Workshop/Scripts/Items/Item.cs" id="3_5edyg"]
-[ext_resource type="Script" path="res://Mechanics Workshop/Scripts/Resource Scripts/WeaponData.cs" id="4_iy1c7"]
+[ext_resource type="Texture2D" uid="uid://dodbqefce83ah" path="res://Mechanics Workshop/Resources/Sprites/Sprite PNGs/Default Weapon Sprite_001.png" id="1_f3tpi"]
+[ext_resource type="BoxMesh" uid="uid://re2kmmxhswu0" path="res://Mechanics Workshop/Resources/Meshes/Weapons/Default Weapon Mesh.tres" id="2_xhkdg"]
+[ext_resource type="Script" path="res://Mechanics Workshop/Scripts/Resource Scripts/GenericItemData.cs" id="3_gy1ua"]
+[ext_resource type="Script" path="res://Mechanics Workshop/Scripts/Items/Item.cs" id="4_3vtog"]
+[ext_resource type="Script" path="res://Mechanics Workshop/Scripts/Resource Scripts/WeaponData.cs" id="5_udifs"]
 
 [sub_resource type="Resource" id="Resource_0vnvn"]
-script = ExtResource("2_nunkd")
-mesh = ExtResource("1_e87uw")
+script = ExtResource("3_gy1ua")
+mesh = ExtResource("2_xhkdg")
+inventorySprite = ExtResource("1_f3tpi")
+weight = 1.0
+GridSpace = Vector2(1, 1)
 
 [sub_resource type="Resource" id="Resource_hitid"]
-script = ExtResource("4_iy1c7")
+script = ExtResource("5_udifs")
 damage = 1.0
 reloadTime = 1.0
 magazineSize = 1
 currBullet = 1
 
 [resource]
-script = ExtResource("3_5edyg")
+script = ExtResource("4_3vtog")
 itemData = SubResource("Resource_0vnvn")
 weaponData = SubResource("Resource_hitid")
 itemType = 1
+itemName = ""

@@ -10,6 +10,8 @@ public partial class InventoryUI : Control
 	public Panel TouchPnl = null;
 	public PackedScene ItemPanel = (PackedScene) GD.Load(
 		"res://Mechanics Workshop/UI/ItemPanel.tscn");
+	public PackedScene InventorySprite = (PackedScene) GD.Load(
+		"res://Mechanics Workshop/UI/inventory_sprite_generic.tscn");
 
 	// Godot Types
 	[Signal]
@@ -21,8 +23,8 @@ public partial class InventoryUI : Control
 	// Basic Types
 	public Vector2[,] GridPos = null;
 	public Vector2 ItemPanelDims = Vector2.Zero;
-	private int invGridWidth = 8;
-	private int invGridHeight = 4;
+	public int invGridWidth = 8;
+	public int invGridHeight = 4;
 	public bool isOpen = false;
 
 	//-------------------------------------------------------------------------
@@ -141,6 +143,19 @@ public partial class InventoryUI : Control
 		}
 
 		return new Vector2(ii, jj);
+	}
+
+	public void AddSpriteToGrid(GenericItemData item, int i, int j) {
+		Sprite2D NewItemSprt = (Sprite2D) InventorySprite.Instantiate();
+
+		Control InventoryCtrl = (Control) DispItemPnl;
+		InventoryCtrl.AddChild(NewItemSprt);
+
+		NewItemSprt.Position = new Vector2(GridPos[i, j].Y, GridPos[i, j].X);
+		// NewItemSprt.Scale = item.GridSpace;
+		NewItemSprt.Texture = item.inventorySprite;
+
+		GD.Print($"{i}, {j}: {GridPos[i, j]}");
 	}
 
 	//-------------------------------------------------------------------------

@@ -16,8 +16,6 @@ public partial class Inventory : Node3D
 	ulong[,] InventoryGrid;
 
 	// Basic Types
-	[Export] int invGridWidth = 8;
-	[Export] int invGridHeight = 4;
 	public float maxInventoryWeight = 50.0f;
 	public float currInventoryWeight = 0.0f;
 
@@ -32,7 +30,7 @@ public partial class Inventory : Node3D
 		MainInventory = new List<Item>();
 
 		// Init GridInventory, int[Grid Height, Grid Width]
-		InventoryGrid = new ulong[invGridHeight, invGridWidth];
+		InventoryGrid = new ulong[inventoryUI.invGridHeight, inventoryUI.invGridWidth];
 
 		CheckCurrInventoryWeight();
 	}
@@ -120,6 +118,8 @@ public partial class Inventory : Node3D
 					continue;
 				
 				UpdateInventoryRegion(itemSpace, new Vector2(i, j), id);
+				inventoryUI.AddSpriteToGrid(itemObj.itemData, i, j);
+				MainInventory.Add(itemObj);
 				return true;
 			}
 		}
