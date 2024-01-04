@@ -9,6 +9,7 @@ public partial class Main : Node3D
 	public Timer QuitGameTimer = null;
 
 	// Godot Types
+	private PlayerUI PlayerUICtrl = null;
 	private InventoryUI InventoryUICtrl = null;
 
 	// Basic Types
@@ -19,6 +20,8 @@ public partial class Main : Node3D
 	public override void _Ready()
 	{
 		QuitGameTimer = GetNode<Timer>("Quit Game");
+		PlayerUICtrl = GetNode<PlayerUI>(
+			"Player/Head/1st Person Camera/Player UI/Control");
 		InventoryUICtrl = GetNode<InventoryUI>(
 			"Player/Head/1st Person Camera/Inventory UI");
 
@@ -42,6 +45,7 @@ public partial class Main : Node3D
 				TogglePause();
 			} else if (eventAction.IsActionPressed("Inventory")) {
 				ToggleInventoryUI();
+				PlayerUICtrl.Toggle();
 			}
 		}
 	}

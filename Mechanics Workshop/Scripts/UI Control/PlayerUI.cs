@@ -31,6 +31,14 @@ public partial class PlayerUI : Control
 		AmmoCountLbl.Text = ammoLbl[0] + " / " + ammoLbl[1];
 	}
 
+	public void Toggle() {
+		if (this.Visible) {
+			this.Visible = false;
+		} else {
+			this.Visible = true;
+		}
+	}
+
 	//-------------------------------------------------------------------------
 	// Demo Methods
 }
