@@ -153,7 +153,9 @@ public partial class InventoryUI : Control
 		InventoryCtrl.AddChild(InventoryItem);
 
 		InventoryItem.Position = new Vector2(GridPos[i, j].Y, GridPos[i, j].X);
-		InventoryItem.Highlight.Scale = item.GridSpace;
+		InventoryItem.Highlight.Size = new Vector2(
+			item.GridSpace.Y * ItemPanelDims.X, 
+			item.GridSpace.X * ItemPanelDims.Y);
 		InventoryItem.Item.Texture = item.inventorySprite;
 
 		// Update the appropriate panels to be filled
