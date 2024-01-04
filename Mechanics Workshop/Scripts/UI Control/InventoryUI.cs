@@ -9,9 +9,9 @@ public partial class InventoryUI : Control
 	public Panel DispItemPnl = null;
 	public Panel TouchPnl = null;
 	public PackedScene ItemPanelPreFab = (PackedScene) GD.Load(
-		"res://Mechanics Workshop/UI/ItemPanel.tscn");
+		"res://Mechanics Workshop/UI/Inventory Panel.tscn");
 	public PackedScene InventorySprite = (PackedScene) GD.Load(
-		"res://Mechanics Workshop/UI/inventory_sprite_generic.tscn");
+		"res://Mechanics Workshop/UI/Generic Inventory Item.tscn");
 
 	// Godot Types
 	[Signal]
@@ -19,7 +19,7 @@ public partial class InventoryUI : Control
 	[Signal]
 	public delegate void ClosedEventHandler();
 	private Main main = null;
-	public ItemPanel[,] InventoryPanels = null;
+	public InventoryPanel[,] InventoryPanels = null;
 
 	// Basic Types
 	public Vector2[,] GridPos = null;
@@ -34,7 +34,7 @@ public partial class InventoryUI : Control
 	{
 		DispItemPnl = GetNode<Panel>("NinePatchRect/Display Item Panel");
 		
-		InventoryPanels = new ItemPanel[invGridHeight, invGridWidth];
+		InventoryPanels = new InventoryPanel[invGridHeight, invGridWidth];
 		GridPos = new Vector2[invGridHeight, invGridWidth];
 		CreateInventoryGrid();
 
@@ -64,7 +64,7 @@ public partial class InventoryUI : Control
 		for (int i = 0; i < GridPos.GetLength(0); i++) {
 			for (int j = 0; j < GridPos.GetLength(1); j++) {
 				// Create the Item Panel and Add it to the array
-				ItemPanel NewItemPanel = (ItemPanel) ItemPanelPreFab.Instantiate();
+				InventoryPanel NewItemPanel = (InventoryPanel) ItemPanelPreFab.Instantiate();
 				InventoryPanels[i, j] = NewItemPanel;
 
 				Control ItemPanelCtrl = (Control) NewItemPanel;
@@ -159,14 +159,14 @@ public partial class InventoryUI : Control
 		InventoryItem.Item.Texture = item.inventorySprite;
 
 		// Update the appropriate panels to be filled
-		UpdateInventoryPanels(ItemPanel.Mode.FilledValid, 
+		UpdateInventoryPanels(InventoryPanel.Mode.FilledAndUsable, 
 							  new Vector2(i, j), 
 							  item.GridSpace);
 
 		GD.Print($"{i}, {j}: {GridPos[i, j]}");
 	}
 
-	public void UpdateInventoryPanels(ItemPanel.Mode panelMode, Vector2 Origin, Vector2 Size) {
+	public void UpdateInventoryPanels(InventoryPanel.Mode panelMode, Vector2 Origin, Vector2 Size) {
 		for (int i = (int) Origin.X; i < Origin.X + Size.X; i++) {
 			for (int j = (int) Origin.Y; j < Origin.Y + Size.Y; j++) {
 				Texture2D PanelTexture = 

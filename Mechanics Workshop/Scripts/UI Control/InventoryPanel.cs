@@ -1,11 +1,12 @@
 using Godot;
 using System;
 
-public partial class ItemPanel : Control
+public partial class InventoryPanel : Control
 {
 	public enum Mode {
 		Idle = 0,
-		FilledValid = 1
+		FilledAndUsable = 1,
+		FilledAndNotUsable = 2
 	}
 
 	//-------------------------------------------------------------------------
@@ -14,7 +15,7 @@ public partial class ItemPanel : Control
 	// Godot Types
 	[Export] public Texture2D Idle;
 	[Export] public Texture2D Hover;
-	[Export] public Texture2D FilledValid;
+	[Export] public Texture2D FilledAndValid;
 	public Sprite2D Sprite;
 
 	// Basic Types
@@ -30,7 +31,7 @@ public partial class ItemPanel : Control
 	}
 
 	//-------------------------------------------------------------------------
-	// Item Panel Methods
+	// Inventory Panel Methods
 	public void Highlight() {
 		Sprite.Texture = Hover;
 	}
@@ -40,8 +41,8 @@ public partial class ItemPanel : Control
 	}
 
 	public Texture2D GetModePanel(Mode panelMode) {
-		if (panelMode == Mode.FilledValid) {
-			return FilledValid;
+		if (panelMode == Mode.FilledAndUsable) {
+			return FilledAndValid;
 		} else {
 			return Idle;
 		}

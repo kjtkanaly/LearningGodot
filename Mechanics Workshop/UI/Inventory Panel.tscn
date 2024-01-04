@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://dw0gnkib06bvd"]
 
-[ext_resource type="Script" path="res://Mechanics Workshop/Scripts/UI Control/ItemPanel.cs" id="1_tk1uy"]
+[ext_resource type="Script" path="res://Mechanics Workshop/Scripts/UI Control/InventoryPanel.cs" id="1_j01a3"]
 [ext_resource type="Texture2D" uid="uid://brdjgxkh2tje4" path="res://Mechanics Workshop/Resources/Sprites/Sprite PNGs/Item Slot Idle_002.png" id="2_lwfmj"]
 [ext_resource type="Texture2D" uid="uid://d3d8hxwj17vrv" path="res://Mechanics Workshop/Resources/Sprites/Sprite PNGs/Item Slot Hover_002.png" id="3_hhe0t"]
-[ext_resource type="Texture2D" uid="uid://deymugpn402jl" path="res://Mechanics Workshop/Resources/Sprites/Sprite PNGs/Item Slot Active_002.png" id="4_cksy7"]
+[ext_resource type="Texture2D" uid="uid://deymugpn402jl" path="res://Mechanics Workshop/Resources/Sprites/Sprite PNGs/Item Slot Active_002.png" id="4_ay0oh"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_she7y"]
 content_margin_left = 0.0
@@ -11,7 +11,7 @@ content_margin_top = 0.0
 content_margin_right = 0.0
 content_margin_bottom = 0.0
 
-[node name="Item Panel" type="Panel"]
+[node name="Inventory Panel" type="Panel"]
 custom_minimum_size = Vector2(32, 32)
 offset_right = 27.0
 offset_bottom = 27.0
@@ -20,10 +20,10 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxEmpty_she7y")
-script = ExtResource("1_tk1uy")
+script = ExtResource("1_j01a3")
 Idle = ExtResource("2_lwfmj")
 Hover = ExtResource("3_hhe0t")
-FilledValid = ExtResource("4_cksy7")
+FilledAndValid = ExtResource("4_ay0oh")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_lwfmj")
