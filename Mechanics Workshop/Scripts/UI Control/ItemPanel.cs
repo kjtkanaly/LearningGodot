@@ -3,12 +3,18 @@ using System;
 
 public partial class ItemPanel : Control
 {
+	public enum Mode {
+		Idle = 0,
+		FilledValid = 1
+	}
+
 	//-------------------------------------------------------------------------
 	// Game Componenets
 
 	// Godot Types
-	[Export] Texture2D Idle;
-	[Export] Texture2D Hover;
+	[Export] public Texture2D Idle;
+	[Export] public Texture2D Hover;
+	[Export] public Texture2D FilledValid;
 	public Sprite2D Sprite;
 
 	// Basic Types
@@ -19,8 +25,8 @@ public partial class ItemPanel : Control
 	{
 		Sprite = GetNode<Sprite2D>("Sprite2D");
 
-		MouseEntered += Highlight;
-		MouseExited += SetIdle;
+		// MouseEntered += Highlight;
+		// MouseExited += SetIdle;
 	}
 
 	//-------------------------------------------------------------------------
@@ -31,6 +37,14 @@ public partial class ItemPanel : Control
 
 	public void SetIdle() {
 		Sprite.Texture = Idle;
+	}
+
+	public Texture2D GetModePanel(Mode panelMode) {
+		if (panelMode == Mode.FilledValid) {
+			return FilledValid;
+		} else {
+			return Idle;
+		}
 	}
 
 	//-------------------------------------------------------------------------

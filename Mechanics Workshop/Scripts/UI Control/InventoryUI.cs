@@ -8,7 +8,7 @@ public partial class InventoryUI : Control
 	public GridContainer gridUI = null;
 	public Panel DispItemPnl = null;
 	public Panel TouchPnl = null;
-	public PackedScene ItemPanel = (PackedScene) GD.Load(
+	public PackedScene ItemPanelPreFab = (PackedScene) GD.Load(
 		"res://Mechanics Workshop/UI/ItemPanel.tscn");
 	public PackedScene InventorySprite = (PackedScene) GD.Load(
 		"res://Mechanics Workshop/UI/inventory_sprite_generic.tscn");
@@ -19,6 +19,7 @@ public partial class InventoryUI : Control
 	[Signal]
 	public delegate void ClosedEventHandler();
 	private Main main = null;
+	public ItemPanel[,] InventoryPanels = null;
 
 	// Basic Types
 	public Vector2[,] GridPos = null;
@@ -32,8 +33,8 @@ public partial class InventoryUI : Control
 	public override void _Ready()
 	{
 		DispItemPnl = GetNode<Panel>("NinePatchRect/Display Item Panel");
-		// TouchPnl = GetNode<Panel>("NinePatchRect/Inventory Touch Panel");
-
+		
+		InventoryPanels = new ItemPanel[invGridHeight, invGridWidth];
 		GridPos = new Vector2[invGridHeight, invGridWidth];
 		CreateInventoryGrid();
 
@@ -60,14 +61,13 @@ public partial class InventoryUI : Control
 		Control InventoryCtrl = (Control) DispItemPnl;
 		Vector2 InventoryDims = InventoryCtrl.Size;
 
-		// GD.Print($"Inventory Size{InventoryCtrl.Size}");
-		// GD.Print($"i: {GridPos.GetLength(1)}, j: {GridPos.GetLength(0)}");
-		// GD.Print($"{GridPos[invGridHeight - 1, invGridWidth - 1]}");
-
 		for (int i = 0; i < GridPos.GetLength(0); i++) {
 			for (int j = 0; j < GridPos.GetLength(1); j++) {
-				// Create the Item Panel
-				Control ItemPanelCtrl = (Control) ItemPanel.Instantiate();
+				// Create the Item Panel and Add it to the array
+				ItemPanel NewItemPanel = (ItemPanel) ItemPanelPreFab.Instantiate();
+				InventoryPanels[i, j] = NewItemPanel;
+
+				Control ItemPanelCtrl = (Control) NewItemPanel;
 				ItemPanelDims = ItemPanelCtrl.Size;
 
 				GridPos[i, j] = GetGridPos(
@@ -146,16 +146,33 @@ public partial class InventoryUI : Control
 	}
 
 	public void AddSpriteToGrid(GenericItemData item, int i, int j) {
-		Sprite2D NewItemSprt = (Sprite2D) InventorySprite.Instantiate();
+		GenericInventoryItem InventoryItem = 
+			(GenericInventoryItem) InventorySprite.Instantiate();
 
 		Control InventoryCtrl = (Control) DispItemPnl;
-		InventoryCtrl.AddChild(NewItemSprt);
+		InventoryCtrl.AddChild(InventoryItem);
 
-		NewItemSprt.Position = new Vector2(GridPos[i, j].Y, GridPos[i, j].X);
-		// NewItemSprt.Scale = item.GridSpace;
-		NewItemSprt.Texture = item.inventorySprite;
+		InventoryItem.Position = new Vector2(GridPos[i, j].Y, GridPos[i, j].X);
+		InventoryItem.Highlight.Scale = item.GridSpace;
+		InventoryItem.Item.Texture = item.inventorySprite;
+
+		// Update the appropriate panels to be filled
+		UpdateInventoryPanels(ItemPanel.Mode.FilledValid, 
+							  new Vector2(i, j), 
+							  item.GridSpace);
 
 		GD.Print($"{i}, {j}: {GridPos[i, j]}");
+	}
+
+	public void UpdateInventoryPanels(ItemPanel.Mode panelMode, Vector2 Origin, Vector2 Size) {
+		for (int i = (int) Origin.X; i < Origin.X + Size.X; i++) {
+			for (int j = (int) Origin.Y; j < Origin.Y + Size.Y; j++) {
+				Texture2D PanelTexture = 
+					InventoryPanels[i, j].GetModePanel(panelMode);
+
+				InventoryPanels[i, j].Sprite.Texture = PanelTexture;
+			}
+		}
 	}
 
 	//-------------------------------------------------------------------------

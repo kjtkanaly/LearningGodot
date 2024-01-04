@@ -59,8 +59,10 @@ public partial class Inventory : Node3D
 		// Check with the Inventory Grid
 		bool itemAdded = AddItemToInvGrid(NearbyItem.ItemParams);
 
-		if (!itemAdded)
+		if (!itemAdded) {
 			GD.Print("No Space!");
+			return;
+		}
 
 		MainInventory.Add(NearbyItem.ItemParams);
 

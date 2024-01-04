@@ -1,7 +1,25 @@
-[gd_scene load_steps=2 format=3 uid="uid://b2ib35mee6bkk"]
+[gd_scene load_steps=3 format=3 uid="uid://b2ib35mee6bkk"]
 
-[ext_resource type="Texture2D" uid="uid://dodbqefce83ah" path="res://Mechanics Workshop/Resources/Sprites/Sprite PNGs/Default Weapon Sprite_001.png" id="1_wq40d"]
+[ext_resource type="Script" path="res://Mechanics Workshop/Scripts/UI Control/GenericInventoryItem.cs" id="1_4wewb"]
+[ext_resource type="Texture2D" uid="uid://btwuhlefgf6co" path="res://Mechanics Workshop/Resources/Sprites/Sprite PNGs/Highlight Inventory Item.png" id="3_rku1o"]
 
-[node name="Inventory Sprite Generic" type="Sprite2D"]
-texture = ExtResource("1_wq40d")
+[node name="Generic Inventory Ctrl" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 1
+script = ExtResource("1_4wewb")
+
+[node name="Highlight" type="NinePatchRect" parent="."]
+z_index = 2
+offset_right = 32.0
+offset_bottom = 32.0
+mouse_filter = 1
+texture = ExtResource("3_rku1o")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="Item" type="Sprite2D" parent="."]
+z_index = 1
 centered = false
