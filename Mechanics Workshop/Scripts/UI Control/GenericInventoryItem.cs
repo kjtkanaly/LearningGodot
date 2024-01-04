@@ -27,7 +27,11 @@ public partial class GenericInventoryItem : Control
 		MouseEntered += HighlightItem;
 		MouseExited += DeHighlightItem;
 
+		// Init the item to start DeHighlighted
 		DeHighlightItem();
+
+		// Dehighlight the item when the invenotry is closed
+		Hidden += DeHighlightItem;
 	}
 
 	//-------------------------------------------------------------------------
