@@ -1,4 +1,6 @@
-@startuml
+@startuml Player
+
+title Player Class Diagram
 
 class Player
 
@@ -14,12 +16,14 @@ class PlayerMovement {
     .. Public Methods ..
     +_Ready() : void
     +_PhysicsProcess() : void 
-    +ApplyGravity() : float
-    +HandleJump() : float
-    +LateralMovements() : Vector2
-    +PlayerDodgeRoll() : Vector2
+    +ApplyGravity() : float {float velocity, float timeDelta}
+    +HandleJump() : float {float velocity, float jumpVelocity}
+    +LateralMovements() : Vector2 {Vector2 velocity, float delta}
+    +PlayerDodgeRoll() : Vector2 {Vector2 velocity, float delta}
     +GetGlobalInputDirection() : Vector3
     .. Private Methods ..
 }
+
+Player *-down- PlayerMovement
 
 @enduml
