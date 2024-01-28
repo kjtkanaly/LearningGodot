@@ -1,0 +1,25 @@
+@startuml
+
+class Player
+
+class PlayerMovement {
+    == Data ==
+    .. Public Data ..
+    +float gravity
+    .. Private Data ..
+    -PlayerData PD
+    -AnimationPlayer Anime
+    -Vector2 RollVelocity
+    == Methods ==
+    .. Public Methods ..
+    +_Ready() : void
+    +_PhysicsProcess() : void 
+    +ApplyGravity() : float
+    +HandleJump() : float
+    +LateralMovements() : Vector2
+    +PlayerDodgeRoll() : Vector2
+    +GetGlobalInputDirection() : Vector3
+    .. Private Methods ..
+}
+
+@enduml
