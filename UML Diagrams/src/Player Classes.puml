@@ -2,9 +2,14 @@
 
 title Player Class Diagram
 
-class Player
+object Player
+object Mesh
+object Collider
+object Head
+object Inventory
+object Player_Data
 
-class PlayerMovement {
+class PlayerMovement <<CharacterBody3D>>{
     == Data ==
     .. Public Data ..
     +float gravity
@@ -24,6 +29,57 @@ class PlayerMovement {
     .. Private Methods ..
 }
 
-Player *-down- PlayerMovement
+class CameraMovement <<Node3D>>{
+    == Data ==
+    .. Public ..
+    +Camera3D FP
+    +Camera3D TP
+    +Camera3D ActiveCamera
+    .. Private ..
+    == Methods ==
+    .. Public ..
+    +_Ready() : void
+    +_Process() : void {double delta}
+    +_UnhandledInput() : void {InputEvent ev}
+    +MouseCameraMovement() : void {InputEventMouseMotion mouseMotion}
+    +SwitchCamera() : void
+    .. Private ..
+    +SetActiveCamera() : void
+}
+
+class InventoryManager <<Node3D>>{
+    == Data ==
+    .. Public ..
+    +float maxInventoryWeight
+    +float currInventoryWeight
+    .. Private ..
+    -ItemPickupZone ItemPickupArea
+    -EquippedItem EquippedItemSlot
+    -PlayerUI PlayerUI
+    -InventoryUI InventoryUI
+    -List MainInventory : Item
+    -ulong[,] InventoryGrid
+    == Methods ==
+    .. Public ..
+    +_Ready() : void
+    +_Input() : void {InputEvent @event}
+    +PickupItem(): void 
+    +EquipItem(): void
+    +CheckCurrInventoryWeight(): void
+    +AddItemToInvGrid(): bool {Item itemObj}
+    +SumInventoryRegion(): ulong {Vector2 RegionSize, Vector2 Origin}
+    +UpdateInventoryRegion(): void {Vector2 RegionSize, Vector2 Origin, ulong id}
+    .. Private ..
+}
+
+Player *-up- PlayerMovement
+Player *-down- Mesh
+Player *-down- Collider
+Player *-down- Head
+Player *-down- Inventory
+Player *-down- Player_Data
+
+Head *-down- CameraMovement
+Inventory *-down- InventoryManager
 
 @enduml
