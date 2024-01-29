@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dci28205hl7i7" path="res://Animation Workspace/Models/Environment/Grass/Grass1.tscn" id="8_50e7t"]
 [ext_resource type="PackedScene" uid="uid://cjf2j8blapt41" path="res://Animation Workspace/Models/Environment/Misc/OilWell.tscn" id="9_thgbm"]
 [ext_resource type="PackedScene" uid="uid://biusw0evisqcf" path="res://Animation Workspace/Models/Weapons/winchester.tscn" id="10_qvnls"]
-[ext_resource type="PackedScene" uid="uid://clci37hx48mlq" path="res://Mechanics Workshop/3D Scenes/player_3d.tscn" id="11_va8eo"]
+[ext_resource type="PackedScene" uid="uid://clci37hx48mlq" path="res://Mechanics Workshop/3D Scenes/Player.tscn" id="11_va8eo"]
 
 [node name="Node3D" type="Node3D"]
 

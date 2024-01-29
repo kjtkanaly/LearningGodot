@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c171553vug6cx"]
 
 [ext_resource type="PackedScene" uid="uid://blaau1h12br12" path="res://Mechanics Workshop/3D Scenes/Test Plane.tscn" id="1_2eqt1"]
-[ext_resource type="PackedScene" uid="uid://clci37hx48mlq" path="res://Mechanics Workshop/3D Scenes/player_3d.tscn" id="2_twr4t"]
+[ext_resource type="PackedScene" uid="uid://clci37hx48mlq" path="res://Mechanics Workshop/3D Scenes/Player.tscn" id="2_twr4t"]
 
 [node name="Node3D" type="Node3D"]
 
