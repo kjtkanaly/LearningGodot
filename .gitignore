@@ -20,3 +20,6 @@ mono_crash.*.json
 
 # Mac Stuff
 .DS_Store
+
+# UML Stuff
+*.png.import
