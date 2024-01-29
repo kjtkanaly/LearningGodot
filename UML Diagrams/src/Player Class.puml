@@ -1,0 +1,74 @@
+@startuml Player Class
+
+title Player Class Diagram
+
+class PlayerClass
+
+class PlayerMovement <<CharacterBody3D>>{
+    == Data ==
+    .. Public Data ..
+    +float gravity
+    .. Private Data ..
+    -PlayerData PD
+    -AnimationPlayer Anime
+    -Vector2 RollVelocity
+    == Methods ==
+    .. Public Methods ..
+    +_Ready() : void
+    +_PhysicsProcess() : void 
+    +ApplyGravity() : float {float velocity, float timeDelta}
+    +HandleJump() : float {float velocity, float jumpVelocity}
+    +LateralMovements() : Vector2 {Vector2 velocity, float delta}
+    +PlayerDodgeRoll() : Vector2 {Vector2 velocity, float delta}
+    +GetGlobalInputDirection() : Vector3
+    .. Private Methods ..
+}
+
+class CameraMovement <<Node3D>>{
+    == Data ==
+    .. Public ..
+    +Camera3D FP
+    +Camera3D TP
+    +Camera3D ActiveCamera
+    .. Private ..
+    == Methods ==
+    .. Public ..
+    +_Ready() : void
+    +_Process() : void {double delta}
+    +_UnhandledInput() : void {InputEvent ev}
+    +MouseCameraMovement() : void {InputEventMouseMotion mouseMotion}
+    +SwitchCamera() : void
+    .. Private ..
+    +SetActiveCamera() : void
+}
+
+class InventoryManager <<Node3D>>{
+    == Data ==
+    .. Public ..
+    +float maxInventoryWeight
+    +float currInventoryWeight
+    .. Private ..
+    -ItemPickupZone ItemPickupArea
+    -EquippedItem EquippedItemSlot
+    -PlayerUI PlayerUI
+    -InventoryUI InventoryUI
+    -List MainInventory : Item
+    -ulong[,] InventoryGrid
+    == Methods ==
+    .. Public ..
+    +_Ready() : void
+    +_Input() : void {InputEvent @event}
+    +PickupItem(): void 
+    +EquipItem(): void
+    +CheckCurrInventoryWeight(): void
+    +AddItemToInvGrid(): bool {Item itemObj}
+    +SumInventoryRegion(): ulong {Vector2 RegionSize, Vector2 Origin}
+    +UpdateInventoryRegion(): void {Vector2 RegionSize, Vector2 Origin, ulong id}
+    .. Private ..
+}
+
+PlayerClass *-- PlayerMovement
+PlayerClass *-- CameraMovement
+PlayerClass *-- InventoryManager
+
+@enduml

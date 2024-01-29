@@ -1,85 +1,58 @@
-@startuml Player
+@startuml Player Object
 
 title Player Object Diagram
 
 object Player
+
 object Mesh
 object Collider
 object Head
 object Inventory
-object Player_Data
+object "Player Data" as PlayerData
+object Anime
+object "1st Person Camera" as FPS
+object "3rd Person Camera" as TPS
+object "Player UI" as PlayerUI
+object "Inventory UI" as InventoryUI
+object "Item Pickup Area" as ItemPickupArea
+object "Equipped Item Slot" as EquipItemSlot
+object "Item Pickup Shape" as ItemPickupShape
+object "Primary Attack" as PrimaryAttack
 
-class PlayerMovement <<CharacterBody3D>>{
-    == Data ==
-    .. Public Data ..
-    +float gravity
-    .. Private Data ..
-    -PlayerData PD
-    -AnimationPlayer Anime
-    -Vector2 RollVelocity
-    == Methods ==
-    .. Public Methods ..
-    +_Ready() : void
-    +_PhysicsProcess() : void 
-    +ApplyGravity() : float {float velocity, float timeDelta}
-    +HandleJump() : float {float velocity, float jumpVelocity}
-    +LateralMovements() : Vector2 {Vector2 velocity, float delta}
-    +PlayerDodgeRoll() : Vector2 {Vector2 velocity, float delta}
-    +GetGlobalInputDirection() : Vector3
-    .. Private Methods ..
-}
+Player : Type = CharacterBody3D
+Mesh : Type = MeshInstance3D
+Collider : Type = ColliderShape3D
+Head : Type = Node3D
+Inventory : Type = Node3D
+PlayerData : Type = Node3D
+Anime : Type = AnimationPlayer
+FPS : Type = Camera3D
+TPS : Type = Camera3D
+PlayerUI : Type = CanvasLayer
+InventoryUI : Type = Control
+ItemPickupArea : Type = Area3D
+EquipItemSlot : Type = Node3D
+ItemPickupShape : Type = ColliderShape3D
+PrimaryAttack : Type = Node3D
 
-class CameraMovement <<Node3D>>{
-    == Data ==
-    .. Public ..
-    +Camera3D FP
-    +Camera3D TP
-    +Camera3D ActiveCamera
-    .. Private ..
-    == Methods ==
-    .. Public ..
-    +_Ready() : void
-    +_Process() : void {double delta}
-    +_UnhandledInput() : void {InputEvent ev}
-    +MouseCameraMovement() : void {InputEventMouseMotion mouseMotion}
-    +SwitchCamera() : void
-    .. Private ..
-    +SetActiveCamera() : void
-}
+Player *-- Mesh
+Player *-- Collider
+Player *-- Head
+Player *-- Inventory
+Player *-- PlayerData
+Player *-- Anime
 
-class InventoryManager <<Node3D>>{
-    == Data ==
-    .. Public ..
-    +float maxInventoryWeight
-    +float currInventoryWeight
-    .. Private ..
-    -ItemPickupZone ItemPickupArea
-    -EquippedItem EquippedItemSlot
-    -PlayerUI PlayerUI
-    -InventoryUI InventoryUI
-    -List MainInventory : Item
-    -ulong[,] InventoryGrid
-    == Methods ==
-    .. Public ..
-    +_Ready() : void
-    +_Input() : void {InputEvent @event}
-    +PickupItem(): void 
-    +EquipItem(): void
-    +CheckCurrInventoryWeight(): void
-    +AddItemToInvGrid(): bool {Item itemObj}
-    +SumInventoryRegion(): ulong {Vector2 RegionSize, Vector2 Origin}
-    +UpdateInventoryRegion(): void {Vector2 RegionSize, Vector2 Origin, ulong id}
-    .. Private ..
-}
+Head *-- FPS
+Head *-- TPS
 
-Player *-up- PlayerMovement
-Player *-left- Mesh
-Player *-left- Collider
-Player *-down- Head
-Player *-down- Inventory
-Player *-left- Player_Data
+FPS *-- PlayerUI
+FPS *-- InventoryUI
 
-Head *-down- CameraMovement
-Inventory *-down- InventoryManager
+Inventory *-- ItemPickupArea
+Inventory *-- EquipItemSlot
+
+ItemPickupArea *-- ItemPickupShape
+
+EquipItemSlot *-- PrimaryAttack
 
 @enduml
