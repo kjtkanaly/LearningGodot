@@ -1,6 +1,6 @@
 @startuml Player
 
-title Player Class Diagram
+title Player Object Diagram
 
 object Player
 object Mesh
@@ -73,11 +73,11 @@ class InventoryManager <<Node3D>>{
 }
 
 Player *-up- PlayerMovement
-Player *-down- Mesh
-Player *-down- Collider
+Player *-left- Mesh
+Player *-left- Collider
 Player *-down- Head
 Player *-down- Inventory
-Player *-down- Player_Data
+Player *-left- Player_Data
 
 Head *-down- CameraMovement
 Inventory *-down- InventoryManager
