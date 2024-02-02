@@ -8,12 +8,14 @@ public partial class PlayerMovement : CharacterBody3D
 	//-------------------------------------------------------------------------
 	// Game Componenets
 	private PlayerData PD;
-	private AnimationPlayer Anime;
+	private PlayerAnimationDirector PAD;
 
 	// Godot Types
-	private Vector2 RollVelocity = Vector2.Zero;
+	private Vector2 lateralVelocitySnapshot;
+	private Vector2 inputDirection;
 
 	// Basic Types
+	private float verticalVelocitySnapshot;
 	public float gravity = ProjectSettings.GetSetting(
 						   "physics/3d/default_gravity").AsSingle();
 
@@ -22,96 +24,88 @@ public partial class PlayerMovement : CharacterBody3D
 	public override void _Ready()
 	{
 		PD = GetNode<PlayerData>("Player Data");
-		Anime = GetNode<AnimationPlayer>("Anime");
+		PAD = GetNode<PlayerAnimationDirector>("Anime");
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		// General Movement
-		Vector2 latVelocity = new Vector2(Velocity.X, Velocity.Z);
-		float vertVelocity = Velocity.Y;
+		// Update Velocity Snapshot Variables
+		lateralVelocitySnapshot = new Vector2(Velocity.X, Velocity.Z);
+		verticalVelocitySnapshot = Velocity.Y;
 
-		// Vertical Movement
-		vertVelocity = ApplyGravity(vertVelocity, (float)delta);
-		vertVelocity = HandleJump(vertVelocity, PD.movementData.jumpVelocity);
+		// Apply Vertical Velocity M A T H & Logic
+		ApplyGravity((float)delta);
+		HandleJump(PD.movementData.jumpVelocity);
 
-		// Laterial Movement
-		latVelocity = LateralMovements(latVelocity, (float)delta);
-		latVelocity = PlayerDodgeRoll(latVelocity, (float)delta);
+		// Apply Laterial Velocity Logic
+		HandleBasicLateralMovement((float)delta);
+		HandleDodgeRoll((float)delta);
 
-		Velocity = new Vector3(latVelocity.X, vertVelocity, latVelocity.Y);
+		Velocity = new Vector3(lateralVelocitySnapshot.X, 
+							   verticalVelocitySnapshot, 
+							   lateralVelocitySnapshot.Y);
 
 		MoveAndSlide();
 	}
 
 	//-------------------------------------------------------------------------
 	// Player3D Methods
-	public float ApplyGravity(float velocity, float timeDelta) {
+	public void ApplyGravity(float timeDelta) {
 		if (!IsOnFloor())
-			velocity -= gravity * timeDelta;
-
-		return velocity;
+			verticalVelocitySnapshot -= gravity * timeDelta;
 	}
 
-	public float HandleJump(float velocity, float jumpVelocity) {
+	public void HandleJump(float jumpVelocity) {
 		if (Input.IsActionJustPressed("Jump") && IsOnFloor())
-			velocity = jumpVelocity;
-		
-		return velocity;
+			verticalVelocitySnapshot = jumpVelocity;
 	}
 
-	public Vector2 LateralMovements(Vector2 velocity, float delta) {
-		Vector2 inputDirection = Input.GetVector("Right", "Left", "Down", "Up");
-		Vector3 direction = (Transform.Basis * new Vector3(inputDirection.X, 0, inputDirection.Y)).Normalized();
+	public void HandleBasicLateralMovement(float delta) {
+		Vector3 direction = GetGlobalInputDirectionNorm();
 
 		if (direction != Vector3.Zero) {
-			velocity.X = Mathf.MoveToward(velocity.X, 
+			lateralVelocitySnapshot.X = Mathf.MoveToward(
+										  lateralVelocitySnapshot.X, 
 										  PD.movementData.speed * direction.X, 
-										  PD.movementData.acceleration * delta
-										  );
+										  PD.movementData.acceleration * delta);
 
-			velocity.Y = Mathf.MoveToward(velocity.Y,
+			lateralVelocitySnapshot.Y = Mathf.MoveToward(
+										  lateralVelocitySnapshot.Y,
 										  PD.movementData.speed * direction.Z,
-										  PD.movementData.acceleration * delta
-										  );
+										  PD.movementData.acceleration * delta);
 
-			velocity = GeneralStatic.MagnitudeClamp(velocity, PD.movementData.speed);
+			lateralVelocitySnapshot = GeneralStatic.MagnitudeClamp(
+									      lateralVelocitySnapshot, 
+										  PD.movementData.speed);
 		}
 		else {
-			velocity.X = Mathf.MoveToward(velocity.X, 0, PD.movementData.friction * delta);
-			velocity.Y = Mathf.MoveToward(velocity.Y, 0, PD.movementData.friction * delta);
+			lateralVelocitySnapshot = lateralVelocitySnapshot.MoveToward(
+									      Vector2.Zero,
+										  PD.movementData.friction * delta);
 		}
-
-		return velocity;
 	}
 
-	public Vector2 PlayerDodgeRoll(Vector2 velocity, float delta) {
-
+	public void HandleDodgeRoll(float delta) {
 		// Check if currently rolling
-		if (Anime.IsPlaying() && (Anime.CurrentAnimation == "Roll"))
-			return RollVelocity;
+		if (PAD.CheckPlayingStatus() && (PAD.GetCurrentAnimationName() == "Roll"))
+			return;
 
 		if (Input.IsActionPressed("Roll") && IsOnFloor()) {
-			Vector3 basis = GlobalTransform.Basis.Z;
-			Vector3 globalInputDir = GetGlobalInputDirection();
+			Vector3 direction = GetGlobalInputDirectionNorm();
 
-			Vector2 rollDirection = Vector2.Zero;
-			if (globalInputDir != Vector3.Zero) {
-				rollDirection = new Vector2(globalInputDir.X, globalInputDir.Z);
-			} else {
-				rollDirection = new Vector2(basis.X, basis.Z);
+			if (direction == Vector3.Zero) {
+				Vector3 basis = GlobalTransform.Basis.Z;
+				direction = new Vector3(basis.X, 0, basis.Z).Normalized();
 			}
 
-			RollVelocity = rollDirection.Normalized() * PD.movementData.rollSpeed;
-			Anime.Play("Roll");
-			return RollVelocity;
+			lateralVelocitySnapshot = new Vector2(direction.X, direction.Z) 
+									  * PD.movementData.rollSpeed;
+			PAD.PlayRollAnimation();;
 		}
-
-		return velocity;
 	}
 
-	public Vector3 GetGlobalInputDirection() {
-		Vector2 inputDirection = Input.GetVector("Right", "Left", "Down", "Up");
+	private Vector3 GetGlobalInputDirectionNorm() {
+		inputDirection = Input.GetVector("Right", "Left", "Down", "Up");
 		Vector3 direction = (Transform.Basis 
 							 * new Vector3(inputDirection.X, 0, inputDirection.Y));
 		direction = direction.Normalized();

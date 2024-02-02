@@ -16,21 +16,24 @@ class PlayerDataDecorator <<Player Data>>{
 
 class PlayerMovement <<Player Movement>>{
     == Data ==
-    .. Public Data ..
-    +float gravity
     .. Private Data ..
-    -AnimationPlayer Anime
-    -Vector2 RollVelocity
+    - PlayerData PD
+    - PlayerAnimationDirector PAD
+    - Vector2 lateralVelocitySnapshot
+    - Vector2 inputDirection
+    - float verticalVelocitySnapshot
+    .. Public Data ..
+    + float gravity
     == Methods ==
-    .. Public Methods ..
-    +_Ready() : void
-    +_PhysicsProcess() : void 
-    +ApplyGravity() : float
-    +HandleJump() : float
-    +LateralMovements() : Vector2
-    +PlayerDodgeRoll() : Vector2
-    +GetGlobalInputDirection() : Vector3
     .. Private Methods ..
+    - GetGlobalInputDirectionNorm() : Vector3 
+    .. Public Methods ..
+    + _Ready() : void
+    + _PhysicsProcess() : void 
+    + ApplyGravity() : void
+    + HandleJump() : void
+    + HandleBasicLateralMovement() : void
+    + HandleDodgeRoll() : void
 }
 
 class CameraMovement <<Head>>{

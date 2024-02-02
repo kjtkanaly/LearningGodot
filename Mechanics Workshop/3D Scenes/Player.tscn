@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://clci37hx48mlq"]
+[gd_scene load_steps=20 format=3 uid="uid://clci37hx48mlq"]
 
 [ext_resource type="Script" path="res://Mechanics Workshop/Scripts/Player/PlayerMovement.cs" id="1_u8u3w"]
 [ext_resource type="Environment" uid="uid://c65t7aslelfj0" path="res://Mechanics Workshop/Enviroments/Default.tres" id="2_ah7nu"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://Mechanics Workshop/Scripts/Player/PlayerData.cs" id="7_jat8o"]
 [ext_resource type="Resource" uid="uid://denq5e5nlg01j" path="res://Mechanics Workshop/Resources/Data Files/DefaultPlayerMovementData.tres" id="8_5oneq"]
 [ext_resource type="Script" path="res://Mechanics Workshop/Scripts/Player/PrimaryAttack.cs" id="8_yqkri"]
+[ext_resource type="Script" path="res://Mechanics Workshop/Scripts/Player/PlayerAnimationDirector.cs" id="12_g4mua"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_nvy0a"]
 
@@ -46,7 +47,7 @@ _data = {
 "Roll": SubResource("Animation_hjog8")
 }
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player Movement" type="CharacterBody3D"]
 process_mode = 1
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 script = ExtResource("1_u8u3w")
@@ -104,3 +105,4 @@ movementData = ExtResource("8_5oneq")
 libraries = {
 "": SubResource("AnimationLibrary_7msil")
 }
+script = ExtResource("12_g4mua")
