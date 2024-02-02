@@ -2,29 +2,38 @@
 
 title Player Class Diagram
 
-class PlayerClass
+class PlayerDataDecorator <<Player Data>>{
+    == Data == 
+    .. Private ..
+    - PlayerData PD
+    .. Public ..
+    == Methods ==
+    .. Private ..
+    .. Public ..
+    + Get..()
+    + Set..()
+}
 
-class PlayerMovement <<CharacterBody3D>>{
+class PlayerMovement <<Player Movement>>{
     == Data ==
     .. Public Data ..
     +float gravity
     .. Private Data ..
-    -PlayerData PD
     -AnimationPlayer Anime
     -Vector2 RollVelocity
     == Methods ==
     .. Public Methods ..
     +_Ready() : void
     +_PhysicsProcess() : void 
-    +ApplyGravity() : float {float velocity, float timeDelta}
-    +HandleJump() : float {float velocity, float jumpVelocity}
-    +LateralMovements() : Vector2 {Vector2 velocity, float delta}
-    +PlayerDodgeRoll() : Vector2 {Vector2 velocity, float delta}
+    +ApplyGravity() : float
+    +HandleJump() : float
+    +LateralMovements() : Vector2
+    +PlayerDodgeRoll() : Vector2
     +GetGlobalInputDirection() : Vector3
     .. Private Methods ..
 }
 
-class CameraMovement <<Node3D>>{
+class CameraMovement <<Head>>{
     == Data ==
     .. Public ..
     +Camera3D FP
@@ -34,15 +43,15 @@ class CameraMovement <<Node3D>>{
     == Methods ==
     .. Public ..
     +_Ready() : void
-    +_Process() : void {double delta}
-    +_UnhandledInput() : void {InputEvent ev}
-    +MouseCameraMovement() : void {InputEventMouseMotion mouseMotion}
+    +_Process() : void
+    +_UnhandledInput() : void
+    +MouseCameraMovement() : void
     +SwitchCamera() : void
     .. Private ..
     +SetActiveCamera() : void
 }
 
-class InventoryManager <<Node3D>>{
+class InventoryManager <<Inventory>>{
     == Data ==
     .. Public ..
     +float maxInventoryWeight
@@ -57,18 +66,31 @@ class InventoryManager <<Node3D>>{
     == Methods ==
     .. Public ..
     +_Ready() : void
-    +_Input() : void {InputEvent @event}
+    +_Input() : void
     +PickupItem(): void 
     +EquipItem(): void
     +CheckCurrInventoryWeight(): void
-    +AddItemToInvGrid(): bool {Item itemObj}
-    +SumInventoryRegion(): ulong {Vector2 RegionSize, Vector2 Origin}
-    +UpdateInventoryRegion(): void {Vector2 RegionSize, Vector2 Origin, ulong id}
+    +AddItemToInvGrid(): bool
+    +SumInventoryRegion(): ulong
+    +UpdateInventoryRegion(): void
     .. Private ..
 }
 
-PlayerClass *-- PlayerMovement
-PlayerClass *-- CameraMovement
-PlayerClass *-- InventoryManager
+class PlayerAnimationDirector <<Anime>> {
+    == Data ==
+    .. Private ..
+    .. Public ..
+    == Methods ==
+    .. Private ..
+    .. Public ..
+    + PlayRollAnimation() : void
+    + CheckPlayingStatus() : bool
+    + GetCurrentAnimationName() : bool
+}
+
+PlayerDataDecorator *-- PlayerMovement
+PlayerDataDecorator *-- CameraMovement
+PlayerDataDecorator *-- InventoryManager
+PlayerMovement *-- PlayerAnimationDirector
 
 @enduml
