@@ -75,12 +75,12 @@ public partial class PlayerMovement : CharacterBody3D
 										  PD.movementData.acceleration * delta);
 
 			lateralVelocitySnapshot = GeneralStatic.MagnitudeClamp(
-									      lateralVelocitySnapshot, 
+										  lateralVelocitySnapshot, 
 										  PD.movementData.speed);
 		}
 		else {
 			lateralVelocitySnapshot = lateralVelocitySnapshot.MoveToward(
-									      Vector2.Zero,
+										  Vector2.Zero,
 										  PD.movementData.friction * delta);
 		}
 	}
