@@ -2,11 +2,16 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
+// This class should handle things such as
+// - Pause Game
+// - Quit Game
+// - Resume Game
+// - Scene Control
 public partial class GameDirector : Node3D
 {
 	//-------------------------------------------------------------------------
 	// Game Componenets
-	public Timer QuitGameTimer = null;
+	private Timer QuitGameTimer = null;
 
 	// Godot Types
 	private PlayerUI PlayerUICtrl = null;
@@ -60,14 +65,14 @@ public partial class GameDirector : Node3D
 		}
 	}
 
-	public void PauseGame() {
+	private void PauseGame() {
 		Input.MouseMode = Input.MouseModeEnum.Visible;
 		GetTree().Paused = true;
 
 		GD.Print("Pause Game");
 	}
 
-	public void ResumeGame() {
+	private void ResumeGame() {
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 		GetTree().Paused = false;
 	}
@@ -79,7 +84,7 @@ public partial class GameDirector : Node3D
 			QuitGameTimer.Stop();
 	}
 
-	public void QuitGame() {
+	private void QuitGame() {
 		GetTree().Quit();
 	}
 

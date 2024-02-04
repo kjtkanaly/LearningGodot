@@ -1,0 +1,45 @@
+[gd_scene load_steps=10 format=3 uid="uid://clci37hx48mlq"]
+
+[ext_resource type="Script" path="res://Mechanics Workshop/Scripts/Player/PlayerMovement.cs" id="1_u8u3w"]
+[ext_resource type="PackedScene" uid="uid://ck6faaaqr5wfy" path="res://Mechanics Workshop/3D Scenes/Equipped Item Slot.tscn" id="4_mvknr"]
+[ext_resource type="Script" path="res://Mechanics Workshop/Scripts/Player/Inventory.cs" id="5_7cql8"]
+[ext_resource type="Script" path="res://Mechanics Workshop/Scripts/Player/ItemPickupZone.cs" id="6_gm28o"]
+[ext_resource type="Script" path="res://Mechanics Workshop/Scripts/Player/PlayerData.cs" id="7_jat8o"]
+[ext_resource type="Resource" uid="uid://denq5e5nlg01j" path="res://Mechanics Workshop/Resources/Data Files/DefaultPlayerMovementData.tres" id="8_5oneq"]
+[ext_resource type="Script" path="res://Mechanics Workshop/Scripts/Player/PrimaryAttack.cs" id="8_yqkri"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_aprrd"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ywp3e"]
+radius = 5.0
+
+[node name="Player Movement" type="CharacterBody3D"]
+process_mode = 1
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+script = ExtResource("1_u8u3w")
+
+[node name="Collider" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_aprrd")
+
+[node name="Inventory" type="Node3D" parent="."]
+process_mode = 3
+script = ExtResource("5_7cql8")
+
+[node name="Item Pickup Area" type="Area3D" parent="Inventory"]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("6_gm28o")
+
+[node name="Item Pickup Shape" type="CollisionShape3D" parent="Inventory/Item Pickup Area"]
+shape = SubResource("CylinderShape3D_ywp3e")
+
+[node name="Equipped Item Slot" parent="Inventory" instance=ExtResource("4_mvknr")]
+transform = Transform3D(-0.5, 1.74393e-16, 7.54979e-08, 1.74393e-16, 0.5, -1.74393e-16, -7.54979e-08, -1.74393e-16, -0.5, -0.4, 0.4, 0.5)
+
+[node name="Primary Attack" type="Node3D" parent="Inventory/Equipped Item Slot"]
+transform = Transform3D(-2, 6.97576e-16, -1.74846e-07, 6.97572e-16, 2, -6.97576e-16, 1.74846e-07, -6.97572e-16, -2, -0.8, -0.8, 1)
+script = ExtResource("8_yqkri")
+
+[node name="Player Data" type="Node3D" parent="."]
+script = ExtResource("7_jat8o")
+movementData = ExtResource("8_5oneq")

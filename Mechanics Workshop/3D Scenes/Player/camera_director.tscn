@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://8v46vbyvceen"]
+
+[ext_resource type="PackedScene" uid="uid://ugaqqmi2bl08" path="res://Mechanics Workshop/3D Scenes/Player/ui_director.tscn" id="1_ty7eq"]
+[ext_resource type="PackedScene" uid="uid://dhw0bhrl2d1uj" path="res://Mechanics Workshop/UI/Player UI.tscn" id="2_my3gv"]
+[ext_resource type="PackedScene" uid="uid://ctb1l86ovmhnt" path="res://Mechanics Workshop/UI/inventory_ui.tscn" id="3_j3jpk"]
+
+[node name="Camera Director" type="Node3D"]
+
+[node name="First Person Camera" type="Camera3D" parent="."]
+
+[node name="UI Director" parent="First Person Camera" instance=ExtResource("1_ty7eq")]
+
+[node name="Player UI" parent="First Person Camera/UI Director" instance=ExtResource("2_my3gv")]
+
+[node name="Inventory UI" parent="First Person Camera/UI Director" instance=ExtResource("3_j3jpk")]

@@ -1,0 +1,22 @@
+@startuml Generic Level Framework
+
+title = Generic Level Framework
+
+object Level {
+
+}
+
+object "Game Director" as GD
+object Player
+object "Light Soruces" as Lights
+object Surface
+
+Level : type : Node3D
+GD : type : Node3D
+
+Level *-- GD
+Level *-- Player
+Level *-- Lights
+Level *-- Surface
+
+@enduml

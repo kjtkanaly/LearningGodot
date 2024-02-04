@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://cqqay3hwve5w1"]
 
 [ext_resource type="Script" path="res://Mechanics Workshop/Scripts/GameDirector.cs" id="1_lxxx5"]
-[ext_resource type="PackedScene" uid="uid://clci37hx48mlq" path="res://Mechanics Workshop/3D Scenes/Player.tscn" id="2_ny3ip"]
+[ext_resource type="PackedScene" uid="uid://clci37hx48mlq" path="res://Mechanics Workshop/3D Scenes/Player/Movement.tscn" id="2_ny3ip"]
 [ext_resource type="PackedScene" uid="uid://blaau1h12br12" path="res://Mechanics Workshop/3D Scenes/Test Plane.tscn" id="3_wniw4"]
 [ext_resource type="Script" path="res://Mechanics Workshop/Scripts/Demo Scripts/Demo3D.cs" id="4_iowm6"]
 [ext_resource type="PackedScene" uid="uid://ddwk21i4byf0h" path="res://Mechanics Workshop/3D Scenes/Dropped Item.tscn" id="5_r2cy3"]

@@ -3,7 +3,24 @@
 title = Game Director Class
 
 class GameDirector <<Game Director>> {
-    
+    == Data == 
+    .. Private ..
+    - Timer QuitGameTimer
+    - PlayerUI PlayerUICtrl
+    - InventoryUI InventoryUICtrl
+    - float quitGameDelay
+    .. Public ..
+    == Methods ==
+    .. Private ..
+    - PauseGame() : void
+    - ResumeGame() : void
+    - QuitGame() : void
+    .. Public ..
+    + _Ready() : void
+    + _Process() : void
+    + _Input() : void
+    + TogglePause() : void
+    + ToggleQuitGame() : void
 }
 
 @enduml

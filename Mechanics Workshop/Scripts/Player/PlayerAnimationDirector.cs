@@ -3,18 +3,18 @@ using System;
 
 public partial class PlayerAnimationDirector : AnimationPlayer
 {
-    //-------------------------------------------------------------------------
-    // Game Componenets
+	//-------------------------------------------------------------------------
+	// Game Componenets
 
-    // Godot Types
+	// Godot Types
 
-    // Basic Types
+	// Basic Types
 
-    //-------------------------------------------------------------------------
-    // Game Events
+	//-------------------------------------------------------------------------
+	// Game Events
 
-    //-------------------------------------------------------------------------
-    // Player Animation Director Methods
+	//-------------------------------------------------------------------------
+	// Player Animation Director Methods
 	public void PlayRollAnimation() {
 		Play("Roll");
 	}
@@ -28,6 +28,6 @@ public partial class PlayerAnimationDirector : AnimationPlayer
 		return CurrentAnimation;
 	}
 
-    //-------------------------------------------------------------------------
-    // Demo Methods
+	//-------------------------------------------------------------------------
+	// Demo Methods
 }

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxhs5tw5g13i8"]
+
+[ext_resource type="PackedScene" uid="uid://bn3ojml262dkm" path="res://Mechanics Workshop/3D Scenes/Player/inventory_director.tscn" id="1_u67u2"]
+
+[node name="Data Decorator" type="Node3D"]
+
+[node name="Inventory Director" parent="." instance=ExtResource("1_u67u2")]
