@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class Main : Node3D
+public partial class GameDirector : Node3D
 {
 	//-------------------------------------------------------------------------
 	// Game Componenets
