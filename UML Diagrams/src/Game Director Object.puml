@@ -1,0 +1,9 @@
+@startuml Game Director Object
+
+title Player Object Diagram
+
+object "Game Director" as GD
+
+GD : Type = Node3D
+
+@enduml

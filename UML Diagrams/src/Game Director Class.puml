@@ -1,0 +1,9 @@
+@startuml Game Director Object
+
+title = Game Director Class
+
+class GameDirector <<Game Director>> {
+    
+}
+
+@enduml
