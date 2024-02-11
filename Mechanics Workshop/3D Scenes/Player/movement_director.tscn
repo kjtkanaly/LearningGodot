@@ -6,7 +6,6 @@
 
 [node name="Player Movement" type="CharacterBody3D"]
 process_mode = 1
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 script = ExtResource("1_u8u3w")
 
 [node name="Collider" type="CollisionShape3D" parent="."]

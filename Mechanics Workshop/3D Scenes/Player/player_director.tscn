@@ -1,17 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://brfe2smukias2"]
+[gd_scene load_steps=5 format=3 uid="uid://81q5rcplrkxw"]
 
 [ext_resource type="PackedScene" uid="uid://clci37hx48mlq" path="res://Mechanics Workshop/3D Scenes/Player/movement_director.tscn" id="1_7fn6k"]
-[ext_resource type="PackedScene" uid="uid://8v46vbyvceen" path="res://Mechanics Workshop/3D Scenes/Player/camera_director.tscn" id="2_j8fi0"]
-[ext_resource type="PackedScene" uid="uid://cxhs5tw5g13i8" path="res://Mechanics Workshop/3D Scenes/Player/data_decorator.tscn" id="3_jnxcu"]
-[ext_resource type="PackedScene" uid="uid://wor22x7pem1j" path="res://Mechanics Workshop/3D Scenes/Player/visual_director.tscn" id="5_i436u"]
+[ext_resource type="PackedScene" uid="uid://cxhs5tw5g13i8" path="res://Mechanics Workshop/3D Scenes/Player/data_decorator.tscn" id="2_sai0a"]
+[ext_resource type="PackedScene" uid="uid://wor22x7pem1j" path="res://Mechanics Workshop/3D Scenes/Player/visual_director.tscn" id="3_2x3dt"]
+[ext_resource type="PackedScene" uid="uid://dqumbvr5usqqj" path="res://Mechanics Workshop/3D Scenes/Player/camera_director.tscn" id="4_nhbrq"]
 
 [node name="Player Director" type="Node3D"]
 
-[node name="Movement Director" parent="." instance=ExtResource("1_7fn6k")]
+[node name="Player Movement" parent="." instance=ExtResource("1_7fn6k")]
 
-[node name="Camera Director" parent="." instance=ExtResource("2_j8fi0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.8, 0.1)
+[node name="Data Decorator" parent="." instance=ExtResource("2_sai0a")]
 
-[node name="Data Decorator" parent="." instance=ExtResource("3_jnxcu")]
+[node name="Visual Director" parent="." instance=ExtResource("3_2x3dt")]
 
-[node name="Visual Director" parent="." instance=ExtResource("5_i436u")]
+[node name="Camera Director" parent="." instance=ExtResource("4_nhbrq")]
