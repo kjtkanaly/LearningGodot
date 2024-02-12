@@ -26,12 +26,12 @@ public partial class EquippedItem : Node3D
 	// Game Events
 	public override void _Ready() {
 		MainRoot = GetTree().Root.GetChild(0);
-		CM = GetNode<CameraMovement>("../../Head");
-		Anime = GetNode<AnimationPlayer>("Anime");
-		Mesh3D = GetNode<MeshInstance3D>("Mesh3D");
-		PA = GetNode<PrimaryAttack>("Primary Attack");
-		PlyrUI = GetNode<PlayerUI>("../../Head/1st Person Camera/Player UI/Control");
-		Head = GetNode<Node3D>("../../Head");
+		CM = GetNode<CameraMovement>("../../../Camera Director");
+		Anime = GetNode<AnimationPlayer>("../../../Visual Director/Animation Director");
+		Mesh3D = GetNode<MeshInstance3D>("../../../Visual Director/Mesh Director");
+		PA = GetNode<PrimaryAttack>("Primary Action");
+		PlyrUI = GetNode<PlayerUI>("../../../Camera Director/First Person Camera/UI Director/Player UI/Control");
+		Head = GetNode<Node3D>("../../../Camera Director");
 
 		GetActiveCamera();
 

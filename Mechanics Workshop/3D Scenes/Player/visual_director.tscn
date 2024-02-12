@@ -35,7 +35,7 @@ libraries = {
 script = ExtResource("2_hn56p")
 
 [node name="Mesh Director" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+transform = Transform3D(1, 4.1633e-12, -4.1633e-12, -4.1633e-12, 1, 4.1633e-12, 4.1633e-12, -4.1633e-12, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
 mesh = SubResource("CapsuleMesh_gl78w")
 skin = SubResource("Skin_smfw1")
 skeleton = NodePath("")
