@@ -25,8 +25,8 @@ public partial class Inventory : Node3D
 	{
 		itemPickupArea = GetNode<ItemPickupZone>("Item Pickup Area");
 		equippedItemSlot = GetNode<EquippedItem>("Equipped Item Slot");
-		playerUI = GetNode<PlayerUI>("../Head/1st Person Camera/Player UI/Control");
-		inventoryUI = GetNode<InventoryUI>("../Head/1st Person Camera/Inventory UI");
+		playerUI = GetNode<PlayerUI>("../../Camera Director/First Person Camera/UI Director/Player UI/Control");
+		inventoryUI = GetNode<InventoryUI>("../../Camera Director/First Person Camera/UI Director/Inventory UI");
 		MainInventory = new List<Item>();
 
 		// Init GridInventory, int[Grid Height, Grid Width]
