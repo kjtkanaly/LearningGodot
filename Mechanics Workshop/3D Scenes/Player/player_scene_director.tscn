@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://uy2iriy7v5p"]
+
+[node name="Player Scene Director" type="Node3D"]
+
+[node name="Quit Game" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true

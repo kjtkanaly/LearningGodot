@@ -18,7 +18,6 @@ public partial class InventoryUI : Control
 	public delegate void OpenedEventHandler();
 	[Signal]
 	public delegate void ClosedEventHandler();
-	private Main main = null;
 	public InventoryPanel[,] InventoryPanels = null;
 
 	// Basic Types

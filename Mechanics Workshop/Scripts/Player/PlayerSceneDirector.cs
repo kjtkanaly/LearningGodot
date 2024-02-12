@@ -7,15 +7,15 @@ using System.Collections.Generic;
 // - Quit Game
 // - Resume Game
 // - Scene Control
-public partial class GameDirector : Node3D
+public partial class PlayerSceneDirector : Node3D
 {
 	//-------------------------------------------------------------------------
 	// Game Componenets
 	private Timer QuitGameTimer = null;
-
-	// Godot Types
 	private PlayerUI PlayerUICtrl = null;
 	private InventoryUI InventoryUICtrl = null;
+
+	// Godot Types
 
 	// Basic Types
 	private const float quitGameDelay = 2.0f;
@@ -26,15 +26,13 @@ public partial class GameDirector : Node3D
 	{
 		QuitGameTimer = GetNode<Timer>("Quit Game");
 		PlayerUICtrl = GetNode<PlayerUI>(
-			"Player/Head/1st Person Camera/Player UI/Control");
+			"../Camera Director/First Person Camera/UI Director/Player UI");
 		InventoryUICtrl = GetNode<InventoryUI>(
-			"Player/Head/1st Person Camera/Inventory UI");
+			"../Camera Director/First Person Camera/UI Director/Inventory UI");
 
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 
 		QuitGameTimer.Timeout += QuitGame;
-		InventoryUICtrl.Closed += ResumeGame;
-		InventoryUICtrl.Opened += PauseGame;
 	}
 
 	public override void _Process(double delta)
@@ -51,12 +49,12 @@ public partial class GameDirector : Node3D
 			} else if (eventAction.IsActionPressed("Inventory")) {
 				ToggleInventoryUI();
 				PlayerUICtrl.Toggle();
-			}
+			} /**/
 		}
 	}
 
 	//-------------------------------------------------------------------------
-	// Main Methods
+	// Player Scene Director Methods
 	public void TogglePause() {
 		if (!GetTree().Paused) {
 			PauseGame();
@@ -96,7 +94,7 @@ public partial class GameDirector : Node3D
 				return;
 
 			InventoryUICtrl.Open();
-		}
+		} /**/
 	}
 
 	//-------------------------------------------------------------------------

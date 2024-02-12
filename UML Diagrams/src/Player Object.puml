@@ -19,6 +19,8 @@ object "Inventory Director" as InventoryDir
 object "Item Pickup Area" as PickupArea
 object "Item Pickup Area Shape" as PickupShape
 object "Equipped Item" as EquippedItem
+object "Player Scene Director" as SceneDir
+object "Quit Game Timer" as QuitTimer
 
 Player : Type = Node3D
 Movement : Type = CharacterBody3D
@@ -36,6 +38,8 @@ InventoryDir : Type = Node3D
 PickupArea : Type = Area3D
 PickupShape : Type = CollisionShape3D
 EquippedItem : Type = Node3D
+SceneDir : Type = Node3D
+QuitTimer : Type = Timer
 
 Player *-- Movement
 Player *-- Camera
@@ -52,5 +56,7 @@ Data *-- InventoryDir
 InventoryDir *-- PickupArea
 PickupArea *-- PickupShape
 InventoryDir *-- EquippedItem
+Player *-- SceneDir
+SceneDir *-- QuitTimer
 
 @enduml

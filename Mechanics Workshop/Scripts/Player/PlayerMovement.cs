@@ -23,8 +23,8 @@ public partial class PlayerMovement : CharacterBody3D
 	// Game Events
 	public override void _Ready()
 	{
-		PD = GetNode<PlayerData>("Player Data");
-		PAD = GetNode<PlayerAnimationDirector>("Anime");
+		PD = GetNode<PlayerData>("../Data Decorator");
+		PAD = GetNode<PlayerAnimationDirector>("../Visual Director/Animation Director");
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -100,7 +100,7 @@ public partial class PlayerMovement : CharacterBody3D
 
 			lateralVelocitySnapshot = new Vector2(direction.X, direction.Z) 
 									  * PD.movementData.rollSpeed;
-			PAD.PlayRollAnimation();;
+			PAD.PlayRollAnimation(); // To Do: Change to a signals that the object will emit
 		}
 	}
 

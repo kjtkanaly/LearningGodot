@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://uy2iriy7v5p"]
-
-[ext_resource type="Script" path="res://Mechanics Workshop/Scripts/GameDirector.cs" id="1_gkifl"]
-
-[node name="Game Director" type="Node3D"]
-script = ExtResource("1_gkifl")

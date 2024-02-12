@@ -1,18 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://rb4134b0r2ws"]
+[gd_scene load_steps=3 format=3 uid="uid://rb4134b0r2ws"]
 
 [ext_resource type="PackedScene" uid="uid://blaau1h12br12" path="res://Mechanics Workshop/3D Scenes/Test Plane.tscn" id="1_xbk5k"]
-[ext_resource type="PackedScene" uid="uid://clci37hx48mlq" path="res://Mechanics Workshop/3D Scenes/Player/Movement.tscn" id="2_0ji0i"]
-[ext_resource type="PackedScene" uid="uid://uy2iriy7v5p" path="res://Mechanics Workshop/3D Scenes/Game_Director.tscn" id="3_sta06"]
+[ext_resource type="PackedScene" uid="uid://81q5rcplrkxw" path="res://Mechanics Workshop/3D Scenes/Player/player_director.tscn" id="3_obvak"]
 
 [node name="Player Test 001" type="Node3D"]
 
 [node name="Test Plane" parent="." instance=ExtResource("1_xbk5k")]
 transform = Transform3D(200, 0, 0, 0, 200, 0, 0, 0, 200, 0, 0, 0)
 
-[node name="Player Movement" parent="." instance=ExtResource("2_0ji0i")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 3.89578, 0)
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, -5.95416e-16, 2.4663e-16, 2.4663e-16, 0.707107, 0.707107, -5.95416e-16, -0.707107, 0.707107, 2.08165e-12, 5, 2.08165e-12)
 
-[node name="Game Director" parent="." instance=ExtResource("3_sta06")]
+[node name="Player Director" parent="." instance=ExtResource("3_obvak")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1.2, 2.08165e-12)
